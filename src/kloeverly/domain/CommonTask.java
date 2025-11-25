@@ -1,6 +1,8 @@
 package kloeverly.domain;
 
-public class CommonTask extends Task
+import java.io.Serializable;
+
+public class CommonTask extends Task implements Serializable
 {
     public CommonTask(String name, String description, int value)
     {

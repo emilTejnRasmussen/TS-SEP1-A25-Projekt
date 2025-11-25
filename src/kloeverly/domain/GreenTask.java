@@ -1,6 +1,8 @@
 package kloeverly.domain;
 
-public class GreenTask extends Task
+import java.io.Serializable;
+
+public class GreenTask extends Task implements Serializable
 {
     public GreenTask(String name, String description, int value)
     {

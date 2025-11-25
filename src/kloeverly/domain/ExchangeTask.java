@@ -1,6 +1,8 @@
 package kloeverly.domain;
 
-public class ExchangeTask extends Task
+import java.io.Serializable;
+
+public class ExchangeTask extends Task implements Serializable
 {
     private Resident provider;
 

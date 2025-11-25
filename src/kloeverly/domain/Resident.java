@@ -1,6 +1,8 @@
 package kloeverly.domain;
 
-public class Resident
+import java.io.Serializable;
+
+public class Resident implements Serializable
 {
     private int id;
     private String name;
@@ -56,5 +58,9 @@ public class Resident
     public int getPoints()
     {
         return points;
+    }
+
+    public void setPoints(int points){
+        this.points = points;
     }
 }
