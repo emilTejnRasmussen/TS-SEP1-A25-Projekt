@@ -11,5 +11,6 @@ public class RunKloeverly extends Application
     public void start(Stage primaryStage) throws Exception
     {
         ViewManager.init(primaryStage, Views.MAIN);
+        ViewManager.showView(Views.HOME);
     }
 }
