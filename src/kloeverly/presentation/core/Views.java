@@ -2,7 +2,8 @@ package kloeverly.presentation.core;
 
 public enum Views
 {
-    MAIN("MainView");
+    MAIN("MainView"),
+    HOME("HomeView");
 
     private final String view;
 
