@@ -54,6 +54,10 @@ public class AddCommonTaskController implements InitializableController
 
     private boolean validateInput()
     {
+        titleErrorLbl.setText("");
+        valueErrorLbl.setText("");
+        descriptionErrorLbl.setText("");
+
         boolean allInputIsValid = true;
         if (titleTextField.getText().isEmpty()){
             titleErrorLbl.setText("Titel må ikke være tom");
