@@ -1,9 +1,7 @@
 package kloeverly.presentation.controllers.common_task;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.CommonTask;
 import kloeverly.domain.Task;
@@ -13,6 +11,7 @@ import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ViewAllCommonTasksController implements InitializableController
 {
@@ -65,6 +64,20 @@ public class ViewAllCommonTasksController implements InitializableController
 
     public void handleDelete()
     {
+        Task selectedTask = allCommonTasksTable.getSelectionModel().getSelectedItem();
+        if (selectedTask == null) return;
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Bekræft sletning");
+        confirm.setHeaderText("Slet fællesopgave");
+        confirm.setContentText("Er du sikker på, at du vil slette: '" + selectedTask.getName() + "'?");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            dataManager.deleteTask(selectedTask);
+            showTable(dataManager.getAllCommonTasks());
+        }
+
     }
 
     private void showTable(List<CommonTask> tasks){
