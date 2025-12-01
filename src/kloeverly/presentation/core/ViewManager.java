@@ -3,6 +3,7 @@ package kloeverly.presentation.core;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -22,10 +23,22 @@ public class ViewManager
         primaryStage.show();
     }
 
-    public static void showView(Views view) throws IOException
+    public static void showView(Views view)
     {
-        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
-        Parent root = loader.load();
-        mainLayout.setCenter(root);
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
+            Parent root = loader.load();
+
+            Object controller = loader.getController();
+            ControllerConfigurator.configure(controller);
+
+            mainLayout.setCenter(root);
+
+        } catch (IOException e)
+        {
+            Alert error = new Alert(Alert.AlertType.ERROR, "Cannot find view '" + view.getView() + "'.");
+            error.show();
+        }
     }
 }
