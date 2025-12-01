@@ -41,4 +41,23 @@ public class ViewManager
             error.show();
         }
     }
+
+    public static void showView(Views view, String argument){
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
+            Parent root = loader.load();
+
+            AcceptsStringArgument controller = loader.getController();
+            ControllerConfigurator.configure(controller);
+            controller.setArgument(argument);
+
+            mainLayout.setCenter(root);
+
+        } catch (IOException e)
+        {
+            Alert error = new Alert(Alert.AlertType.ERROR, "Cannot find view '" + view.getView() + "'.");
+            error.show();
+        }
+    }
 }
