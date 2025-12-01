@@ -3,7 +3,9 @@ package kloeverly.presentation.core;
 public enum Views
 {
     MAIN("MainView"),
-    HOME("HomeView");
+    HOME("HomeView"),
+
+    COMMON_TASKS("common_task/ViewAllCommonTasks");
 
     private final String view;
 
