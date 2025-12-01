@@ -1,6 +1,7 @@
 package kloeverly.presentation.controllers;
 
 import kloeverly.presentation.core.ViewManager;
+import kloeverly.presentation.core.Views;
 
 public class MainViewController
 {
@@ -16,7 +17,7 @@ public class MainViewController
 
     public void handleViewCommonTasks()
     {
-
+        ViewManager.showView(Views.COMMON_TASKS);
     }
 
     public void handleViewExchangeTasks()
