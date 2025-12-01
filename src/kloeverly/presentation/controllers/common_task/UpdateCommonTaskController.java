@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import kloeverly.domain.CommonTask;
+import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsStringArgument;
 import kloeverly.presentation.core.InitializableController;
@@ -42,6 +43,15 @@ public class UpdateCommonTaskController implements InitializableController, Acce
     public void handleSave()
     {
         if (!validInput()) return;
+        String name = titleTextField.getText().trim();
+        String description = descriptionTextArea.getText().trim();
+        int value = Integer.parseInt(valueTextField.getText().trim());
+
+        Task task = new CommonTask(name, description, value);
+        task.setId(this.id);
+        this.dataManager.updateTask(task);
+
+        ViewManager.showView(Views.COMMON_TASK, this.id + "");
 
     }
 
