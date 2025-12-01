@@ -35,10 +35,18 @@ public class ViewAllCommonTasksController implements InitializableController
 
     public void handleSearch()
     {
+        String search = searchTxtField.getText().toLowerCase();
+        List<CommonTask> searchedTasks = dataManager.getAllCommonTasks().stream()
+                .filter(c -> c.getName().toLowerCase().contains(search))
+                .toList();
+
+        showTable(searchedTasks);
     }
 
     public void handleClearSearchBar()
     {
+        searchTxtField.setText("");
+        showTable(dataManager.getAllCommonTasks());
     }
 
     public void handleAdd()
