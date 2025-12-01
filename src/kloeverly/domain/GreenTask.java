@@ -15,3 +15,4 @@ public class GreenTask extends Task implements Serializable
         //TODO implement completed green task
     }
 }
+// Maja test ændring
