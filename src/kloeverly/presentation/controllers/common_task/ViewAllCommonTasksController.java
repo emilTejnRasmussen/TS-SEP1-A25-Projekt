@@ -57,6 +57,10 @@ public class ViewAllCommonTasksController implements InitializableController
 
     public void handleUpdate()
     {
+        Task task = allCommonTasksTable.getSelectionModel().getSelectedItem();
+        if (task == null) return;
+
+        ViewManager.showView(Views.UPDATE_COMMON_TASK, task.getId() + "");
     }
 
     public void handleDelete()

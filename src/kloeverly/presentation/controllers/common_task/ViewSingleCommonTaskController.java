@@ -34,7 +34,7 @@ public class ViewSingleCommonTaskController implements InitializableController, 
 
     public void handleUpdate()
     {
-        System.out.println("Not Implemented");
+        ViewManager.showView(Views.UPDATE_COMMON_TASK, this.id + "");
     }
 
     public void handleGoBack()
