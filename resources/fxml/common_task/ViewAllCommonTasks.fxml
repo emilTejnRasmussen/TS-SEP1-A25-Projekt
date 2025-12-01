@@ -38,7 +38,7 @@
             </columnResizePolicy>
         </TableView>
     </VBox>
-    <HBox alignment="CENTER" spacing="75.0" style="-fx-alignment: s;">
+    <HBox alignment="CENTER" spacing="75.0" >
         <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="45.0" prefWidth="85.0" text="Tilføj">
             <font>
                 <Font name="Segoe UI" size="14.0" />
