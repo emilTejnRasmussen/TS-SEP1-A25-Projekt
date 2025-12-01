@@ -8,6 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.CommonTask;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
+import kloeverly.presentation.core.ViewManager;
+import kloeverly.presentation.core.Views;
 
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class ViewAllCommonTasksController implements InitializableController
 
     public void handleAdd()
     {
+        ViewManager.showView(Views.ADD_COMMON_TASK);
     }
 
     public void handleViewDetails()
