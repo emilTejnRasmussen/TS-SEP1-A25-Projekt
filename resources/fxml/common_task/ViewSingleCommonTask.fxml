@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.common_task.ViewSingleCommonTaskController">
+    <padding>
+        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+    </padding>
+    <VBox>
+        <Label fx:id="mainTitleLbl" text="TITLE_VALUE">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <Label text="Fællesopgave">
+            <font>
+                <Font name="Segoe UI" size="14.0" />
+            </font>
+        </Label>
+    </VBox>
+    <HBox prefHeight="381.0" prefWidth="560.0">
+        <padding>
+            <Insets top="40.0" />
+        </padding>
+        <VBox alignment="TOP_RIGHT" prefHeight="321.0" prefWidth="377.0" spacing="10.0">
+            <Label text="ID:">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Label>
+            <Label text="Titel:">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Label>
+            <Label text="Værdi:">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Label>
+            <Label text="Beskrivelse:">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Label>
+        </VBox>
+        <VBox prefHeight="321.0" prefWidth="664.0" spacing="10.0">
+            <padding>
+                <Insets left="20.0" right="40.0" />
+            </padding>
+            <Label fx:id="idLbl" text="ID_VALUE">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
+            <Label fx:id="titleLbl" text="TITLE_VALUE">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
+            <Label fx:id="valueLbl" text="VALUE_VALUE">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
+            <Label fx:id="descriptionLbl" text="DESCRIPTION_VALUE" wrapText="true">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER" spacing="75.0">
+        <Button mnemonicParsing="false" onAction="#handleUpdate" prefHeight="45.0" prefWidth="85.0" text="Opdater">
+            <font>
+                <Font name="Segoe UI" size="14.0" />
+            </font>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleGoBack" prefHeight="45.0" prefWidth="85.0" text="Tilbage">
+            <font>
+                <Font name="Segoe UI" size="14.0" />
+            </font>
+        </Button>
+    </HBox>
+</VBox>

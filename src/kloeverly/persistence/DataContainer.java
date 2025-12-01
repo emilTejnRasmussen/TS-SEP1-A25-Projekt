@@ -4,10 +4,11 @@ import kloeverly.domain.ClimateScore;
 import kloeverly.domain.Resident;
 import kloeverly.domain.Task;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataContainer
+public class DataContainer implements Serializable
 {
     private List<Resident> residents;
     private List<Task> tasks;
