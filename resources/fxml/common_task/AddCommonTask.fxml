@@ -23,7 +23,7 @@
     <VBox prefHeight="396.0" prefWidth="560.0" spacing="20.0">
         <HBox spacing="20.0">
             <VBox spacing="10.0">
-                <Label fx:id="titelErrorLbl" text="Error" textFill="#ff6262"/>
+                <Label fx:id="titleErrorLbl" text="Error" textFill="#ff6262"/>
                 <Label text="Titel">
                     <font>
                         <Font name="Segoe UI" size="14.0"/>
