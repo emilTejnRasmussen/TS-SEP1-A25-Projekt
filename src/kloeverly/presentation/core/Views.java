@@ -6,6 +6,7 @@ public enum Views
     HOME("HomeView"),
 
     ADD_COMMON_TASK("common_task/AddCommonTask"),
+    COMMON_TASK("common_task/ViewSingleCommonTask"),
     COMMON_TASKS("common_task/ViewAllCommonTasks");
 
     private final String view;

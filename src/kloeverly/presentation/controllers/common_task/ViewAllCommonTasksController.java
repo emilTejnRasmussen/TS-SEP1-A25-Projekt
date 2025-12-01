@@ -6,6 +6,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.CommonTask;
+import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
@@ -48,6 +49,8 @@ public class ViewAllCommonTasksController implements InitializableController
 
     public void handleViewDetails()
     {
+        Task task = allCommonTasksTable.getSelectionModel().getSelectedItem();
+        ViewManager.showView(Views.COMMON_TASK, task.getId() + "");
     }
 
     public void handleUpdate()
