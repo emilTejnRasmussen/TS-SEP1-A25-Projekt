@@ -43,6 +43,8 @@ public class AddCommonTaskController implements InitializableController
         String description = descriptionTextArea.getText().trim();
         Task task = new CommonTask(name, description, value);
         dataManager.addTask(task);
+
+        ViewManager.showView(Views.COMMON_TASKS);
     }
 
     public void handleCancel()
