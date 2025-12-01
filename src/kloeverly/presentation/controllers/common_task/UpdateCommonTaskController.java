@@ -1,6 +1,5 @@
 package kloeverly.presentation.controllers.common_task;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -9,9 +8,17 @@ import kloeverly.domain.CommonTask;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsStringArgument;
 import kloeverly.presentation.core.InitializableController;
+import kloeverly.presentation.core.ViewManager;
+import kloeverly.presentation.core.Views;
 
 public class UpdateCommonTaskController implements InitializableController, AcceptsStringArgument
 {
+    @FXML
+    private Label titleErrorLbl;
+    @FXML
+    private Label valueErrorLbl;
+    @FXML
+    private Label descriptionErrorLbl;
     @FXML
     private Label mainTitleLbl;
     @FXML
@@ -21,7 +28,7 @@ public class UpdateCommonTaskController implements InitializableController, Acce
     @FXML
     private TextField valueTextField;
     @FXML
-    private TextArea descriptionTextField;
+    private TextArea descriptionTextArea;
 
     private DataManager dataManager;
     private int id;
@@ -34,10 +41,45 @@ public class UpdateCommonTaskController implements InitializableController, Acce
 
     public void handleSave()
     {
+        if (!validInput()) return;
+
+    }
+
+    private boolean validInput()
+    {
+        titleErrorLbl.setText("");
+        valueErrorLbl.setText("");
+        descriptionErrorLbl.setText("");
+
+        boolean allInputIsValid = true;
+        if (titleTextField.getText().isEmpty()){
+            titleErrorLbl.setText("Titel må ikke være tom");
+            allInputIsValid = false;
+        }
+        if (valueTextField.getText().isEmpty()){
+            valueErrorLbl.setText("Værdi må ikke være tom");
+            allInputIsValid = false;
+        } else {
+            try
+            {
+                Integer.parseInt(valueTextField.getText().trim());
+            } catch (NumberFormatException e)
+            {
+                valueErrorLbl.setText("Værdi skal være et tal");
+                allInputIsValid = false;
+            }
+        }
+        if (descriptionTextArea.getText().isEmpty()){
+            descriptionErrorLbl.setText("Beskrivelse må ikke være tom");
+            allInputIsValid = false;
+        }
+
+        return allInputIsValid;
     }
 
     public void handleCancel()
     {
+        ViewManager.showView(Views.COMMON_TASK, this.id + "");
     }
 
     @Override
@@ -50,6 +92,6 @@ public class UpdateCommonTaskController implements InitializableController, Acce
         idLbl.setText(task.getId() + "");
         titleTextField.setText(task.getName());
         valueTextField.setText(task.getValue() + "");
-        descriptionTextField.setText(task.getDescription());
+        descriptionTextArea.setText(task.getDescription());
     }
 }

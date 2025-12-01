@@ -27,7 +27,7 @@
     </VBox>
     <HBox prefHeight="381.0" prefWidth="560.0">
         <padding>
-            <Insets top="60.0" />
+            <Insets top="40.0" />
         </padding>
         <VBox alignment="TOP_RIGHT" prefHeight="321.0" prefWidth="377.0" spacing="10.0">
             <Label text="ID:">
@@ -63,9 +63,16 @@
                     <Font size="14.0" />
                 </font>
             </Label>
-            <TextField fx:id="titleTextField" />
-            <TextField fx:id="valueTextField" />
-            <TextArea fx:id="descriptionTextField" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
+            <HBox spacing="10.0">
+                <TextField fx:id="titleTextField" prefHeight="25.0" prefWidth="190.0"/>
+                <Label fx:id="titleErrorLbl" text="Error" textFill="#ff6262"/>
+            </HBox>
+            <HBox spacing="10.0">
+                <TextField fx:id="valueTextField" prefHeight="25.0" prefWidth="190.0"/>
+                <Label fx:id="valueErrorLbl" text="Error" textFill="#ff6262"/>
+            </HBox>
+            <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
+         <Label fx:id="descriptionErrorLbl" text="Error" textFill="#ff6262" />
         </VBox>
     </HBox>
     <HBox alignment="CENTER" spacing="75.0">

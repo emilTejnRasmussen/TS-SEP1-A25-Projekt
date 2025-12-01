@@ -36,7 +36,7 @@ public class AddCommonTaskController implements InitializableController
 
     public void handleAdd()
     {
-        if (!validateInput()) return;
+        if (!isValidInput()) return;
 
         String name = titleTextField.getText().trim();
         int value = Integer.parseInt(valueTextField.getText().trim());
@@ -52,7 +52,7 @@ public class AddCommonTaskController implements InitializableController
         ViewManager.showView(Views.COMMON_TASKS);
     }
 
-    private boolean validateInput()
+    private boolean isValidInput()
     {
         titleErrorLbl.setText("");
         valueErrorLbl.setText("");
