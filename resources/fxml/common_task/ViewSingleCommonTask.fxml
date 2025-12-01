@@ -25,7 +25,7 @@
     </VBox>
     <HBox prefHeight="381.0" prefWidth="560.0">
         <padding>
-            <Insets top="60.0" />
+            <Insets top="40.0" />
         </padding>
         <VBox alignment="TOP_RIGHT" prefHeight="321.0" prefWidth="377.0" spacing="10.0">
             <Label text="ID:">
