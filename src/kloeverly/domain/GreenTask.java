@@ -4,15 +4,12 @@ import java.io.Serializable;
 
 public class GreenTask extends Task implements Serializable
 {
-    public GreenTask(String name, String description, int value)
-    {
+    public GreenTask(String name, String description, int value) {
         super(name, description, value);
     }
 
     @Override
-    public void completed()
-    {
-        //TODO implement completed green task
+    public void completed() {
+
     }
 }
-// Maja test ændring
