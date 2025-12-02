@@ -30,9 +30,8 @@ public class ExchangeTask extends Task implements Serializable
     throw new UnsupportedOperationException("Use completed(Resident resident) instead.");
   }
 
-  public void completed(Resident resident)
+  public void completed(Resident recipient)
   {
-    Resident recipient = resident; // recipient gemt for at det er tydeligt hvem, der er modtager og udbyder
     if (recipient.getPoints() < getValue())
     {
       throw new IllegalStateException(
