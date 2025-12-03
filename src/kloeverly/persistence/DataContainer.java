@@ -35,8 +35,8 @@ public class DataContainer implements Serializable
 
   public Resident getResidentById(int id)
   {
-    return residents.stream().filter(r -> r.getId() == id)
-        .findFirst().orElseThrow(
+    return residents.stream().filter(r -> r.getId() == id).findFirst()
+        .orElseThrow(
             () -> new RuntimeException("No resident by " + id + "found."));
   }
 
@@ -45,16 +45,34 @@ public class DataContainer implements Serializable
     residents.removeIf(r -> r.getId() == resident.getId());
   }
 
-  public boolean updateResident(Resident residentToBeUpdated)
+  public void updateResident(Resident residentToBeUpdated)
   {
-    for (Resident r : residents) {
-      if ( r.getId() == residentToBeUpdated.getId()) {
+    for (Resident r : residents)
+    {
+      if (r.getId() == residentToBeUpdated.getId())
+      {
         r.setName(residentToBeUpdated.getName());
         r.setPointFactor(residentToBeUpdated.getPointFactor());
       }
-      return true;
     }
-    return false;
+  }
+
+  public void addPointsToResident(Resident resident, int value)
+  {
+    for (Resident r : residents)
+    {
+      if (r.getId() == resident.getId())
+      {
+        r.addPoints(value);
+      }
+    }
+    throw new RuntimeException(
+        "Resident with id " + resident.getId() + " not found.");
+  }
+
+  public void resetPointForAllResidents()
+  {
+    residents.forEach(Resident::resetPoints);
   }
 
   public void addTask(Task task)
