@@ -5,156 +5,156 @@ import kloeverly.domain.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileDataManager implements DataManager
 {
-    private final Path path = Path.of("data", "save_file.bin");
+  private final Path path = Path.of("data", "save_file.bin");
 
-    public FileDataManager()
+  public FileDataManager()
+  {
+    try
     {
-        try
-        {
-            Files.createDirectories(path.getParent());
-        } catch (IOException e)
-        {
-            throw new RuntimeException("Error creating Data folder", e);
-        }
-        if (!Files.exists(path))
-        {
-            saveData(new DataContainer());
-        }
+      Files.createDirectories(path.getParent());
     }
-
-    private void saveData(DataContainer data){
-        try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path.toFile())))
-        {
-            outputStream.writeObject(data);
-        } catch (IOException e)
-        {
-            throw new RuntimeException("Error saving data container", e);
-        }
-    }
-
-    private DataContainer loadData(){
-        try(ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path.toFile())))
-        {
-            return (DataContainer) inputStream.readObject();
-        } catch (IOException | ClassNotFoundException e){
-            throw new RuntimeException("Error loading data container", e);
-        }
-    }
-
-    @Override
-    public void addResident(Resident resident)
+    catch (IOException e)
     {
-        DataContainer data = loadData();
-        data.addResident(resident);
-        saveData(data);
+      throw new RuntimeException("Error creating Data folder", e);
     }
-
-    @Override
-    public List<Resident> getAllResidents()
+    if (!Files.exists(path))
     {
-        return loadData().getResidents();
+      saveData(new DataContainer());
     }
+  }
 
-    @Override
-    public Resident getResidentById(int id)
+  private void saveData(DataContainer data)
+  {
+    try (ObjectOutputStream outputStream = new ObjectOutputStream(
+        new FileOutputStream(path.toFile())))
     {
-        return loadData().getResidentById(id);
+      outputStream.writeObject(data);
     }
+    catch (IOException e)
+    {
+      throw new RuntimeException("Error saving data container", e);
+    }
+  }
 
-    @Override
-    public void deleteResident(Resident resident)
+  private DataContainer loadData()
+  {
+    try (ObjectInputStream inputStream = new ObjectInputStream(
+        new FileInputStream(path.toFile())))
     {
-        DataContainer data = loadData();
-        data.deleteResident(resident);
-        saveData(data);
+      return (DataContainer) inputStream.readObject();
     }
+    catch (IOException | ClassNotFoundException e)
+    {
+      throw new RuntimeException("Error loading data container", e);
+    }
+  }
 
-    @Override
-    public void updateResident(Resident resident)
-    {
-        DataContainer data = loadData();
-        data.updateResident(resident);
-        saveData(data);
-    }
+  public void addResident(Resident resident)
+  {
+    DataContainer data = loadData();
+    int maxId = data.getResidents().stream().mapToInt(Resident::getId).max()
+        .orElse(1);
+    resident.setId(maxId + 1);
+    data.getResidents().add(resident);
+    saveData(data);
+  }
 
-    @Override
-    public void addTask(Task task)
-    {
-        DataContainer data = loadData();
-        data.addTask(task);
-        saveData(data);
-    }
+  public List<Resident> getAllResidents()
+  {
+    return loadData().getResidents();
+  }
 
-    @Override
-    public List<Task> getAllTasks()
-    {
-        return loadData().getTasks();
-    }
+  public Resident getResidentById(int id)
+  {
+    return loadData().getResidents().stream().filter(r -> r.getId() == id)
+        .findFirst().orElseThrow(
+            () -> new RuntimeException("No resident by " + id + "found."));
+  }
 
-    @Override
-    public List<CommonTask> getAllCommonTasks()
-    {
-        return getAllTasks().stream()
-                .filter(t -> t instanceof CommonTask)
-                .map(t -> (CommonTask) t)
-                .toList();
-    }
+  public void deleteResident(Resident resident)
+  {
+    DataContainer data = loadData();
+    data.getResidents().removeIf(r -> r.getId() == resident.getId());
+    saveData(data);
+  }
 
-    @Override
-    public List<ExchangeTask> getAllExchangeTasks()
+  public boolean updateResident(Resident residentToBeUpdated)
+  {
+    DataContainer data = loadData();
+    for (Resident r : data.getResidents())
     {
-        return getAllTasks().stream()
-                .filter(t -> t instanceof ExchangeTask)
-                .map(t -> (ExchangeTask) t)
-                .toList();
+      if (r.getId() == residentToBeUpdated.getId())
+      {
+        r.setName(residentToBeUpdated.getName());
+        r.setPointFactor(residentToBeUpdated.getPointFactor());
+      }
+      return true;
     }
+    return false;
+  }
 
-    @Override
-    public List<GreenTask> getAllGreenTasks()
-    {
-        return getAllTasks().stream()
-                .filter(t -> t instanceof GreenTask)
-                .map(t -> (GreenTask) t)
-                .toList();
-    }
+  @Override public void addTask(Task task)
+  {
+    DataContainer data = loadData();
+    data.addTask(task);
+    saveData(data);
+  }
 
-    @Override
-    public Task getTaskById(int id)
-    {
-        return loadData().getTaskById(id);
-    }
+  @Override public List<Task> getAllTasks()
+  {
+    return loadData().getTasks();
+  }
 
-    @Override
-    public void deleteTask(Task task)
-    {
-        DataContainer data = loadData();
-        data.deleteTask(task);
-        saveData(data);
-    }
+  public List<ExchangeTask> getAllExchangeTasks()
+  {
+    return getAllTasks().stream().filter(ExchangeTask.class::isInstance).map(ExchangeTask.class::cast).toList();
+  }
 
-    @Override
-    public void updateTask(Task task)
-    {
-        DataContainer data = loadData();
-        data.updateTask(task);
-        saveData(data);
-    }
+  @Override public List<CommonTask> getAllCommonTasks()
+  {
+    return getAllTasks().stream().filter(t -> t instanceof CommonTask)
+        .map(t -> (CommonTask) t).toList();
+  }
 
-    @Override
-    public void addPointsToClimateScore(int points)
-    {
-        DataContainer data = loadData();
-        data.addPointsToClimateScore(points);
-        saveData(data);
-    }
+  @Override public List<GreenTask> getAllGreenTasks()
+  {
+    return getAllTasks().stream().filter(t -> t instanceof GreenTask)
+        .map(t -> (GreenTask) t).toList();
+  }
 
-    @Override
-    public ClimateScore getClimateScore()
-    {
-        return loadData().getClimateScore();
-    }
+  @Override public Task getTaskById(int id)
+  {
+    return loadData().getTaskById(id);
+  }
+
+  @Override public void deleteTask(Task task)
+  {
+    DataContainer data = loadData();
+    data.deleteTask(task);
+    saveData(data);
+  }
+
+  @Override public void updateTask(Task task)
+  {
+    DataContainer data = loadData();
+    data.updateTask(task);
+    saveData(data);
+  }
+
+  @Override public void addPointsToClimateScore(int points)
+  {
+    DataContainer data = loadData();
+    data.addPointsToClimateScore(points);
+    saveData(data);
+  }
+
+  @Override public ClimateScore getClimateScore()
+  {
+    return loadData().getClimateScore();
+  }
 }
