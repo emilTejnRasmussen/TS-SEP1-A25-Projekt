@@ -4,35 +4,44 @@ import java.io.Serializable;
 
 public class ExchangeTask extends Task implements Serializable
 {
-    private Resident provider;
+  private final Resident provider;
+  private int amount;
 
-    public ExchangeTask(String name, String description, int value, Resident provider)
+  public ExchangeTask(String name, String description, int value, int amount,
+      Resident provider)
+  {
+    super(name, description, value);
+    this.provider = provider;
+    this.amount = amount;
+  }
+
+  public Resident getProvider()
+  {
+    return provider;
+  }
+
+  public int getAmount()
+  {
+    return amount;
+  }
+
+  @Override
+  public void completed(){
+    throw new UnsupportedOperationException("Use completed(Resident resident) instead.");
+  }
+
+  public void completed(Resident recipient)
+  {
+    if (recipient.getPoints() < getValue())
     {
-        super(name, description, value);
-        this.provider = provider;
+      throw new IllegalStateException(
+          "Recipient doesn't have enough points to complete.");
     }
-
-    public Resident getProvider()
+    else
     {
-        return provider;
+      provider.addPoints(getValue());
+      recipient.addPoints(-getValue());
+      amount--;
     }
-
-    public void setProvider(Resident provider)
-    {
-        this.provider = provider;
-    }
-
-    @Override
-    public void updateFrom(Task other){
-        super.updateFrom(other);
-        if (other instanceof ExchangeTask exchangeTask){
-            this.provider = exchangeTask.getProvider();
-        }
-    }
-
-    @Override
-    public void completed()
-    {
-        //TODO implement completed exchange task
-    }
+  }
 }
