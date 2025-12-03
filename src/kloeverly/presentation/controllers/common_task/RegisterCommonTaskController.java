@@ -25,6 +25,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     private Label descriptionLbl;
 
     private DataManager dataManager;
+    private int id;
     private Task selectedTask;
 
     @Override
@@ -43,7 +44,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
             return;
         }
 
-        this.selectedTask.completed(byResident);
+        dataManager.completeTask(this.id, byResident);
     }
 
     public void handleCancel()
@@ -59,7 +60,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     @Override
     public void setArgument(String argument)
     {
-        int id = Integer.parseInt(argument);
+        this.id = Integer.parseInt(argument);
         this.selectedTask = dataManager.getTaskById(id);
 
         this.nameLbl.setText(this.selectedTask.getName());
