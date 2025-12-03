@@ -40,7 +40,7 @@ public class HomeViewController implements InitializableController
 
     private void loadStats()
     {
-        climateScoreLbl.setText(dataManager.getClimateScore() + "");
+        climateScoreLbl.setText(dataManager.getClimateScore().getTotalGreenPoints() + "");
         residentAmountLbl.setText(dataManager.getAllResidents().size() + "");
         greenTaskAmountLbl.setText(dataManager.getAllGreenTasks().size() + "");
         commonTaskAmountLbl.setText(dataManager.getAllCommonTasks().size() + "");
