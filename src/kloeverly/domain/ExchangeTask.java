@@ -40,4 +40,13 @@ public class ExchangeTask extends Task implements Serializable
       amount--;
     }
   }
+
+  @Override public void updateFrom(Task other)
+  {
+    super.updateFrom(other);
+
+    if (other instanceof ExchangeTask exchangeTask) {
+      this.amount = exchangeTask.amount;
+    }
+  }
 }
