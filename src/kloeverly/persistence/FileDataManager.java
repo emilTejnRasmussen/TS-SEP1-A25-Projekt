@@ -83,7 +83,7 @@ public class FileDataManager implements DataManager
     saveData(data);
   }
 
-  public boolean updateResident(Resident residentToBeUpdated)
+  public void updateResident(Resident residentToBeUpdated)
   {
     DataContainer data = loadData();
     for (Resident r : data.getResidents())
@@ -93,9 +93,7 @@ public class FileDataManager implements DataManager
         r.setName(residentToBeUpdated.getName());
         r.setPointFactor(residentToBeUpdated.getPointFactor());
       }
-      return true;
     }
-    return false;
   }
 
   @Override public void addTask(Task task)
