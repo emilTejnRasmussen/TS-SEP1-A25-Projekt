@@ -1,8 +1,8 @@
-import javafx.event.ActionEvent;
+package kloeverly.presentation.controllers.common_task;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import kloeverly.domain.CommonTask;
 import kloeverly.domain.Resident;
 import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
@@ -25,6 +25,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     private Label descriptionLbl;
 
     private DataManager dataManager;
+    private int id;
     private Task selectedTask;
 
     @Override
@@ -43,7 +44,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
             return;
         }
 
-        this.selectedTask.completed(byResident);
+        dataManager.completeTask(this.id, byResident);
     }
 
     public void handleCancel()
@@ -59,7 +60,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     @Override
     public void setArgument(String argument)
     {
-        int id = Integer.parseInt(argument);
+        this.id = Integer.parseInt(argument);
         this.selectedTask = dataManager.getTaskById(id);
 
         this.nameLbl.setText(this.selectedTask.getName());
