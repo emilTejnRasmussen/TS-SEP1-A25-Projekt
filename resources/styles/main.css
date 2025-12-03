@@ -1,0 +1,26 @@
+.background{
+    -fx-background-color: #92C48D;
+}
+
+.menuBtn{
+    -fx-background-color: #92C48D;
+    -fx-text-fill: #F9F9F9;
+    -fx-cursor: hand;
+    -fx-font-size: 24px;
+}
+
+.menuBtn:hover{
+    -fx-background-color: #BAEBB5;
+}
+
+.red {
+    -fx-text-fill: #E04F4F;
+}
+
+.blue {
+    -fx-text-fill: #3A6FD9;
+}
+
+.yellow {
+    -fx-text-fill: #F2D24B;
+}
