@@ -92,7 +92,7 @@ public class ViewAllCommonTasksController implements InitializableController
 
     public void handleRegister()
     {
-        CommonTask task = (CommonTask) allCommonTasksTable.getSelectionModel().getSelectedItem();
+        CommonTask task = allCommonTasksTable.getSelectionModel().getSelectedItem();
         if (task == null) return;
 
         System.out.println("Registrer " + task.getName());
