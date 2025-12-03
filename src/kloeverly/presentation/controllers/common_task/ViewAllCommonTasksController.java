@@ -1,5 +1,6 @@
 package kloeverly.presentation.controllers.common_task;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -62,14 +63,6 @@ public class ViewAllCommonTasksController implements InitializableController
         ViewManager.showView(Views.COMMON_TASK, task.getId() + "");
     }
 
-    public void handleUpdate()
-    {
-        Task task = allCommonTasksTable.getSelectionModel().getSelectedItem();
-        if (task == null) return;
-
-        ViewManager.showView(Views.UPDATE_COMMON_TASK, task.getId() + "");
-    }
-
     public void handleDelete()
     {
         Task selectedTask = allCommonTasksTable.getSelectionModel().getSelectedItem();
@@ -95,5 +88,15 @@ public class ViewAllCommonTasksController implements InitializableController
         valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
 
         allCommonTasksTable.getItems().addAll(tasks);
+    }
+
+    public void handleRegister()
+    {
+        CommonTask task = (CommonTask) allCommonTasksTable.getSelectionModel().getSelectedItem();
+        if (task == null) return;
+
+        System.out.println("Registrer " + task.getName());
+
+
     }
 }
