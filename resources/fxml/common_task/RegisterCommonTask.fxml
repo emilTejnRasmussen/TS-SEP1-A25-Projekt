@@ -38,13 +38,14 @@
                     <Font name="Segoe UI Bold" size="14.0" />
                 </font>
             </Label>
-            <HBox spacing="20.0">
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
                 <ComboBox fx:id="residentComboBox" prefHeight="35.0" prefWidth="150.0" />
                 <Button mnemonicParsing="false" onAction="#handleRegister" prefHeight="35.0" prefWidth="85.0" text="Registrer">
                     <font>
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Button>
+            <Label fx:id="registerErrorLbl" textFill="#ff2e2e" />
             </HBox>
         </VBox>
         <VBox maxHeight="250.0" prefHeight="250.0" spacing="10.0">

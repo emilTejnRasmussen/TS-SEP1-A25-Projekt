@@ -14,6 +14,8 @@ import kloeverly.presentation.core.Views;
 public class RegisterCommonTaskController implements InitializableController, AcceptsStringArgument
 {
     @FXML
+    private Label registerErrorLbl;
+    @FXML
     private ComboBox<Resident> residentComboBox;
     @FXML
     private Label nameLbl;
@@ -23,7 +25,6 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     private Label descriptionLbl;
 
     private DataManager dataManager;
-    private int id;
     private Task selectedTask;
 
     @Override
@@ -36,7 +37,11 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     public void handleRegister()
     {
         Resident byResident = residentComboBox.getSelectionModel().getSelectedItem();
-        if (byResident == null) return;
+        if (byResident == null)
+        {
+            registerErrorLbl.setText("Vælg venligst en beboer.");
+            return;
+        }
 
         this.selectedTask.completed(byResident);
     }
@@ -54,8 +59,8 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     @Override
     public void setArgument(String argument)
     {
-        this.id = Integer.parseInt(argument);
-        this.selectedTask = dataManager.getTaskById(this.id);
+        int id = Integer.parseInt(argument);
+        this.selectedTask = dataManager.getTaskById(id);
 
         this.nameLbl.setText(this.selectedTask.getName());
         this.valueLbl.setText(this.selectedTask.getValue() + "");
