@@ -8,6 +8,7 @@ public enum Views
     //Common Tasks
     ADD_COMMON_TASK("common_task/AddCommonTask"),
     UPDATE_COMMON_TASK("common_task/UpdateCommonTask"),
+    REGISTER_COMMON_TASK("common_task/RegisterCommonTask"),
     COMMON_TASK("common_task/ViewSingleCommonTask"),
     COMMON_TASKS("common_task/ViewAllCommonTasks"),
 

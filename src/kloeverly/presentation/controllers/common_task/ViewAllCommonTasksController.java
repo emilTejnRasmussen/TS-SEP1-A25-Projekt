@@ -95,8 +95,6 @@ public class ViewAllCommonTasksController implements InitializableController
         CommonTask task = allCommonTasksTable.getSelectionModel().getSelectedItem();
         if (task == null) return;
 
-        System.out.println("Registrer " + task.getName());
-
-
+        ViewManager.showView(Views.REGISTER_COMMON_TASK, task.getId() + "");
     }
 }
