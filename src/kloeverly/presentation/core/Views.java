@@ -10,7 +10,6 @@ public enum Views
     UPDATE_COMMON_TASK("common_task/UpdateCommonTask"),
     COMMON_TASK("common_task/ViewSingleCommonTask"),
     COMMON_TASKS("common_task/ViewAllCommonTasks"),
-    TEST_VIEW_COMMON_TASK("common_task/test"),
 
     // Residents
     ADD_RESIDENT("");

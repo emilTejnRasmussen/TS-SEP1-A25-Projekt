@@ -59,9 +59,7 @@ public class ViewAllCommonTasksController implements InitializableController
         Task task = allCommonTasksTable.getSelectionModel().getSelectedItem();
         if (task == null) return;
 
-        // Har kigget lidt på hvordan man kunne integrere registreringen af en fællesopgave
-//        ViewManager.showView(Views.COMMON_TASK, task.getId() + "");
-        ViewManager.showView(Views.TEST_VIEW_COMMON_TASK, task.getId() + "");
+        ViewManager.showView(Views.COMMON_TASK, task.getId() + "");
     }
 
     public void handleUpdate()
