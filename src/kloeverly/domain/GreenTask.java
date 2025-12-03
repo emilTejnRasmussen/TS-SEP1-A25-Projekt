@@ -9,7 +9,7 @@ public class GreenTask extends Task implements Serializable
     }
 
     @Override
-    public void completed() {
+    public void completed(Resident byResident) {
 
     }
 }

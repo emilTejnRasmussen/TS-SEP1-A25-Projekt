@@ -62,5 +62,5 @@ public abstract class Task implements Serializable
         this.value = value;
     }
 
-    public abstract void completed();
+    public abstract void completed(Resident byResident);
 }
