@@ -20,106 +20,103 @@
            </padding>
            <HBox alignment="TOP_CENTER" onMouseClicked="#handleShowHomeView" prefHeight="56.0" prefWidth="140.0">
                <cursor>
-                   <Cursor fx:constant="HAND"/>
+                   <Cursor fx:constant="HAND" />
                </cursor>
                <Label styleClass="red" text="K">
                    <font>
-                       <Font name="Segoe Print Bold" size="48.0"/>
+                       <Font name="Segoe Print Bold" size="48.0" />
                    </font>
                </Label>
                <Label styleClass="yellow" text="l">
                    <font>
-                       <Font name="Segoe Print Bold" size="48.0"/>
+                       <Font name="Segoe Print Bold" size="48.0" />
                    </font>
                </Label>
                <Label styleClass="blue" text="ø">
                    <font>
-                       <Font name="Segoe Print Bold" size="48.0"/>
+                       <Font name="Segoe Print Bold" size="48.0" />
                    </font>
                </Label>
                <Label styleClass="red" text="v">
                    <font>
-                       <Font name="Segoe Print Bold" size="48.0"/>
+                       <Font name="Segoe Print Bold" size="48.0" />
                    </font>
                </Label>
                <Label styleClass="yellow" text="e">
                    <font>
-                       <Font name="Segoe Print Bold" size="48.0"/>
+                       <Font name="Segoe Print Bold" size="48.0" />
                    </font>
                </Label>
                <Label styleClass="blue" text="r">
                    <font>
-                       <Font name="Segoe Print Bold" size="48.0"/>
+                       <Font name="Segoe Print Bold" size="48.0" />
                    </font>
                </Label>
                <Label styleClass="red" text="l">
                    <font>
-                       <Font name="Segoe Print Bold" size="48.0"/>
+                       <Font name="Segoe Print Bold" size="48.0" />
                    </font>
                </Label>
                <Label styleClass="yellow" text="y">
                    <font>
-                       <Font name="Segoe Print Bold" size="48.0"/>
+                       <Font name="Segoe Print Bold" size="48.0" />
                    </font>
                </Label>
            </HBox>
          <Separator prefWidth="200.0" />
            <VBox spacing="10.0">
-               <Button alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308"
-                       mnemonicParsing="false" onAction="#handleViewResidents" prefHeight="40.0" prefWidth="160.0"
-                       styleClass="menuBtn" text="Beboere">
+               <Button fx:id="residentBtn" alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleViewResidents" prefHeight="40.0" prefWidth="160.0" styleClass="menuBtn" text="Beboere">
                    <font>
-                       <Font name="Segoe UI" size="14.0"/>
+                       <Font name="Segoe UI" size="14.0" />
                    </font>
                    <graphic>
                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <Image url="@../icons/residence.png"/>
+                           <Image url="@../icons/residence.png" />
                        </ImageView>
                    </graphic>
                </Button>
-               <Button alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308"
-                       mnemonicParsing="false" onAction="#handleViewGreenTasks" prefHeight="40.0" prefWidth="160.0"
-                       styleClass="menuBtn" text="Grønne">
+               <Button fx:id="greenBtn" alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleViewGreenTasks" prefHeight="40.0" prefWidth="160.0" styleClass="menuBtn" text="Grønne">
                    <font>
-                       <Font name="Segoe UI" size="14.0"/>
+                       <Font name="Segoe UI" size="14.0" />
                    </font>
                    <graphic>
                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <Image url="@../icons/green.png"/>
+                           <Image url="@../icons/green.png" />
                        </ImageView>
                    </graphic>
                </Button>
-               <Button alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308"
-                       mnemonicParsing="false" onAction="#handleViewCommonTasks" prefHeight="40.0" prefWidth="160.0"
-                       styleClass="menuBtn" text="Fælles">
+               <Button fx:id="commonBtn" alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleViewCommonTasks" prefHeight="40.0" prefWidth="160.0" styleClass="menuBtn" text="Fælles">
                    <font>
-                       <Font name="Segoe UI" size="14.0"/>
+                       <Font name="Segoe UI" size="14.0" />
                    </font>
                    <graphic>
                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <Image url="@../icons/community.png"/>
+                           <Image url="@../icons/community.png" />
                        </ImageView>
                    </graphic>
                </Button>
-               <Button alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308"
-                       mnemonicParsing="false" onAction="#handleViewExchangeTasks" prefHeight="40.0" prefWidth="160.0"
-                       styleClass="menuBtn" text="Bytte">
+               <Button fx:id="exchangeBtn" alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleViewExchangeTasks" prefHeight="40.0" prefWidth="160.0" styleClass="menuBtn" text="Bytte">
                    <font>
-                       <Font name="Segoe UI" size="14.0"/>
+                       <Font name="Segoe UI" size="14.0" />
                    </font>
                    <graphic>
                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <Image url="@../icons/exchange.png"/>
+                           <Image url="@../icons/exchange.png" />
                        </ImageView>
                    </graphic>
                </Button>
            </VBox>
-         <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleExit" prefHeight="40.0" prefWidth="160.0" text="Exit">
+         <Button alignment="TOP_LEFT" graphicTextGap="25.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleExit" prefHeight="40.0" prefWidth="160.0" styleClass="exitBtn" text="Exit">
             <font>
                <Font name="Segoe UI" size="14.0" />
             </font>
+            <graphic>
+                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../icons/exit.png"/>
+                </ImageView>
+            </graphic>
             <VBox.margin>
-               <Insets top="20.0" />
+               <Insets top="110.0" />
             </VBox.margin>
          </Button>
        </VBox>
