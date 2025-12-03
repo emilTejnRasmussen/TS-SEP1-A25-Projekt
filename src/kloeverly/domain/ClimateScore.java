@@ -22,7 +22,7 @@ public class ClimateScore implements Serializable
         this.totalGreenPoints += totalGreenPoints;
     }
 
-    public  void resetTotalGreenPoints()
+    public void resetTotalGreenPoints()
     {
         this.totalGreenPoints = 0;
     }

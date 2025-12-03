@@ -26,13 +26,9 @@ public class ExchangeTask extends Task implements Serializable
   }
 
   @Override
-  public void completed(){
-    throw new UnsupportedOperationException("Use completed(Resident resident) instead.");
-  }
-
-  public void completed(Resident recipient)
+  public void completed(Resident byResident)
   {
-    if (recipient.getPoints() < getValue())
+    if (byResident.getPoints() < getValue())
     {
       throw new IllegalStateException(
           "Recipient doesn't have enough points to complete.");
@@ -40,7 +36,7 @@ public class ExchangeTask extends Task implements Serializable
     else
     {
       provider.addPoints(getValue());
-      recipient.addPoints(-getValue());
+      byResident.addPoints(-getValue());
       amount--;
     }
   }
