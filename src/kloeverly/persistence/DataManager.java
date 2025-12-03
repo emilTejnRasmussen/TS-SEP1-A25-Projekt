@@ -20,6 +20,7 @@ public interface DataManager
     Task getTaskById(int id);
     void deleteTask(Task task);
     void updateTask(Task task);
+    void completeTask(int completedTaskId, Resident byResident);
 
     void addPointsToClimateScore(int points);
     ClimateScore getClimateScore();
