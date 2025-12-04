@@ -42,32 +42,14 @@ public class DataContainer implements Serializable
 
   public void deleteResident(Resident resident)
   {
-    residents.removeIf(r -> r.getId() == resident.getId());
+    residents.remove(getResidentById(resident.getId()));
   }
 
   public void updateResident(Resident residentToBeUpdated)
   {
-    for (Resident r : residents)
-    {
-      if (r.getId() == residentToBeUpdated.getId())
-      {
-        r.setName(residentToBeUpdated.getName());
-        r.setPointFactor(residentToBeUpdated.getPointFactor());
-      }
-    }
-  }
-
-  public void addPointsToResident(Resident resident, int value)
-  {
-    for (Resident r : residents)
-    {
-      if (r.getId() == resident.getId())
-      {
-        r.addPoints(value);
-      }
-    }
-    throw new RuntimeException(
-        "Resident with id " + resident.getId() + " not found.");
+    Resident resident = getResidentById(residentToBeUpdated.getId());
+    resident.setName(residentToBeUpdated.getName());
+    resident.setPointFactor(residentToBeUpdated.getPointFactor());
   }
 
   public void resetPointForAllResidents()

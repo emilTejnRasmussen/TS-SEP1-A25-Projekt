@@ -12,7 +12,6 @@ public interface DataManager
   Resident getResidentById(int id);
   void deleteResident(Resident resident);
   void updateResident(Resident residentToBeUpdated);
-  void addPointsToResident(Resident resident, int value);
   void resetPointsForAllResidents();
 
   // Tasks

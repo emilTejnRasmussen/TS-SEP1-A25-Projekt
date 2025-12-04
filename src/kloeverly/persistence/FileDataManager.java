@@ -84,12 +84,6 @@ public class FileDataManager implements DataManager
     saveData(data);
   }
 
-  public void addPointsToResident(Resident resident, int value) {
-    DataContainer data = loadData();
-    data.addPointsToResident(resident, value);
-    saveData(data);
-  }
-
   public void resetPointsForAllResidents() {
     DataContainer data = loadData();
     data.resetPointForAllResidents();
