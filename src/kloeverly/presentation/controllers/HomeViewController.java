@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
+import kloeverly.presentation.core.ViewManager;
 
 public class HomeViewController implements InitializableController
 {
@@ -35,7 +36,7 @@ public class HomeViewController implements InitializableController
 
     public void handleShowExternalScreen()
     {
-        System.out.println("Not implemented");
+        ViewManager.showExternalScreen();
     }
 
     private void loadStats()
