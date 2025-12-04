@@ -2,26 +2,32 @@ package kloeverly.presentation.core;
 
 public enum Views
 {
-    MAIN("MainView"),
-    HOME("HomeView"),
+  MAIN("MainView"), HOME("HomeView"),
 
-    //Common Tasks
-    ADD_COMMON_TASK("common_task/AddCommonTask"),
-    UPDATE_COMMON_TASK("common_task/UpdateCommonTask"),
-    REGISTER_COMMON_TASK("common_task/RegisterCommonTask"),
-    COMMON_TASK("common_task/ViewSingleCommonTask"),
-    COMMON_TASKS("common_task/ViewAllCommonTasks"),
+  //Common Tasks
+  ADD_COMMON_TASK("common_task/AddCommonTask"), UPDATE_COMMON_TASK(
+    "common_task/UpdateCommonTask"), REGISTER_COMMON_TASK(
+    "common_task/RegisterCommonTask"), COMMON_TASK(
+    "common_task/ViewSingleCommonTask"), COMMON_TASKS(
+    "common_task/ViewAllCommonTasks"),
 
-    // Residents
-    ADD_RESIDENT("");
+  // Exchange Tasks
+  EXCHANGE_TASKS("exchange_task/ViewAllExchangeTasks"),
+  ADD_EXCHANGE_TASK("exchange_task/AddExchangeTask"),
+  VIEW_DETAILED_EXCHANGE_TASK("exchange_task/ViewDetailedExchangeTask"),
 
-    private final String view;
+  // Residents
+  ADD_RESIDENT("");
 
-    Views(String view){
-        this.view = view;
-    }
+  private final String view;
 
-    public String getView(){
-        return "/fxml/" + this.view + ".fxml";
-    }
+  Views(String view)
+  {
+    this.view = view;
+  }
+
+  public String getView()
+  {
+    return "/fxml/" + this.view + ".fxml";
+  }
 }
