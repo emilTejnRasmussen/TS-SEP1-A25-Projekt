@@ -5,7 +5,6 @@ import kloeverly.domain.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FileDataManager implements DataManager
@@ -57,10 +56,7 @@ public class FileDataManager implements DataManager
   public void addResident(Resident resident)
   {
     DataContainer data = loadData();
-    int maxId = data.getResidents().stream().mapToInt(Resident::getId).max()
-        .orElse(1);
-    resident.setId(maxId + 1);
-    data.getResidents().add(resident);
+    data.addResident(resident);
     saveData(data);
   }
 
@@ -71,29 +67,27 @@ public class FileDataManager implements DataManager
 
   public Resident getResidentById(int id)
   {
-    return loadData().getResidents().stream().filter(r -> r.getId() == id)
-        .findFirst().orElseThrow(
-            () -> new RuntimeException("No resident by " + id + "found."));
+    return loadData().getResidentById(id);
   }
 
   public void deleteResident(Resident resident)
   {
     DataContainer data = loadData();
-    data.getResidents().removeIf(r -> r.getId() == resident.getId());
+    data.deleteResident(resident);
     saveData(data);
   }
 
   public void updateResident(Resident residentToBeUpdated)
   {
     DataContainer data = loadData();
-    for (Resident r : data.getResidents())
-    {
-      if (r.getId() == residentToBeUpdated.getId())
-      {
-        r.setName(residentToBeUpdated.getName());
-        r.setPointFactor(residentToBeUpdated.getPointFactor());
-      }
-    }
+    data.updateResident(residentToBeUpdated);
+    saveData(data);
+  }
+
+  public void resetPointsForAllResidents() {
+    DataContainer data = loadData();
+    data.resetPointForAllResidents();
+    saveData(data);
   }
 
   @Override public void addTask(Task task)
