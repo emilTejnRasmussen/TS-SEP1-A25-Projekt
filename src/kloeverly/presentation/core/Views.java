@@ -4,6 +4,7 @@ public enum Views
 {
     MAIN("MainView"),
     HOME("HomeView"),
+    EXTERNAL("ExternalScreenView"),
 
     //Common Tasks
     ADD_COMMON_TASK("common_task/AddCommonTask"),
