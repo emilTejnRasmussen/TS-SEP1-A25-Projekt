@@ -2,6 +2,7 @@ package kloeverly.presentation.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
@@ -9,6 +10,8 @@ import kloeverly.presentation.core.ViewManager;
 
 public class HomeViewController implements InitializableController
 {
+    @FXML
+    private Button runExternalScreenBtn;
     @FXML
     private Label residentAmountLbl;
     @FXML
@@ -36,7 +39,8 @@ public class HomeViewController implements InitializableController
 
     public void handleShowExternalScreen()
     {
-        ViewManager.showExternalScreen();
+        ViewManager.showExternalScreen(runExternalScreenBtn);
+        runExternalScreenBtn.setDisable(true);
     }
 
     private void loadStats()
