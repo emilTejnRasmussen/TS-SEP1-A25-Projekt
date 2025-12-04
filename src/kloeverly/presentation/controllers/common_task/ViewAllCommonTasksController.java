@@ -1,5 +1,6 @@
 package kloeverly.presentation.controllers.common_task;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -59,17 +60,7 @@ public class ViewAllCommonTasksController implements InitializableController
         Task task = allCommonTasksTable.getSelectionModel().getSelectedItem();
         if (task == null) return;
 
-        // Har kigget lidt på hvordan man kunne integrere registreringen af en fællesopgave
-//        ViewManager.showView(Views.COMMON_TASK, task.getId() + "");
-        ViewManager.showView(Views.TEST_VIEW_COMMON_TASK, task.getId() + "");
-    }
-
-    public void handleUpdate()
-    {
-        Task task = allCommonTasksTable.getSelectionModel().getSelectedItem();
-        if (task == null) return;
-
-        ViewManager.showView(Views.UPDATE_COMMON_TASK, task.getId() + "");
+        ViewManager.showView(Views.COMMON_TASK, task.getId() + "");
     }
 
     public void handleDelete()
@@ -97,5 +88,13 @@ public class ViewAllCommonTasksController implements InitializableController
         valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
 
         allCommonTasksTable.getItems().addAll(tasks);
+    }
+
+    public void handleRegister()
+    {
+        CommonTask task = allCommonTasksTable.getSelectionModel().getSelectedItem();
+        if (task == null) return;
+
+        ViewManager.showView(Views.REGISTER_COMMON_TASK, task.getId() + "");
     }
 }

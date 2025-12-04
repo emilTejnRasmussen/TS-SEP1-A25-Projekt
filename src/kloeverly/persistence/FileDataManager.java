@@ -138,7 +138,15 @@ public class FileDataManager implements DataManager
     saveData(data);
   }
 
-  @Override public void addPointsToClimateScore(int points)
+    @Override
+    public void completeTask(int completedTaskId, Resident byResident)
+    {
+        DataContainer data = loadData();
+        data.completeTask(completedTaskId, byResident.getId());
+        saveData(data);
+    }
+
+    @Override public void addPointsToClimateScore(int points)
   {
     DataContainer data = loadData();
     data.addPointsToClimateScore(points);
