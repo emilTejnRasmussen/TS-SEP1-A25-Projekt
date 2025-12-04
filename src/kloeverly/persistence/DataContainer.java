@@ -105,6 +105,13 @@ public class DataContainer implements Serializable
       taskToBeUpdated.updateFrom(task);
   }
 
+  public void completeTask(int completedTaskId, int byResidentId){
+      Task completedTask = getTaskById(completedTaskId);
+      Resident byResident = getResidentById(byResidentId);
+
+      completedTask.completed(byResident);
+  }
+
   public void addPointsToClimateScore(int points)
   {
     this.climateScore.addPoints(points);

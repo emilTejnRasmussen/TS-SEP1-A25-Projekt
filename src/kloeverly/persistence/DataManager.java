@@ -16,14 +16,15 @@ public interface DataManager
   void resetPointsForAllResidents();
 
   // Tasks
-  void addTask(Task task);
-  List<Task> getAllTasks();
-  List<CommonTask> getAllCommonTasks();
-  List<GreenTask> getAllGreenTasks();
-  List<ExchangeTask> getAllExchangeTasks();
-  Task getTaskById(int id);
-  void deleteTask(Task task);
-  void updateTask(Task task);
+    void addTask(Task task);
+    List<Task> getAllTasks();
+    List<CommonTask> getAllCommonTasks();
+    List<ExchangeTask> getAllExchangeTasks();
+    List<GreenTask> getAllGreenTasks();
+    Task getTaskById(int id);
+    void deleteTask(Task task);
+    void updateTask(Task task);
+    void completeTask(int completedTaskId, Resident byResident);
 
   // ClimateScore
   void addPointsToClimateScore(int points);

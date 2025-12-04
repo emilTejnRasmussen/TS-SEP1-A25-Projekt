@@ -12,6 +12,6 @@ public class CommonTask extends Task implements Serializable
     @Override
     public void completed(Resident byResident)
     {
-        //TODO implement completed common task
+        byResident.addPoints(this.getValue());
     }
 }
