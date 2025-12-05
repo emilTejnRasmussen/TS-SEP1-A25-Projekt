@@ -4,58 +4,70 @@ import java.io.Serializable;
 
 public class Resident implements Serializable
 {
-  private int id;
-  private String name;
-  private double pointFactor;
-  private int points;
+    private int id;
+    private String name;
+    private double pointFactor;
+    private int points;
 
-  public Resident(String name, double pointFactor){
-    this.name = name;
-    this.pointFactor = pointFactor;
-    points = 0;
-  }
+    // ❶ Konstruktør med KUN navn (bruges fx i AddResidentController)
+    public Resident(String name) {
+        this(name, 1.0);        // standard pointFactor = 1.0
+    }
 
-  public void addPoints(int value) {
-    points += value;
-  }
+    // ❷ Din eksisterende konstruktør (navn + pointFactor)
+    public Resident(String name, double pointFactor){
+        this.name = name;
+        this.pointFactor = pointFactor;
+        this.points = 0;
+    }
 
-  public int getId()
-  {
-    return id;
-  }
+    public void addPoints(int value) {
+        points += value;
+    }
 
-  public void setId(int id)
-  {
-    this.id = id;
-  }
+    public int getId()
+    {
+        return id;
+    }
 
-  public String getName()
-  {
-    return name;
-  }
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+    public String getName()
+    {
+        return name;
+    }
 
-  public double getPointFactor()
-  {
-    return pointFactor;
-  }
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-  public void setPointFactor(double pointFactor)
-  {
-    this.pointFactor = pointFactor;
-  }
+    public double getPointFactor()
+    {
+        return pointFactor;
+    }
 
-  public int getPoints()
-  {
-    return points;
-  }
+    public void setPointFactor(double pointFactor)
+    {
+        this.pointFactor = pointFactor;
+    }
 
-  public void resetPoints()
-  {
-    this.points = 0;
-  }
+    public int getPoints()
+    {
+        return points;
+    }
+
+    // ❸ Ny: hvis vi vil sætte point direkte et sted
+    public void setPoints(int points)
+    {
+        this.points = points;
+    }
+
+    public void resetPoints()
+    {
+        this.points = 0;
+    }
 }

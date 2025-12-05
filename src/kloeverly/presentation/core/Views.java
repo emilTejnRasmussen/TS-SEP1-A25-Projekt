@@ -17,9 +17,7 @@ public enum Views
 
     TEST_VIEW_COMMON_TASK("common_task/test"),
     ADD_GREEN_TASK("green_task/AddGreenTask"),
-    CREATE_GREEN_TASK("green_task/CreateGreenTask"),
-    // Residents
-    ADD_RESIDENT("");
+    CREATE_GREEN_TASK("green_task/CreateGreenTask");
 
     private final String view;
 

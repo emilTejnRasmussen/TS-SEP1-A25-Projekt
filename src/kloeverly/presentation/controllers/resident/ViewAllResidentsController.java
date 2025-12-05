@@ -60,8 +60,9 @@ public class ViewAllResidentsController implements InitializableController
     // --- Knapper ---
 
     @FXML
-    public void handleAdd()
+    private void handleAdd()
     {
+        System.out.println("Åbner AddResident-view...");
         ViewManager.showView(Views.ADD_RESIDENT);
     }
 
