@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -21,6 +22,10 @@ public class ViewManager
         Scene scene = new Scene(mainLayout, 900, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Kløverly");
+        primaryStage.getIcons().addAll(
+            new Image(ViewManager.class.getResourceAsStream("/icons/clover1.png")),
+            new Image(ViewManager.class.getResourceAsStream("/icons/clover2.png"))
+        );
         primaryStage.show();
     }
 
