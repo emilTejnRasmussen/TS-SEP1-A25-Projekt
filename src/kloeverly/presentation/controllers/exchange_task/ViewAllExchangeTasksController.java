@@ -73,12 +73,12 @@ public class ViewAllExchangeTasksController implements InitializableController
     }
 
     List<ExchangeTask> searchResults = dataManager.getAllExchangeTasks()
-        .stream().filter(task -> {
-          return task.getName().toLowerCase().contains(searchInput)
+        .stream().filter(task ->
+          task.getName().toLowerCase().contains(searchInput)
               || task.getProvider().getName().toLowerCase()
               .contains(searchInput) || task.getDescription().toLowerCase()
-              .contains(searchInput);
-        }).toList();
+              .contains(searchInput)
+        ).toList();
     showTable(searchResults);
   }
 
