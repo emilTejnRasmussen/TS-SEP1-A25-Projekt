@@ -7,12 +7,12 @@ public class MainViewController
 {
     public void handleViewResidents()
     {
-
+        ViewManager.showView(Views.RESIDENTS);
     }
 
     public void handleViewGreenTasks()
     {
-
+        ViewManager.showView(Views.ADD_GREEN_TASK);
     }
 
     public void handleViewCommonTasks()

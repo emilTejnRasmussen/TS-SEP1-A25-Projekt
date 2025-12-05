@@ -1,78 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.common_task.AddCommonTaskController">
-    <padding>
-        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
-    </padding>
-    <Label text="Tilføj ny Fællesopgave">
-        <font>
-          <Font size="36.0" />
-        </font>
-    </Label>
-    <VBox prefHeight="396.0" prefWidth="560.0" spacing="20.0">
-        <HBox spacing="20.0">
-            <VBox spacing="10.0">
-                <Label fx:id="titleErrorLbl" textFill="#ff6262" />
-                <Label text="Titel">
-                    <font>
-                        <Font name="Segoe UI" size="14.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="titleTextField" prefHeight="25.0" prefWidth="348.0" promptText="Navn på fællesopgave">
-                    <font>
-                        <Font name="Segoe UI" size="14.0" />
-                    </font>
-                </TextField>
-            </VBox>
-            <VBox spacing="10.0">
-                <Label fx:id="valueErrorLbl" textFill="#ff6262" />
-                <Label text="Værdi (Individuelle point)">
-                    <font>
-                        <Font name="Segoe UI" size="14.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="valueTextField" prefHeight="25.0" prefWidth="211.0" promptText="Indtast værdi">
-                    <font>
-                        <Font name="Segoe UI" size="14.0" />
-                    </font>
-                </TextField>
-            </VBox>
-        </HBox>
-        <VBox spacing="10.0">
-            <HBox spacing="30.0">
-                <Label text="Beskrivelse">
-                    <font>
-                        <Font name="Segoe UI" size="14.0" />
-                    </font>
-                </Label>
-                <Label fx:id="descriptionErrorLbl" textFill="#ff6262" />
-            </HBox>
-            <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Indtast beskrivelse af fællesopgave" wrapText="true">
-                <font>
-                    <Font name="Segoe UI" size="14.0" />
-                </font>
-            </TextArea>
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="kloeverly.presentation.controllers.green_task.RegisterGreenTaskController"
+            prefHeight="600.0" prefWidth="900.0">
+
+    <!-- TOP: Overskrift og forklaring -->
+    <top>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="20.0" right="20.0" bottom="10.0" left="20.0"/>
+            </padding>
+
+            <Label text="Registrer gennemført grøn opgave"
+                   style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+
+            <Label text="Vælg en grøn opgave i listen herunder og klik 'Bekræft registrering'."
+                   style="-fx-font-size: 14px;"/>
         </VBox>
-    </VBox>
-    <HBox alignment="CENTER" spacing="75.0">
-        <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="45.0" prefWidth="85.0" text="Tilføj">
-            <font>
-                <Font name="Segoe UI" size="14.0" />
-            </font>
-        </Button>
-        <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="45.0" prefWidth="85.0" text="Afbryd">
-            <font>
-                <Font name="Segoe UI" size="14.0" />
-            </font>
-        </Button>
-    </HBox>
-</VBox>
+    </top>
+
+    <!-- CENTER: Liste over grønne opgaver + visning af fællespulje -->
+    <center>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="10.0" right="20.0" bottom="10.0" left="20.0"/>
+            </padding>
+
+            <TableView fx:id="greenTaskTable" prefHeight="400.0" prefWidth="860.0">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" prefWidth="60.0"/>
+                    <TableColumn fx:id="nameColumn" text="Titel" prefWidth="200.0"/>
+                    <TableColumn fx:id="descriptionColumn" text="Beskrivelse" prefWidth="400.0"/>
+                    <TableColumn fx:id="valueColumn" text="Værdi (fælles point)" prefWidth="200.0"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Fællespulje:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="poolValueLabel" text="0 point"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- BOTTOM: Knapper + status besked -->
+    <bottom>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="10.0" right="20.0" bottom="20.0" left="20.0"/>
+            </padding>
+
+            <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                <Button fx:id="confirmButton"
+                        text="Bekræft registrering"
+                        prefWidth="180.0"
+                        onAction="#handleConfirm"/>
+
+                <Button text="Tilbage"
+                        prefWidth="100.0"
+                        onAction="#handleCancel"/>
+            </HBox>
+
+            <Label fx:id="statusLabel"
+                   text=""
+                   textFill="red"
+                   wrapText="true"/>
+        </VBox>
+    </bottom>
+
+</BorderPane>
