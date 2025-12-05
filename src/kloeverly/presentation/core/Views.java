@@ -3,6 +3,9 @@ package kloeverly.presentation.core;
 public enum Views
 {
   MAIN("MainView"), HOME("HomeView"),
+    MAIN("MainView"),
+    HOME("HomeView"),
+    EXTERNAL("ExternalScreenView"),
 
   //Common Tasks
   ADD_COMMON_TASK("common_task/AddCommonTask"), UPDATE_COMMON_TASK(
