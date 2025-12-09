@@ -77,6 +77,7 @@ public class ViewAllCommonTasksController implements InitializableController
         if (result.isPresent() && result.get() == ButtonType.OK){
             dataManager.deleteTask(selectedTask);
             showTable(dataManager.getAllCommonTasks());
+            ViewManager.updateExternalView();
         }
 
     }
