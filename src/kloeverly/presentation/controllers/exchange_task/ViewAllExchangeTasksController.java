@@ -164,10 +164,4 @@ public class ViewAllExchangeTasksController
   {
     return dataManager.getAllExchangeTasks();
   }
-
-  private void resetTable()
-  {
-    handleSearch();
-    allExchangeTaskTable.getSelectionModel().clearSelection();
-  }
 }
