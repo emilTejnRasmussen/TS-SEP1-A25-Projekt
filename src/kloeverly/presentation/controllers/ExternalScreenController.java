@@ -47,6 +47,10 @@ public class ExternalScreenController implements InitializableController
         loadData();
     }
 
+    public void refresh() {
+        loadData();
+    }
+
     private void loadData()
     {
         residentTable.getItems().clear();

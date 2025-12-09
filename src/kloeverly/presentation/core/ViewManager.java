@@ -8,13 +8,16 @@ import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import kloeverly.presentation.controllers.ExternalScreenController;
 
 import java.io.IOException;
 
 public class ViewManager
 {
     private static BorderPane mainLayout;
+
     private static Stage externalStage;
+    private static ExternalScreenController externalController;
 
     public static void init(Stage primaryStage, Views initialView) throws IOException
     {
@@ -82,8 +85,8 @@ public class ViewManager
             FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(Views.EXTERNAL.getView()));
             Scene scene = new Scene(loader.load(), 900, 900);
 
-            Object controller = loader.getController();
-            ControllerConfigurator.configure(controller);
+            externalController = loader.getController();
+            ControllerConfigurator.configure(externalController);
 
             externalStage = new Stage();
             externalStage.setTitle("Kløverly");
@@ -105,5 +108,9 @@ public class ViewManager
     public static Stage getExternalStage()
     {
         return externalStage;
+    }
+
+    public static void updateExternalView() {
+        externalController.refresh();
     }
 }
