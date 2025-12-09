@@ -1,20 +1,21 @@
 package kloeverly.presentation.controllers.exchange_task;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.*;
 import kloeverly.persistence.DataManager;
+import kloeverly.presentation.core.AcceptsFlashMessage;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
 import java.util.List;
+import java.util.Optional;
 
-public class ViewAllExchangeTasksController implements InitializableController
+public class ViewAllExchangeTasksController implements InitializableController,
+    AcceptsFlashMessage
 {
   @FXML public TextField searchTextField;
   @FXML public TableView<ExchangeTask> allExchangeTaskTable;
@@ -27,6 +28,7 @@ public class ViewAllExchangeTasksController implements InitializableController
   @FXML public Button deleteTask;
 
   private DataManager dataManager;
+  private String pendingFlash;
 
   public void init(DataManager dataManager)
   {
@@ -34,7 +36,7 @@ public class ViewAllExchangeTasksController implements InitializableController
     showTable(dataManager.getAllExchangeTasks());
 
     nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-    providerCol.setCellValueFactory(new PropertyValueFactory<>("provider"));
+    providerCol.setCellValueFactory(new PropertyValueFactory<>("providerName"));
     valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
     amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
@@ -55,11 +57,18 @@ public class ViewAllExchangeTasksController implements InitializableController
           deleteTask.setDisable(!hasSelection);
           deleteTask.setOpacity(hasSelection ? 1 : 0.5);
         });
+
+    if (pendingFlash != null && !pendingFlash.isBlank()) {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION, pendingFlash, ButtonType.OK);
+      alert.setHeaderText(null);
+      alert.setTitle("Bekræftelse");
+      alert.show();
+      pendingFlash = null;
+    }
   }
 
-  private void showTable(List<ExchangeTask> tasks)
-  {
-    allExchangeTaskTable.getItems().setAll(tasks == null ? List.of() : tasks);
+  @Override public void setFlashMessage(String message) {
+    this.pendingFlash = message;
   }
 
   public void handleSearch()
@@ -68,24 +77,23 @@ public class ViewAllExchangeTasksController implements InitializableController
 
     if (searchInput.isEmpty())
     {
-      showTable(dataManager.getAllExchangeTasks());
+      showTable(getSource());
       return;
     }
 
-    List<ExchangeTask> searchResults = dataManager.getAllExchangeTasks()
-        .stream().filter(task ->
-          task.getName().toLowerCase().contains(searchInput)
-              || task.getProvider().getName().toLowerCase()
-              .contains(searchInput) || task.getDescription().toLowerCase()
-              .contains(searchInput)
-        ).toList();
+    List<ExchangeTask> searchResults = getSource().stream().filter(
+            task -> task.getName().toLowerCase().contains(searchInput)
+                || task.getProvider().getName().toLowerCase().contains(searchInput)
+                || String.valueOf(task.getProvider().getId()).contains(searchInput)
+                || task.getDescription().toLowerCase().contains(searchInput))
+        .toList();
     showTable(searchResults);
   }
 
   public void handleClearSearchBar()
   {
     searchTextField.clear();
-    showTable(dataManager.getAllExchangeTasks());
+    showTable(getSource());
   }
 
   public void handleAddExchangeTask()
@@ -96,9 +104,11 @@ public class ViewAllExchangeTasksController implements InitializableController
   public void handleViewDetails()
   {
     Task task = allExchangeTaskTable.getSelectionModel().getSelectedItem();
-    if (task == null) return;
+    if (task == null)
+      return;
 
-    ViewManager.showView(Views.VIEW_DETAILED_EXCHANGE_TASK, String.valueOf(task.getId()));
+    ViewManager.showView(Views.VIEW_DETAILED_EXCHANGE_TASK,
+        String.valueOf(task.getId()));
   }
 
   public void handleTaskCompleted()
@@ -108,7 +118,52 @@ public class ViewAllExchangeTasksController implements InitializableController
 
   public void handleDeleteTask()
   {
+    ExchangeTask selectedTask = allExchangeTaskTable.getSelectionModel()
+        .getSelectedItem();
 
+    if (selectedTask == null)
+    {
+      return;
+    }
+
+    ButtonType deleteBtn = new ButtonType("Slet opgave",
+        ButtonBar.ButtonData.OK_DONE);
+    ButtonType cancelBtn = new ButtonType("Annuller",
+        ButtonBar.ButtonData.CANCEL_CLOSE);
+
+    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+    confirm.setTitle("Bekræft sletning");
+    confirm.setHeaderText("Slet bytteopgave");
+    confirm.setContentText(
+        "Er du sikker på, at du vil slette: '" + selectedTask.getName() + "'?");
+    confirm.getButtonTypes().setAll(deleteBtn, cancelBtn);
+
+    Optional<ButtonType> result = confirm.showAndWait();
+    Platform.runLater(
+        // Fokuser annuller-knappen lige efter JavaFX har loadet popup'en
+        () -> confirm.getDialogPane().lookupButton(cancelBtn).requestFocus());
+    if (result.isPresent() && result.get() == deleteBtn)
+    {
+      dataManager.deleteTask(selectedTask);
+      resetTable();
+    }
   }
 
+  // HJÆLPE-METODER
+
+  private void showTable(List<ExchangeTask> tasks)
+  {
+    allExchangeTaskTable.getItems().setAll(tasks == null ? List.of() : tasks);
+  }
+
+  private List<ExchangeTask> getSource()
+  {
+    return dataManager.getAllExchangeTasks();
+  }
+
+  private void resetTable()
+  {
+    handleSearch();
+    allExchangeTaskTable.getSelectionModel().clearSelection();
+  }
 }

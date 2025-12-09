@@ -4,63 +4,99 @@ import java.io.Serializable;
 
 public abstract class Task implements Serializable
 {
-    private int id;
-    private String name;
-    private String description;
-    private int value;
+  private int id;
+  private String name;
+  private String description;
+  private int value;
 
-    public Task(String name, String description, int value)
+  public Task(String name, String description, int value)
+  {
+    this.name = name;
+    this.description = description;
+    this.value = value;
+  }
+
+  public void updateFrom(Task other)
+  {
+    this.name = other.getName();
+    this.description = other.getDescription();
+    this.value = other.getValue();
+  }
+
+  public int getId()
+  {
+    return id;
+  }
+
+  public void setId(int id)
+  {
+    this.id = id;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public void setName(String name)
+  {
+    this.name = name;
+  }
+
+  public String getDescription()
+  {
+    return description;
+  }
+
+  public void setDescription(String description)
+  {
+    this.description = description;
+  }
+
+  public int getValue()
+  {
+    return value;
+  }
+
+  public void setValue(int value)
+  {
+    this.value = value;
+  }
+
+  public abstract void completed(Resident byResident);
+
+  // Til popup med bekræftelser
+  public String getTypeLabel()
+  {
+    return "Opgaven";
+  }
+
+  public String formatTaskAdded()
+  {
+    return getTypeLabel() + " \"" + getName() + "\" er oprettet.";
+  }
+
+  public String formatTaskUpdated()
+  {
+    return getTypeLabel() + " \"" + getName() + "\" er opdateret.";
+  }
+
+  public String formatTaskDeleted()
+  {
+    return getTypeLabel() + " \"" + getName() + "\" er slettet.";
+  }
+
+  public String formatTaskCompleted(Resident byResident)
+  {
+    if (byResident == null || byResident.getName() == null
+        || byResident.getName().isBlank())
     {
-        this.name = name;
-        this.description = description;
-        this.value = value;
+      return getTypeLabel() + " \"" + getName() + "\" er udført.";
     }
-
-    public void updateFrom(Task other){
-        this.name = other.getName();
-        this.description = other.getDescription();
-        this.value = other.getValue();
-    }
-
-    public int getId()
+    else
     {
-        return id;
+      return getTypeLabel() + " \"" + getName() + "\" er udført af \""
+          + byResident.getName() + "\".";
     }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public int getValue()
-    {
-        return value;
-    }
-
-    public void setValue(int value)
-    {
-        this.value = value;
-    }
-
-    public abstract void completed(Resident byResident);
+  }
 }
