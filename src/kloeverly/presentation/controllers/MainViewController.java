@@ -25,7 +25,7 @@ public class MainViewController
 
   public void handleViewResidents()
   {
-
+      ViewManager.showView(Views.RESIDENTS);
   }
 
   public void handleViewGreenTasks()
