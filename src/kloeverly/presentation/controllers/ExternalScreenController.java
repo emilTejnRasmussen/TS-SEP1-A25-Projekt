@@ -11,6 +11,8 @@ import kloeverly.domain.Resident;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 
+import java.util.List;
+
 public class ExternalScreenController implements InitializableController
 {
     @FXML
@@ -39,11 +41,13 @@ public class ExternalScreenController implements InitializableController
     private TableColumn<GreenTask, Integer> greenValueCol;
 
     private DataManager dataManager;
+    private List<TableView<?>> tables;
 
     @Override
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
+        this.tables = List.of(residentTable, exchangeTable, commonTable, greenTable);
         loadData();
     }
 
@@ -53,13 +57,10 @@ public class ExternalScreenController implements InitializableController
 
     private void loadData()
     {
-        residentTable.getItems().clear();
-        exchangeTable.getItems().clear();
-        commonTable.getItems().clear();
-        greenTable.getItems().clear();
+        tables.forEach(t -> t.getItems().clear());
 
         residentNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        residentPointCol.setCellValueFactory(new PropertyValueFactory<>("value"));
+        residentPointCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
         exchangeNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         exchangeValueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
