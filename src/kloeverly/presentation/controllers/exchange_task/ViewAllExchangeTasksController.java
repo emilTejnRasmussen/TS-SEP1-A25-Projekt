@@ -14,8 +14,8 @@ import kloeverly.presentation.core.Views;
 import java.util.List;
 import java.util.Optional;
 
-public class ViewAllExchangeTasksController implements InitializableController,
-    AcceptsFlashMessage
+public class ViewAllExchangeTasksController
+    implements InitializableController, AcceptsFlashMessage
 {
   @FXML public TextField searchTextField;
   @FXML public TableView<ExchangeTask> allExchangeTaskTable;
@@ -58,8 +58,10 @@ public class ViewAllExchangeTasksController implements InitializableController,
           deleteTask.setOpacity(hasSelection ? 1 : 0.5);
         });
 
-    if (pendingFlash != null && !pendingFlash.isBlank()) {
-      Alert alert = new Alert(Alert.AlertType.INFORMATION, pendingFlash, ButtonType.OK);
+    if (pendingFlash != null && !pendingFlash.isBlank())
+    {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION, pendingFlash,
+          ButtonType.OK);
       alert.setHeaderText(null);
       alert.setTitle("Bekræftelse");
       alert.show();
@@ -67,7 +69,8 @@ public class ViewAllExchangeTasksController implements InitializableController,
     }
   }
 
-  @Override public void setFlashMessage(String message) {
+  @Override public void setFlashMessage(String message)
+  {
     this.pendingFlash = message;
   }
 
@@ -145,7 +148,8 @@ public class ViewAllExchangeTasksController implements InitializableController,
     if (result.isPresent() && result.get() == deleteBtn)
     {
       dataManager.deleteTask(selectedTask);
-      resetTable();
+      ViewManager.showView(Views.EXCHANGE_TASKS, null,
+          selectedTask.formatTaskDeleted());
     }
   }
 
