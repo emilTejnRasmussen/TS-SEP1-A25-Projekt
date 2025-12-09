@@ -62,8 +62,6 @@ public class InMemoryDataManager implements DataManager {
         }
     }
 
-
-
     // ---- OPGAVEN KRÆVER ikke task & climate ----
     // men vi implementerer tomme metoder, så DataManager interface opfyldes:
 
