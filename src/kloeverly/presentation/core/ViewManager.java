@@ -80,7 +80,10 @@ public class ViewManager
         try
         {
             FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(Views.EXTERNAL.getView()));
-            Scene scene = new Scene(loader.load(), 600, 400);
+            Scene scene = new Scene(loader.load(), 900, 900);
+
+            Object controller = loader.getController();
+            ControllerConfigurator.configure(controller);
 
             externalStage = new Stage();
             externalStage.setTitle("Kløverly");
