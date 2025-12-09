@@ -1,7 +1,9 @@
 package kloeverly.presentation.controllers.green_task;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,86 +14,75 @@ import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-public class AddGreenTaskController implements InitializableController
-{
+public class AddGreenTaskController implements InitializableController {
+
     @FXML
     private TableView<GreenTask> greenTaskTable;
+
     @FXML
     private TableColumn<GreenTask, Integer> idColumn;
+
     @FXML
-    private TableColumn<GreenTask, String> nameColumn;
+    private TableColumn<GreenTask, String> titleColumn;
+
     @FXML
     private TableColumn<GreenTask, String> descriptionColumn;
+
     @FXML
     private TableColumn<GreenTask, Integer> valueColumn;
 
     @FXML
-    private Label poolValueLabel;
+    private Label poolValueLabel;   // fx:id skal være poolValueLabel
 
     @FXML
-    private Button confirmButton;
-
-    @FXML
-    private Label statusLabel;
+    private Label statusLabel;      // fx:id statusLabel (bruges bare hvis du vil vise fejltekst)
 
     private DataManager dataManager;
 
     @Override
-    public void init(DataManager dataManager)
-    {
-        System.out.println("AddGreenTask loaded!");
+    public void init(DataManager dataManager) {
         this.dataManager = dataManager;
 
-        // Sæt kolonnerne op
+        // Binder kolonnerne til GreenTask / Task properties
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("name"));          // Task.getName()
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 
-        // Fyld tabellen med alle grønne opgaver
-        greenTaskTable.getItems().setAll(dataManager.getAllGreenTasks());
+        // Fyld tabellen
+        ObservableList<GreenTask> tasks =
+                FXCollections.observableArrayList(dataManager.getAllGreenTasks());
+        greenTaskTable.setItems(tasks);
 
-        // Opdatér fællespuljen
-        updatePoolLabel();
-
-        statusLabel.setText("");
-    }
-
-    private void updatePoolLabel()
-    {
-        int points = dataManager.getClimateScore().getTotalGreenPoints();
-        poolValueLabel.setText(points + " point");
+        // Vis fællespuljens point
+        int poolPoints = dataManager.getClimateScore().getPoints();
+        poolValueLabel.setText(poolPoints + " point");
     }
 
     @FXML
-    private void handleConfirm()
-    {
-        statusLabel.setText("");
-
+    private void handleConfirm() {
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            statusLabel.setText("Vælg en grøn opgave i tabellen.");
+
+        if (selected == null) {
+            showAlert("Fejl", "Du skal vælge en grøn opgave.");
             return;
         }
 
-        // Læg opgavens værdi til fællespuljen
         dataManager.addPointsToClimateScore(selected.getValue());
-
-
-        updatePoolLabel();
-
-        statusLabel.setText("Opgaven '" + selected.getName() + "' er registreret.");
-
-
+        ViewManager.showView(Views.HOME);
     }
 
     @FXML
-    private void handleCancel()
-    {
-        // Tilbage til hovedsiden
-        ViewManager.showView(Views.MAIN);
+    private void handleBack() {
+        ViewManager.showView(Views.HOME);
     }
 
-
+    private void showAlert(String title, String msg) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
+    }
 }
+

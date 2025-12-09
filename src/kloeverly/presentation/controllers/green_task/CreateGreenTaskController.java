@@ -5,111 +5,90 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import kloeverly.domain.GreenTask;
-import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
+import kloeverly.presentation.core.AcceptsStringArgument;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-public class CreateGreenTaskController implements InitializableController
-{
-    @FXML
-    private TextField nameTextField;          // fx:id fra FXML
+public class CreateGreenTaskController implements InitializableController {
 
     @FXML
-    private TextField valueTextField;         // fx:id fra FXML
+    private TextField titleField;
 
     @FXML
-    private TextArea descriptionTextArea;     // fx:id fra FXML
+    private TextField valueField;
 
     @FXML
-    private Label statusLabel;                // fx:id fra FXML
+    private TextArea descriptionArea;
+
+    @FXML
+    private Label titleErrorLbl;
+
+    @FXML
+    private Label valueErrorLbl;
+
+    @FXML
+    private Label descriptionErrorLbl;
 
     private DataManager dataManager;
 
     @Override
-    public void init(DataManager dataManager)
-    {
+    public void init(DataManager dataManager) {
         this.dataManager = dataManager;
-        statusLabel.setText(""); // Ingen fejl ved start
     }
 
     @FXML
-    private void handleCreate()
-    {
-        // Ryd tidligere besked
-        statusLabel.setText("");
+    private void handleCancel() {
+        ViewManager.showView(Views.ADD_GREEN_TASK);
+    }
 
-        String name = nameTextField.getText().trim();
-        String valueText = valueTextField.getText().trim();
-        String description = descriptionTextArea.getText().trim();
+    @FXML
+    private void handleCreate() {
+        clearErrors();
 
-        boolean hasError = false;
-        StringBuilder errorMsg = new StringBuilder();
+        String title = titleField.getText().trim();
+        String desc = descriptionArea.getText().trim();
 
-        // Titel
-        if (name.isEmpty())
-        {
-            errorMsg.append("Titel må ikke være tom.\n");
-            hasError = true;
+        double value;
+
+        boolean ok = true;
+
+        if (title.isEmpty()) {
+            ok = false;
+            titleErrorLbl.setText("Titel mangler");
         }
 
-        // Værdi
-        int value = 0;
-        if (valueText.isEmpty())
-        {
-            errorMsg.append("Værdi må ikke være tom.\n");
-            hasError = true;
-        }
-        else
-        {
-            try
-            {
-                value = Integer.parseInt(valueText);
-                if (value <= 0)
-                {
-                    errorMsg.append("Værdi skal være et positivt tal.\n");
-                    hasError = true;
-                }
+        try {
+            value = Double.parseDouble(valueField.getText().trim());
+            if (value <= 0) {
+                ok = false;
+                valueErrorLbl.setText("Værdi skal være > 0");
             }
-            catch (NumberFormatException e)
-            {
-                errorMsg.append("Værdi skal være et helt tal.\n");
-                hasError = true;
-            }
+        } catch (Exception e) {
+            ok = false;
+            valueErrorLbl.setText("Ugyldig værdi");
+            value = 0;
         }
 
-        // Beskrivelse
-        if (description.isEmpty())
-        {
-            errorMsg.append("Beskrivelse må ikke være tom.\n");
-            hasError = true;
+        if (desc.isEmpty()) {
+            ok = false;
+            descriptionErrorLbl.setText("Beskrivelse mangler");
         }
 
-        if (hasError)
-        {
-            statusLabel.setText(errorMsg.toString().trim());
-            return;
-        }
+        if (!ok) return;
 
-        // Opret og gem den grønne opgave
-        Task task = new GreenTask(name, description, value);
+        // Opret opgaven
+        GreenTask task = new GreenTask(title, desc, (int) value);
         dataManager.addTask(task);
 
-        // Vis succesbesked (UC-02 trin 5)
-        statusLabel.setText("Den grønne opgave er oprettet.");
-
-        // Ryd felterne efter succes
-        nameTextField.clear();
-        valueTextField.clear();
-        descriptionTextArea.clear();
-        System.out.println("CreateGreenTask loaded!");
+        // Tilbage til grøn opgave-listen
+        ViewManager.showView(Views.ADD_GREEN_TASK);
     }
 
-    @FXML
-    private void handleCancel()
-    {
-        // Tilbage til hovedview – justér hvis I har et specifikt GREEN_TASKS-view
-        ViewManager.showView(Views.MAIN);
+    private void clearErrors() {
+        titleErrorLbl.setText("");
+        valueErrorLbl.setText("");
+        descriptionErrorLbl.setText("");
     }
 }

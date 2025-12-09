@@ -9,7 +9,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.green_task.AddGreenTaskController">
+<VBox prefHeight="600.0" prefWidth="660.0" spacing="20.0"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="kloeverly.presentation.controllers.green_task.AddGreenTaskController">
 
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
@@ -24,28 +27,34 @@
     <Label style="-fx-font-size: 14px;" text="Vælg en grøn opgave i listen herunder og klik 'Bekræft registrering'." />
 
     <!-- Liste over grønne opgaver -->
-    <TableView fx:id="greenTaskTable" prefHeight="350.0">
+    <TableView fx:id="greenTaskTable" prefWidth="700" prefHeight="350">
         <columns>
-            <TableColumn fx:id="idColumn" prefWidth="50" text="ID" />
-            <TableColumn fx:id="nameColumn" prefWidth="180" text="Titel" />
-            <TableColumn fx:id="descriptionColumn" prefWidth="245.60009765625" text="Beskrivelse" />
-            <TableColumn fx:id="valueColumn" prefWidth="154.39999389648438" text="Værdi (fælles point)" />
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="60" />
+            <TableColumn fx:id="titleColumn" text="Titel" prefWidth="180" />
+            <TableColumn fx:id="descriptionColumn" text="Beskrivelse" prefWidth="340" />
+            <TableColumn fx:id="valueColumn" text="Værdi (fælles point)" prefWidth="120" />
         </columns>
     </TableView>
 
     <!-- Fællespulje -->
     <HBox spacing="10">
-        <Label style="-fx-font-weight: bold;" text="Fællespulje:" />
+        <Label text="Fællespulje:" style="-fx-font-weight: bold;" />
         <Label fx:id="poolValueLabel" text="0 point" />
+
     </HBox>
 
     <!-- Knapper -->
     <HBox alignment="CENTER_RIGHT" spacing="15">
-        <Button fx:id="confirmButton" onAction="#handleConfirm" prefWidth="180" text="Bekræft registrering" />
+        <Button fx:id="confirmButton"
+                onAction="#handleConfirm"
+                prefWidth="180"
+                text="Bekræft registrering" />
 
-        <Button onAction="#handleCancel" prefWidth="100" text="Tilbage" />
+        <Button onAction="#handleBack"
+                prefWidth="100" text="Tilbage" />
     </HBox>
 
     <!-- Status besked -->
     <Label fx:id="statusLabel" text="" textFill="red" wrapText="true" />
 </VBox>
+

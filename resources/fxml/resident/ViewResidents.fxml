@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="kloeverly.presentation.controllers.resident.ViewResidentController"
+      prefHeight="600.0" prefWidth="660.0" spacing="30.0">
+
+    <padding>
+        <Insets top="40.0" right="80.0" bottom="40.0" left="80.0"/>
+    </padding>
+
+    <!-- Titel -->
+    <Label fx:id="titleLabel" text="Detaljer for beboer">
+        <font>
+            <Font size="20.0"/>
+        </font>
+    </Label>
+
+    <!-- ID -->
+    <Label fx:id="idLabel" text="ID: "/>
+
+    <!-- Navn -->
+    <Label fx:id="nameLabel" text="Navn: "/>
+
+    <!-- Pointfaktor -->
+    <Label fx:id="pointFactorLabel" text="Pointfaktor: "/>
+
+    <!-- Point -->
+    <Label fx:id="pointsLabel" text="Point: "/>
+
+    <!-- Tilbage-knap -->
+    <Button text="Tilbage" onAction="#handleBack" prefWidth="120.0"/>
+</VBox>

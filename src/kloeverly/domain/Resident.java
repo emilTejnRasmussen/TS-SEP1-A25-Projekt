@@ -9,12 +9,12 @@ public class Resident implements Serializable
     private double pointFactor;
     private int points;
 
-    // ❶ Konstruktør med KUN navn (bruges fx i AddResidentController)
+    // Konstruktør med KUN navn (bruges fx i AddResidentController)
     public Resident(String name) {
         this(name, 1.0);        // standard pointFactor = 1.0
     }
 
-    // ❷ Din eksisterende konstruktør (navn + pointFactor)
+    // eksisterende konstruktør (navn + pointFactor)
     public Resident(String name, double pointFactor){
         this.name = name;
         this.pointFactor = pointFactor;
@@ -60,7 +60,7 @@ public class Resident implements Serializable
         return points;
     }
 
-    // ❸ Ny: hvis vi vil sætte point direkte et sted
+    // hvis vi vil sætte point direkte et sted
     public void setPoints(int points)
     {
         this.points = points;

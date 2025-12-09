@@ -17,6 +17,10 @@ public class ClimateScore implements Serializable
         return totalGreenPoints;
     }
 
+    public int getPoints() {
+        return getTotalGreenPoints();
+    }
+
     public void addPoints(int totalGreenPoints)
     {
         this.totalGreenPoints += totalGreenPoints;

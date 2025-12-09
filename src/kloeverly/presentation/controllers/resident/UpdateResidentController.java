@@ -50,6 +50,7 @@ public class UpdateResidentController implements InitializableController, Accept
         nameTextField.setText(resident.getName());
         factorTextField.setText(resident.getPointFactor() + "");
         pointsTextField.setText(resident.getPoints() + "");
+
     }
 
     @FXML
@@ -65,6 +66,7 @@ public class UpdateResidentController implements InitializableController, Accept
         updated.setId(this.id);
         updated.setPointFactor(factor);
         updated.setPoints(points);
+
 
         dataManager.updateResident(updated);
 

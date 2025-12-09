@@ -6,9 +6,14 @@ import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
 public class RunKloeverly extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Start i MainView.fxml
         ViewManager.init(primaryStage, Views.MAIN);
-        ViewManager.showView(Views.HOME);
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 }
