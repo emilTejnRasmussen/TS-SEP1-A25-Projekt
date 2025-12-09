@@ -41,9 +41,11 @@ public class AddCommonTaskController implements InitializableController
         String name = titleTextField.getText().trim();
         int value = Integer.parseInt(valueTextField.getText().trim());
         String description = descriptionTextArea.getText().trim();
+
         Task task = new CommonTask(name, description, value);
         dataManager.addTask(task);
 
+        ViewManager.updateExternalView();
         ViewManager.showView(Views.COMMON_TASKS);
     }
 

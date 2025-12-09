@@ -95,8 +95,10 @@ public class ViewManager
             externalStage.setOnCloseRequest(e -> {
                 externalBtn.setDisable(false);
                 externalStage = null;
+                externalController = null;
             });
 
+            externalStage.setAlwaysOnTop(true);
             externalStage.show();
         } catch (IOException e)
         {
@@ -111,6 +113,8 @@ public class ViewManager
     }
 
     public static void updateExternalView() {
-        externalController.refresh();
+        if (externalController != null) {
+            externalController.refresh();
+        }
     }
 }
