@@ -14,6 +14,7 @@ import java.io.IOException;
 public class ViewManager
 {
     private static BorderPane mainLayout;
+    private static Stage externalStage;
 
     public static void init(Stage primaryStage, Views initialView) throws IOException
     {
@@ -23,8 +24,8 @@ public class ViewManager
         primaryStage.setScene(scene);
         primaryStage.setTitle("Kløverly");
         primaryStage.getIcons().addAll(
-            new Image(ViewManager.class.getResourceAsStream("/icons/clover1.png")),
-            new Image(ViewManager.class.getResourceAsStream("/icons/clover2.png"))
+                new Image(ViewManager.class.getResourceAsStream("/icons/clover1.png")),
+                new Image(ViewManager.class.getResourceAsStream("/icons/clover2.png"))
         );
         primaryStage.show();
     }
@@ -48,7 +49,8 @@ public class ViewManager
         }
     }
 
-    public static void showView(Views view, String argument){
+    public static void showView(Views view, String argument)
+    {
         try
         {
             FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
@@ -67,19 +69,38 @@ public class ViewManager
         }
     }
 
-    public static void showExternalScreen(Button runExternalScreenBtn){
-        try{
+    public static void showExternalScreen(Button externalBtn)
+    {
+        if (externalStage != null && externalStage.isShowing())
+        {
+            externalStage.toFront();
+            return;
+        }
+
+        try
+        {
             FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(Views.EXTERNAL.getView()));
             Scene scene = new Scene(loader.load(), 600, 400);
-            Stage stage = new Stage();
-            stage.setTitle("Kløverly");
-            stage.setScene(scene);
-            stage.setOnCloseRequest( e -> runExternalScreenBtn.setDisable(false));
-            stage.show();
+
+            externalStage = new Stage();
+            externalStage.setTitle("Kløverly");
+            externalStage.setScene(scene);
+
+            externalStage.setOnCloseRequest(e -> {
+                externalBtn.setDisable(false);
+                externalStage = null;
+            });
+
+            externalStage.show();
         } catch (IOException e)
         {
             Alert error = new Alert(Alert.AlertType.ERROR, "Cannot open external screen.");
             error.show();
         }
+    }
+
+    public static Stage getExternalStage()
+    {
+        return externalStage;
     }
 }
