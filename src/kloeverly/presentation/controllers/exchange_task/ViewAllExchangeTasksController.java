@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 import kloeverly.domain.*;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsFlashMessage;
