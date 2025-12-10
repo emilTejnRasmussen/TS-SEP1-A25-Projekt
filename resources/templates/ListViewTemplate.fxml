@@ -41,22 +41,22 @@
     <HBox alignment="CENTER" spacing="75.0" style="-fx-alignment: s;">
         <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="45.0" prefWidth="85.0" text="Tilføj">
             <font>
-                <Font name="Segoe UI" size="14.0" />
+                <Font name="Segue UI" size="14.0" />
             </font>
         </Button>
         <Button mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="45.0" prefWidth="85.0" text="Detaljer">
             <font>
-                <Font name="Segoe UI" size="14.0" />
+                <Font name="Segue UI" size="14.0" />
             </font>
         </Button>
         <Button mnemonicParsing="false" onAction="#handleUpdate" prefHeight="45.0" prefWidth="85.0" text="Opdater">
             <font>
-                <Font name="Segoe UI" size="14.0" />
+                <Font name="Segue UI" size="14.0" />
             </font>
         </Button>
         <Button mnemonicParsing="false" onAction="#handleDelete" prefHeight="45.0" prefWidth="85.0" text="Slet">
             <font>
-                <Font name="Segoe UI" size="14.0" />
+                <Font name="Segue UI" size="14.0" />
             </font>
         </Button>
     </HBox>

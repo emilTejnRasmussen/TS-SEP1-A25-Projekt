@@ -19,7 +19,7 @@
       </Label>
       <Label text="Under titel">
          <font>
-            <Font name="Segoe UI" size="14.0" />
+            <Font name="Segue UI" size="14.0" />
          </font>
       </Label>
       <Label text="Label">
@@ -30,7 +30,7 @@
       <Label text="Error Label" textFill="#ff2e2e" />
       <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="85.0" text="Knap">
          <font>
-            <Font name="Segoe UI" size="14.0" />
+            <Font name="Segue UI" size="14.0" />
          </font>
       </Button>
       <TextField fx:id="titleTextField" prefHeight="25.0" prefWidth="190.0" promptText="TEXT FIELD" />
