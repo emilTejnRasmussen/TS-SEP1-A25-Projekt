@@ -12,102 +12,57 @@ import java.io.IOException;
 
 public class ViewManager
 {
-  private static BorderPane mainLayout;
+    private static BorderPane mainLayout;
 
-  public static void init(Stage primaryStage, Views initialView)
-      throws IOException
-  {
-    FXMLLoader loader = new FXMLLoader(
-        ViewManager.class.getResource(initialView.getView()));
-    mainLayout = loader.load();
-    Scene scene = new Scene(mainLayout, 900, 600);
-    primaryStage.setScene(scene);
-    primaryStage.setTitle("Kløverly");
-    primaryStage.getIcons().addAll(
-        new Image(ViewManager.class.getResourceAsStream("/icons/clover1.png")),
-        new Image(ViewManager.class.getResourceAsStream("/icons/clover2.png")));
-    primaryStage.show();
-  }
-
-  public static void showView(Views view)
-  {
-    try
+    public static void init(Stage primaryStage, Views initialView) throws IOException
     {
-      FXMLLoader loader = new FXMLLoader(
-          ViewManager.class.getResource(view.getView()));
-      Parent root = loader.load();
-
-      Object controller = loader.getController();
-      ControllerConfigurator.configure(controller);
-
-      mainLayout.setCenter(root);
-
+        FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(initialView.getView()));
+        mainLayout = loader.load();
+        Scene scene = new Scene(mainLayout, 900, 600);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Kløverly");
+        primaryStage.getIcons().addAll(
+            new Image(ViewManager.class.getResourceAsStream("/icons/clover1.png")),
+            new Image(ViewManager.class.getResourceAsStream("/icons/clover2.png"))
+        );
+        primaryStage.show();
     }
-    catch (IOException e)
+
+    public static void showView(Views view)
     {
-      Alert error = new Alert(Alert.AlertType.ERROR,
-          "Cannot find view '" + view.getView() + "'.");
-      error.show();
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
+            Parent root = loader.load();
+
+            Object controller = loader.getController();
+            ControllerConfigurator.configure(controller);
+
+            mainLayout.setCenter(root);
+
+        } catch (IOException e)
+        {
+            Alert error = new Alert(Alert.AlertType.ERROR, "Cannot find view '" + view.getView() + "'.");
+            error.show();
+        }
     }
-  }
 
-  public static void showView(Views view, String argument)
-  {
-    try
-    {
-      FXMLLoader loader = new FXMLLoader(
-          ViewManager.class.getResource(view.getView()));
-      Parent root = loader.load();
+    public static void showView(Views view, String argument){
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
+            Parent root = loader.load();
 
-      AcceptsStringArgument controller = loader.getController();
-      ControllerConfigurator.configure(controller);
+            AcceptsStringArgument controller = loader.getController();
+            ControllerConfigurator.configure(controller);
+            controller.setArgument(argument);
 
-      if (controller instanceof AcceptsStringArgument && argument != null)
-      {
-        ((AcceptsStringArgument) controller).setArgument(argument);
-      }
+            mainLayout.setCenter(root);
 
-      mainLayout.setCenter(root);
-
+        } catch (IOException e)
+        {
+            Alert error = new Alert(Alert.AlertType.ERROR, "Cannot find view '" + view.getView() + "'.");
+            error.show();
+        }
     }
-    catch (IOException e)
-    {
-      Alert error = new Alert(Alert.AlertType.ERROR,
-          "Cannot find view '" + view.getView() + "'.");
-      error.show();
-    }
-  }
-
-  public static void showView(Views view, String argument, String flashMessage)
-  {
-    try
-    {
-      FXMLLoader loader = new FXMLLoader(
-          ViewManager.class.getResource(view.getView()));
-      Parent root = loader.load();
-
-      Object controller = loader.getController();
-
-      if (controller instanceof AcceptsStringArgument && argument != null)
-      {
-        ((AcceptsStringArgument) controller).setArgument(argument);
-      }
-
-      if (controller instanceof AcceptsFlashMessage && flashMessage != null
-          && !flashMessage.isBlank())
-      {
-        ((AcceptsFlashMessage) controller).setFlashMessage(flashMessage);
-      }
-
-      ControllerConfigurator.configure(controller);
-
-      mainLayout.setCenter(root);
-    }
-    catch (IOException e)
-    {
-      Alert error = new Alert(Alert.AlertType.ERROR,
-          "Cannot find view '" + view.getView() + "'.");
-      error.show();
-    }
-  }
 }

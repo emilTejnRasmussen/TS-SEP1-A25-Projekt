@@ -129,7 +129,7 @@
             </Label>
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="20.0">
-            <Button mnemonicParsing="false" onAction="#handleShowExternalScreen" prefHeight="35.0" prefWidth="75.0" text="Kør">
+            <Button fx:id="runExternalScreenBtn" mnemonicParsing="false" onAction="#handleShowExternalScreen" prefHeight="35.0" prefWidth="75.0" text="Kør">
                 <font>
                     <Font size="14.0" />
                 </font>

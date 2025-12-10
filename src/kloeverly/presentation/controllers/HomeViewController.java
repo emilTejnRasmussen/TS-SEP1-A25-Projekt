@@ -2,12 +2,20 @@ package kloeverly.presentation.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
+import kloeverly.presentation.core.ViewManager;
+
+import java.util.Optional;
 
 public class HomeViewController implements InitializableController
 {
+    @FXML
+    private Button runExternalScreenBtn;
     @FXML
     private Label residentAmountLbl;
     @FXML
@@ -30,12 +38,21 @@ public class HomeViewController implements InitializableController
 
     public void handleResetResidentPoints()
     {
-        System.out.println("Not implemented");
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Bekræft nulstilling");
+        confirm.setHeaderText("Nulstil individuelle point");
+        confirm.setContentText("Er du sikker på, at du vil nulstille alle beboers individuelle point?");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            dataManager.resetPointsForAllResidents();
+        }
     }
 
     public void handleShowExternalScreen()
     {
-        System.out.println("Not implemented");
+        ViewManager.showExternalScreen(runExternalScreenBtn);
+        runExternalScreenBtn.setDisable(true);
     }
 
     private void loadStats()
