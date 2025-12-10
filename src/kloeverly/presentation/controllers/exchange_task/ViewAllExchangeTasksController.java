@@ -158,6 +158,7 @@ public class ViewAllExchangeTasksController
       }
     }
 */
+    ViewManager.updateExternalView();
   }
 
   public void handleDeleteTask()
@@ -189,6 +190,7 @@ public class ViewAllExchangeTasksController
     if (result.isPresent() && result.get() == deleteBtn)
     {
       dataManager.deleteTask(selectedTask);
+      ViewManager.updateExternalView();
       ViewManager.showView(Views.EXCHANGE_TASKS, null,
           selectedTask.formatTaskDeleted());
     }
