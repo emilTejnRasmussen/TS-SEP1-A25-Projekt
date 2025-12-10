@@ -53,6 +53,7 @@ public class FileDataManager implements DataManager
     }
   }
 
+  @Override
   public void addResident(Resident resident)
   {
     DataContainer data = loadData();
@@ -60,16 +61,19 @@ public class FileDataManager implements DataManager
     saveData(data);
   }
 
+  @Override
   public List<Resident> getAllResidents()
   {
     return loadData().getResidents();
   }
 
+  @Override
   public Resident getResidentById(int id)
   {
     return loadData().getResidentById(id);
   }
 
+  @Override
   public void deleteResident(Resident resident)
   {
     DataContainer data = loadData();
@@ -77,6 +81,7 @@ public class FileDataManager implements DataManager
     saveData(data);
   }
 
+  @Override
   public void updateResident(Resident residentToBeUpdated)
   {
     DataContainer data = loadData();
@@ -84,6 +89,7 @@ public class FileDataManager implements DataManager
     saveData(data);
   }
 
+  @Override
   public void resetPointsForAllResidents() {
     DataContainer data = loadData();
     data.resetPointForAllResidents();
@@ -102,6 +108,7 @@ public class FileDataManager implements DataManager
     return loadData().getTasks();
   }
 
+  @Override
   public List<ExchangeTask> getAllExchangeTasks()
   {
     return getAllTasks().stream().filter(ExchangeTask.class::isInstance).map(ExchangeTask.class::cast).toList();
