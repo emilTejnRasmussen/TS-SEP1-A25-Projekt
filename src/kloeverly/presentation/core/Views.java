@@ -14,9 +14,9 @@ public enum Views
     "common_task/ViewAllCommonTasks"),
 
   // Exchange Tasks
-  EXCHANGE_TASKS("exchange_task/ViewAllExchangeTasks"),
-  ADD_EXCHANGE_TASK("exchange_task/AddExchangeTask"),
-  VIEW_DETAILED_EXCHANGE_TASK("exchange_task/ViewDetailedExchangeTask"),
+  EXCHANGE_TASKS("exchange_task/ViewAllExchangeTasks"), ADD_EXCHANGE_TASK(
+    "exchange_task/AddExchangeTask"), VIEW_DETAILED_EXCHANGE_TASK(
+    "exchange_task/ViewDetailedExchangeTask"), UPDATE_EXCHANGE_TASK("exchange_task/UpdateExchangeTask"),
 
   // Residents
   ADD_RESIDENT("");
