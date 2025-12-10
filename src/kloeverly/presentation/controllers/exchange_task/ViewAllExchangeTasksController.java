@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import kloeverly.domain.*;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsFlashMessage;
@@ -60,7 +61,7 @@ public class ViewAllExchangeTasksController
 
     if (pendingFlash != null && !pendingFlash.isBlank())
     {
-      Alert alert = new Alert(Alert.AlertType.INFORMATION, pendingFlash,
+      Alert alert = new Alert(Alert.AlertType.NONE, pendingFlash,
           ButtonType.OK);
       alert.setHeaderText(null);
       alert.setTitle("Bekræftelse");
@@ -116,7 +117,47 @@ public class ViewAllExchangeTasksController
 
   public void handleTaskCompleted()
   {
+    /*
+    ExchangeTask selectedTask = allExchangeTaskTable.getSelectionModel()
+        .getSelectedItem();
+    if (selectedTask == null)
+    {
+      return;
+    }
 
+    Dialog<Resident> dialog = new Dialog<>();
+    dialog.setTitle("Registrer byttehandel " + selectedTask.getName());
+    dialog.setContentText(
+        "Byttehandlen \"" + selectedTask.getName() + "\" koster "
+            + selectedTask.getValue() + ".");
+    dialog.setContentText("Vælg modtager af handlen: ");
+    ButtonType completeBtn = new ButtonType("Gem",
+        ButtonBar.ButtonData.OK_DONE);
+    ButtonType cancelBtn = new ButtonType("Annuller",
+        ButtonBar.ButtonData.CANCEL_CLOSE);
+    dialog.getDialogPane().getButtonTypes().setAll(completeBtn, cancelBtn);
+
+    ComboBox<Resident> receiverComboBox = new ComboBox<>();
+    receiverComboBox.getItems().setAll(dataManager.getAllResidents());
+    receiverComboBox.setEditable(false);
+    receiverComboBox.setVisibleRowCount(10);
+    receiverComboBox.setPromptText("Vælg beboer");
+    receiverComboBox.setConverter(new StringConverter<Resident>()
+    {
+      @Override public String toString(Resident resident)
+      {
+        return (resident == null) ?
+            "" :
+            (resident.getId() + ": " + resident.getName() + ", "
+                + resident.getPoints());
+      }
+
+      @Override public Resident fromString(String string)
+      {
+        return receiverComboBox.getValue();
+      }
+    }
+*/
   }
 
   public void handleDeleteTask()
