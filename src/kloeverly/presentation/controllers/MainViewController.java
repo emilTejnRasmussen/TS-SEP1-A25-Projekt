@@ -1,57 +1,66 @@
 package kloeverly.presentation.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.application.Platform;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-public class MainViewController {
+import javax.swing.text.View;
+import java.util.ArrayList;
+import java.util.List;
 
-    @FXML
-    private Button residentsBtn;
+public class MainViewController
+{
+    @FXML private Button residentBtn;
+    @FXML private Button greenBtn;
+    @FXML private Button commonBtn;
+    @FXML private Button exchangeBtn;
 
-    @FXML
-    private Button greenTasksBtn;
+    private List<Button> menuButtons;
 
-    @FXML
-    private Button commonTasksBtn;
+    public void initialize()
+    {
+        menuButtons = List.of(residentBtn, greenBtn, commonBtn, exchangeBtn);
+    }
 
-    @FXML
-    private Button exchangeTasksBtn;
+    public void handleViewResidents()
+    {
+      ViewManager.showView(Views.RESIDENTS);
+    }
 
-    @FXML
-    private Button exitBtn;
-
-    @FXML
-    private void handleViewResidents() {
+    public void handleViewGreenTasks()
+    {
         ViewManager.showView(Views.RESIDENTS);
     }
 
-    @FXML
-    private void handleViewGreenTasks() {
-        ViewManager.showView(Views.GREEN_TASKS);
-    }
-
-    @FXML
-    private void handleViewCommonTasks() {
+    public void handleViewCommonTasks()
+    {
         ViewManager.showView(Views.COMMON_TASKS);
+        removeAllActive();
+        commonBtn.getStyleClass().add("active");
     }
 
-    @FXML
-    private void handleViewExchangeTasks() {
+    public void handleViewExchangeTasks()
+    {
         ViewManager.showView(Views.EXCHANGE_TASKS);
+        removeAllActive();
+        exchangeBtn.getStyleClass().add("active");
     }
 
-    @FXML
-    private void handleShowHomeView() {
+    public void handleShowHomeView()
+    {
         ViewManager.showView(Views.HOME);
+        removeAllActive();
     }
 
-    // --- Exit-knap ---
-
-    @FXML
-    private void handleExit() {
+    public void handleExit()
+    {
         Platform.exit();
+    }
+
+    private void removeAllActive()
+    {
+        menuButtons.forEach(b -> b.getStyleClass().remove("active"));
     }
 }
