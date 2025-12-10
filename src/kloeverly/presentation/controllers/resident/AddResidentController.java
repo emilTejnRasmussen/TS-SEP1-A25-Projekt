@@ -27,7 +27,7 @@ public class AddResidentController implements InitializableController {
     @FXML
     private Label errorLabel;
 
-    // kaldt fra FXML (AddViewTemplate: onAction="#handleAdd")
+
     @FXML
     private void handleAdd() {
         String name = nameField.getText().trim();

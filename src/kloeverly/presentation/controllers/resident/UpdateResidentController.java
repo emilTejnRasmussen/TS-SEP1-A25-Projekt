@@ -51,7 +51,6 @@ public class UpdateResidentController implements InitializableController, Accept
         pointFactorField.setText(String.valueOf(resident.getPointFactor()));
     }
 
-    // kaldt fra FXML: onAction="#handleUpdate"
     @FXML
     private void handleUpdate() {
         if (resident == null) return;
