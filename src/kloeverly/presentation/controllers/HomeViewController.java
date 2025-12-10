@@ -34,6 +34,9 @@ public class HomeViewController implements InitializableController
     {
         this.dataManager = dataManager;
         loadStats();
+        if (ViewManager.getExternalStage() != null){
+            runExternalScreenBtn.setDisable(true);
+        }
     }
 
     public void handleResetResidentPoints()
@@ -51,6 +54,7 @@ public class HomeViewController implements InitializableController
 
     public void handleShowExternalScreen()
     {
+        if (ViewManager.getExternalStage() != null) return;
         ViewManager.showExternalScreen(runExternalScreenBtn);
         runExternalScreenBtn.setDisable(true);
     }
