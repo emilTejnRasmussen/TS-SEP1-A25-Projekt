@@ -1,65 +1,63 @@
 package kloeverly.presentation.controllers;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.application.Platform;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * Controller for venstremenuen (hovednavigationen).
+ * Kalder ViewManager.showView(...) for at skifte view.
+ */
+public class MainViewController {
 
-public class MainViewController
-{
-  @FXML private Button residentBtn;
-  @FXML private Button greenBtn;
-  @FXML private Button commonBtn;
-  @FXML private Button exchangeBtn;
+    @FXML
+    private Button residentsBtn;
 
-  private List<Button> menuButtons;
+    @FXML
+    private Button greenTasksBtn;
 
-  public void initialize()
-  {
-    menuButtons = List.of(residentBtn, greenBtn, commonBtn, exchangeBtn);
-  }
+    @FXML
+    private Button commonTasksBtn;
 
-  public void handleViewResidents()
-  {
-      ViewManager.showView(Views.RESIDENTS);
-  }
+    @FXML
+    private Button exchangeTasksBtn;
 
-  public void handleViewGreenTasks()
-  {
+    @FXML
+    private Button exitBtn;
 
-  }
+    // --- Navigation ---
 
-  public void handleViewCommonTasks()
-  {
-    ViewManager.showView(Views.COMMON_TASKS);
-    removeAllActive();
-    commonBtn.getStyleClass().add("active");
-  }
+    @FXML
+    private void handleViewResidents() {
+        ViewManager.showView(Views.RESIDENTS);
+    }
 
-  public void handleViewExchangeTasks()
-  {
-    ViewManager.showView(Views.EXCHANGE_TASKS);
-    removeAllActive();
-    exchangeBtn.getStyleClass().add("active");
-  }
+    @FXML
+    private void handleViewGreenTasks() {
+        ViewManager.showView(Views.GREEN_TASKS);
+    }
 
-  public void handleShowHomeView()
-  {
-    ViewManager.showView(Views.HOME);
-    removeAllActive();
-  }
+    @FXML
+    private void handleViewCommonTasks() {
+        ViewManager.showView(Views.COMMON_TASKS);
+    }
 
-  public void handleExit()
-  {
-    Platform.exit();
-  }
+    @FXML
+    private void handleViewExchangeTasks() {
+        ViewManager.showView(Views.EXCHANGE_TASKS);
+    }
 
-  private void removeAllActive()
-  {
-    menuButtons.forEach(b -> b.getStyleClass().remove("active"));
-  }
+    @FXML
+    private void handleShowHomeView() {
+        ViewManager.showView(Views.HOME);
+    }
+
+    // --- Exit-knap ---
+
+    @FXML
+    private void handleExit() {
+        Platform.exit();
+    }
 }

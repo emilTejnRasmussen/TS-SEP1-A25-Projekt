@@ -2,38 +2,23 @@ package kloeverly.presentation.controllers.resident;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import kloeverly.domain.Resident;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-/**
- * Controller for ViewAllResidents.fxml
- */
 public class ViewAllResidentsController implements InitializableController {
 
     // --- Data-adgang (injiceres af ControllerConfigurator) ---
     private DataManager dataManager;
 
-    @Override
-    public void init(DataManager dataManager) {
-        this.dataManager = dataManager;
-
-        // Hent rigtige beboere fra data-laget
-        residents.setAll(this.dataManager.getAllResidents());
-        // FilteredList + TableView er allerede sat op i initialize(), så de opdateres automatisk
-    }
-
-    // --- FXML-felter (samme navne som fx:id i FXML) ---
-
+    // --- FXML-felter (match fx:id i ViewAllResidents.fxml) ---
     @FXML
     private TextField searchField;
 
@@ -41,38 +26,43 @@ public class ViewAllResidentsController implements InitializableController {
     private TableView<Resident> residentTable;
 
     @FXML
-    private TableColumn<Resident, Integer> idColumn;
+    private TableColumn<Resident, Number> idColumn;
 
     @FXML
     private TableColumn<Resident, String> nameColumn;
 
     @FXML
-    private TableColumn<Resident, Double> pointFactorColumn;
+    private TableColumn<Resident, Number> pointFactorColumn;
 
     @FXML
-    private TableColumn<Resident, Integer> pointsColumn;
+    private TableColumn<Resident, Number> pointsColumn;
 
-    // --- Data til tabellen ---
+    // Liste med alle beboere (grundliste)
+    private final ObservableList<Resident> residents =
+            FXCollections.observableArrayList();
 
-    private final ObservableList<Resident> residents = FXCollections.observableArrayList();
-    private final FilteredList<Resident> filteredResidents =
-            new FilteredList<>(residents, r -> true);
+    @Override
+    public void init(DataManager dataManager) {
+        this.dataManager = dataManager;
+        configureColumns();
+        loadResidents();
+    }
 
-    /**
-     * JavaFX initialize – kaldes automatisk efter FXML er loadet.
-     */
-    @FXML
-    private void initialize() {
-        // Bind kolonner til properties i Resident (getId, getName, getPointFactor, getPoints)
+    // Sæt op hvordan kolonnerne læser værdier fra Resident
+    private void configureColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         pointFactorColumn.setCellValueFactory(new PropertyValueFactory<>("pointFactor"));
         pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
-
-        residentTable.setItems(filteredResidents);
     }
 
-    // --- Knapper nederst ---
+    // Hent alle beboere fra DataManager
+    private void loadResidents() {
+        residents.setAll(dataManager.getAllResidents());
+        residentTable.setItems(residents);
+    }
+
+    // --- Knap-handlers ---
 
     @FXML
     private void handleAddResident() {
@@ -83,69 +73,67 @@ public class ViewAllResidentsController implements InitializableController {
     private void handleViewResident() {
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            System.out.println("Vælg en beboer før du kan se detaljer.");
+            // her kunne man evt. vise en Alert, men det er ikke et krav
             return;
         }
 
-        // Senere kan I sende ID videre:
-        // ViewManager.showView(Views.VIEW_SINGLE_RESIDENT, String.valueOf(selected.getId()));
-        ViewManager.showView(Views.VIEW_SINGLE_RESIDENT);
+        ViewManager.showView(
+                Views.VIEW_SINGLE_RESIDENT,
+                String.valueOf(selected.getId())
+        );
     }
 
     @FXML
     private void handleUpdateResident() {
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            System.out.println("Vælg en beboer før du kan redigere.");
             return;
         }
 
-        // ViewManager.showView(Views.UPDATE_RESIDENT, String.valueOf(selected.getId()));
-        ViewManager.showView(Views.UPDATE_RESIDENT);
+        ViewManager.showView(
+                Views.UPDATE_RESIDENT,
+                String.valueOf(selected.getId())
+        );
     }
 
     @FXML
     private void handleDeleteResident() {
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            System.out.println("Vælg en beboer før du kan slette.");
             return;
         }
 
-        // Slet i data-lag
         dataManager.deleteResident(selected);
-
-        // Fjern fra listen/tabel
-        residents.remove(selected);
+        loadResidents();  // opdatér tabellen efter sletning
     }
 
-    // --- Søgning ---
+    // --- Søgning i beboer-listen ---
 
-    /**
-     * Kaldes fra TextField: onKeyTyped="#handleSearch"
-     */
     @FXML
-    private void handleSearch(KeyEvent event) {
-        String term = searchField.getText().trim().toLowerCase();
+    private void handleSearch() {
+        String query = searchField.getText();
+        if (query == null) {
+            query = "";
+        }
+        query = query.trim().toLowerCase();
 
-        filteredResidents.setPredicate(resident -> {
-            if (term.isEmpty()) return true;
+        if (query.isEmpty()) {
+            residentTable.setItems(residents);
+            return;
+        }
 
-            boolean matchesName = resident.getName() != null &&
-                    resident.getName().toLowerCase().contains(term);
-
-            boolean matchesId = String.valueOf(resident.getId()).contains(term);
-
-            return matchesName || matchesId;
-        });
+        ObservableList<Resident> filtered = FXCollections.observableArrayList();
+        for (Resident r : residents) {
+            if (r.getName().toLowerCase().contains(query)) {
+                filtered.add(r);
+            }
+        }
+        residentTable.setItems(filtered);
     }
 
-    /**
-     * Kaldes fra Nulstil-knappen: onAction="#handleClearSearch"
-     */
     @FXML
     private void handleClearSearch() {
         searchField.clear();
-        filteredResidents.setPredicate(r -> true);
+        residentTable.setItems(residents);
     }
 }

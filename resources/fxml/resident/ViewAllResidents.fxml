@@ -10,7 +10,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600" prefWidth="660" spacing="20" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.resident.ViewAllResidentsController">
+<VBox prefHeight="600" prefWidth="660" spacing="20"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="kloeverly.presentation.controllers.resident.ViewAllResidentsController">
 
     <padding>
         <Insets bottom="20" left="50" right="50" top="20" />
@@ -24,7 +27,8 @@
     <!-- SØGEFELT + CLEAR -->
     <VBox spacing="20">
         <HBox spacing="20">
-            <TextField fx:id="searchField" onKeyTyped="#handleSearch" prefHeight="30" promptText="Søg efter beboer" />
+            <TextField fx:id="searchField" onKeyTyped="#handleSearch" prefHeight="30"
+                       promptText="Søg efter beboer" />
             <Button onAction="#handleClearSearch" prefWidth="75" text="Søg" />
         </HBox>
 
