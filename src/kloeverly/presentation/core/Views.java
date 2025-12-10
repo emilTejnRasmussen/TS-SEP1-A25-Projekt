@@ -6,30 +6,42 @@ public enum Views
     HOME("HomeView"),
     EXTERNAL("ExternalScreenView"),
 
-  //Common Tasks
-  ADD_COMMON_TASK("common_task/AddCommonTask"), UPDATE_COMMON_TASK(
-    "common_task/UpdateCommonTask"), REGISTER_COMMON_TASK(
-    "common_task/RegisterCommonTask"), COMMON_TASK(
-    "common_task/ViewSingleCommonTask"), COMMON_TASKS(
-    "common_task/ViewAllCommonTasks"),
+    //Common Tasks
+    ADD_COMMON_TASK("common_task/AddCommonTask"), UPDATE_COMMON_TASK(
+        "common_task/UpdateCommonTask"), REGISTER_COMMON_TASK(
+        "common_task/RegisterCommonTask"), COMMON_TASK(
+        "common_task/ViewSingleCommonTask"), COMMON_TASKS(
+        "common_task/ViewAllCommonTasks"),
 
-  // Exchange Tasks
-  EXCHANGE_TASKS("exchange_task/ViewAllExchangeTasks"),
-  ADD_EXCHANGE_TASK("exchange_task/AddExchangeTask"),
-  VIEW_DETAILED_EXCHANGE_TASK("exchange_task/ViewDetailedExchangeTask"),
+    // Green Tasks
 
-  // Residents
-  ADD_RESIDENT("");
+    GREEN_TASKS("green_task/ViewAllGreenTasks"),
+    ADD_GREEN_TASK("green_task/AddGreenTask"),
+    VIEW_SINGLE_GREEN_TASK("green_task/ViewGreenTask"),
+    UPDATE_GREEN_TASK("green_task/UpdateGreenTask"),
 
-  private final String view;
+    // Residents
 
-  Views(String view)
-  {
-    this.view = view;
-  }
+    RESIDENTS("resident/ViewAllResidents"),
+    ADD_RESIDENT("resident/AddResident"),
+    VIEW_SINGLE_RESIDENT("resident/ViewResident"),
+    UPDATE_RESIDENT("resident/UpdateResident"),
 
-  public String getView()
-  {
-    return "/fxml/" + this.view + ".fxml";
-  }
+    // Exchange Tasks
+    EXCHANGE_TASKS("exchange_task/ViewAllExchangeTasks"),
+    ADD_EXCHANGE_TASK("exchange_task/AddExchangeTask"),
+    VIEW_DETAILED_EXCHANGE_TASK("exchange_task/ViewDetailedExchangeTask"),
+    UPDATE_EXCHANGE_TASK("exchange_task/UpdateExchangeTask");
+
+    private final String view;
+
+    Views(String view)
+    {
+        this.view = view;
+    }
+
+    public String getView()
+    {
+        return "/fxml/" + this.view + ".fxml";
+    }
 }
