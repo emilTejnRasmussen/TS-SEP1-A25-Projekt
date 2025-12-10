@@ -146,20 +146,4 @@ public class ViewManager
       error.show();
     }
   }
-
-  public static void showExternalScreen(Button runExternalScreenBtn){
-    try{
-      FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(Views.EXTERNAL.getView()));
-      Scene scene = new Scene(loader.load(), 600, 400);
-      Stage stage = new Stage();
-      stage.setTitle("Kløverly");
-      stage.setScene(scene);
-      stage.setOnCloseRequest( e -> runExternalScreenBtn.setDisable(false));
-      stage.show();
-    } catch (IOException e)
-    {
-      Alert error = new Alert(Alert.AlertType.ERROR, "Cannot open external screen.");
-      error.show();
-    }
-  }
 }
