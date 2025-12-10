@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import kloeverly.presentation.controllers.ExternalScreenController;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -15,6 +16,9 @@ import java.util.Objects;
 public class ViewManager
 {
     private static BorderPane mainLayout;
+
+    private static Stage externalStage;
+    private static ExternalScreenController externalController;
 
     public static void init(Stage primaryStage, Views initialView) throws IOException
     {
@@ -51,7 +55,8 @@ public class ViewManager
         }
     }
 
-    public static void showView(Views view, String argument){
+    public static void showView(Views view, String argument)
+    {
         try
         {
             FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
@@ -70,6 +75,51 @@ public class ViewManager
         }
     }
 
+    public static void showExternalScreen(Button externalBtn)
+    {
+        if (externalStage != null && externalStage.isShowing())
+        {
+            externalStage.toFront();
+            return;
+        }
+
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(Views.EXTERNAL.getView()));
+            Scene scene = new Scene(loader.load(), 900, 900);
+
+            externalController = loader.getController();
+            ControllerConfigurator.configure(externalController);
+
+            externalStage = new Stage();
+            externalStage.setTitle("Kløverly");
+            externalStage.setScene(scene);
+
+            externalStage.setOnCloseRequest(e -> {
+                externalBtn.setDisable(false);
+                externalStage = null;
+                externalController = null;
+            });
+
+            externalStage.setAlwaysOnTop(true);
+            externalStage.show();
+        } catch (IOException e)
+        {
+            Alert error = new Alert(Alert.AlertType.ERROR, "Cannot open external screen.");
+            error.show();
+        }
+    }
+
+    public static Stage getExternalStage()
+    {
+        return externalStage;
+    }
+
+    public static void updateExternalView() {
+        if (externalController != null) {
+            externalController.refresh();
+        }
+    }
   public static void showView(Views view, String argument, String flashMessage){
     try
     {
