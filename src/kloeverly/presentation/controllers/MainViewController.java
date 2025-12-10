@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-import javax.swing.text.View;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainViewController
@@ -27,11 +25,15 @@ public class MainViewController
     public void handleViewResidents()
     {
       ViewManager.showView(Views.RESIDENTS);
+        removeAllActive();
+        residentBtn.getStyleClass().add("active");
     }
 
     public void handleViewGreenTasks()
     {
-        ViewManager.showView(Views.RESIDENTS);
+        ViewManager.showView(Views.GREEN_TASKS);
+        removeAllActive();
+        greenBtn.getStyleClass().add("active");
     }
 
     public void handleViewCommonTasks()

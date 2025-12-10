@@ -92,7 +92,7 @@
             <VBox spacing="10.0">
 
                 <!-- Beboere -->
-                <Button fx:id="residentsBtn"
+                <Button fx:id="residentBtn"
                         alignment="TOP_LEFT"
                         graphicTextGap="25.0"
                         maxWidth="1.7976931348623157E308"
@@ -118,7 +118,7 @@
                 </Button>
 
                 <!-- Grønne -->
-                <Button fx:id="greenTasksBtn"
+                <Button fx:id="greenBtn"
                         alignment="TOP_LEFT"
                         graphicTextGap="25.0"
                         maxWidth="1.7976931348623157E308"
@@ -144,7 +144,7 @@
                 </Button>
 
                 <!-- Fælles -->
-                <Button fx:id="commonTasksBtn"
+                <Button fx:id="commonBtn"
                         alignment="TOP_LEFT"
                         graphicTextGap="25.0"
                         maxWidth="1.7976931348623157E308"
@@ -170,7 +170,7 @@
                 </Button>
 
                 <!-- Bytte -->
-                <Button fx:id="exchangeTasksBtn"
+                <Button fx:id="exchangeBtn"
                         alignment="TOP_LEFT"
                         graphicTextGap="25.0"
                         maxWidth="1.7976931348623157E308"
