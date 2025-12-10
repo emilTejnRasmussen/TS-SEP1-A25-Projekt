@@ -47,7 +47,6 @@ public class ViewResidentController implements InitializableController, AcceptsS
         pointsLabel.setText(String.valueOf(resident.getPoints()));
     }
 
-    // Kaldt fra ViewTemplate-knappen "Opdater"
     @FXML
     private void handleUpdate() {
         if (resident == null) return;
@@ -58,7 +57,6 @@ public class ViewResidentController implements InitializableController, AcceptsS
         );
     }
 
-    // Kaldt fra ViewTemplate-knappen "Tilbage"
     @FXML
     private void handleGoBack() {
         ViewManager.showView(Views.RESIDENTS);

@@ -21,31 +21,26 @@
         <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
     </padding>
 
-    <!-- Titel -->
     <Label text="Tilføj grøn opgave">
         <font>
             <Font size="36.0"/>
         </font>
     </Label>
 
-    <!-- Form-område -->
     <VBox prefHeight="396.0" prefWidth="560.0" spacing="10.0">
 
-        <GridPane hgap="10.0" vgap="10.0"><!-- Navn -->
-            <Label text="Navn:"
+        <GridPane hgap="10.0" vgap="10.0">
                    GridPane.rowIndex="0" GridPane.columnIndex="0"/>
             <TextField fx:id="nameField"
                        promptText="Navn på grøn opgave"
                        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-            <!-- Beskrivelse -->
             <Label text="Beskrivelse:"
                    GridPane.rowIndex="1" GridPane.columnIndex="0"/>
             <TextField fx:id="descriptionField"
                        promptText="Kort beskrivelse"
                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-            <!-- Point -->
             <Label text="Point:"
                    GridPane.rowIndex="2" GridPane.columnIndex="0"/>
             <TextField fx:id="pointsField"
@@ -54,11 +49,10 @@
 
         </GridPane>
 
-        <!-- Fejlbesked -->
         <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
     </VBox>
 
-    <!-- Knapper (fra AddViewTemplate) -->
+
     <HBox alignment="CENTER" spacing="75.0">
         <Button mnemonicParsing="false"
                 onAction="#handleAdd"

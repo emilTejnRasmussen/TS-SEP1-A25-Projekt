@@ -9,16 +9,10 @@ import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-/**
- * Controller til at tilføje en ny grøn opgave.
- * Matcher AddGreenTask.fxml og følger AddViewTemplate-mønsteret.
- */
 public class AddGreenTaskController implements InitializableController {
 
-    // --- Data-adgang (injiceres af ControllerConfigurator) ---
-    private DataManager dataManager;
 
-    // --- FXML-felter ---
+    private DataManager dataManager;
 
     @FXML
     private TextField nameField;
@@ -36,8 +30,6 @@ public class AddGreenTaskController implements InitializableController {
     public void init(DataManager dataManager) {
         this.dataManager = dataManager;
     }
-
-    // --- Knap-handlers ---
 
     @FXML
     private void handleAdd() {
@@ -58,12 +50,11 @@ public class AddGreenTaskController implements InitializableController {
             return;
         }
 
-        // Opret grøn opgave (tilpas constructor hvis jeres GreenTask er anderledes)
         GreenTask task = new GreenTask(name, description, points);
 
         dataManager.addTask(task);
 
-        // Tilbage til oversigten
+
         ViewManager.showView(Views.GREEN_TASKS);
     }
 

@@ -22,14 +22,14 @@
         <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
     </padding>
 
-    <!-- Titel -->
+
     <Label text="Grønne opgaver">
         <font>
             <Font size="36.0"/>
         </font>
     </Label>
 
-    <!-- Søgning -->
+
     <HBox spacing="10.0">
         <TextField fx:id="searchField"
                    promptText="Søg efter grøn opgave..."
@@ -38,7 +38,7 @@
                 onAction="#handleClearSearch"/>
     </HBox>
 
-    <!-- Tabel -->
+
     <TableView fx:id="greenTaskTable" prefHeight="400.0">
         <columns>
             <TableColumn fx:id="nameColumn"
@@ -50,7 +50,7 @@
         </columns>
     </TableView>
 
-    <!-- Knapper nederst -->
+
     <HBox alignment="CENTER_RIGHT" spacing="10.0">
 
         <Button text="Tilføj"

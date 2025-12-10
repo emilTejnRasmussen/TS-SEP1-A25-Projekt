@@ -15,10 +15,9 @@ import kloeverly.presentation.core.Views;
 
 public class ViewAllResidentsController implements InitializableController {
 
-    // --- Data-adgang (injiceres af ControllerConfigurator) ---
+
     private DataManager dataManager;
 
-    // --- FXML-felter (match fx:id i ViewAllResidents.fxml) ---
     @FXML
     private TextField searchField;
 
@@ -37,7 +36,6 @@ public class ViewAllResidentsController implements InitializableController {
     @FXML
     private TableColumn<Resident, Number> pointsColumn;
 
-    // Liste med alle beboere (grundliste)
     private final ObservableList<Resident> residents =
             FXCollections.observableArrayList();
 
@@ -48,7 +46,6 @@ public class ViewAllResidentsController implements InitializableController {
         loadResidents();
     }
 
-    // Sæt op hvordan kolonnerne læser værdier fra Resident
     private void configureColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -56,13 +53,11 @@ public class ViewAllResidentsController implements InitializableController {
         pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
     }
 
-    // Hent alle beboere fra DataManager
+
     private void loadResidents() {
         residents.setAll(dataManager.getAllResidents());
         residentTable.setItems(residents);
     }
-
-    // --- Knap-handlers ---
 
     @FXML
     private void handleAddResident() {
@@ -106,8 +101,6 @@ public class ViewAllResidentsController implements InitializableController {
         dataManager.deleteResident(selected);
         loadResidents();  // opdatér tabellen efter sletning
     }
-
-    // --- Søgning i beboer-listen ---
 
     @FXML
     private void handleSearch() {

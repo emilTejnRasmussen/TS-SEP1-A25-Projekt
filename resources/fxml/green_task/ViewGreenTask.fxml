@@ -18,14 +18,14 @@
         <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
     </padding>
 
-    <!-- Titel -->
+
     <Label text="Grøn opgave detaljer">
         <font>
             <Font size="36.0"/>
         </font>
     </Label>
 
-    <!-- Felter -->
+
     <VBox spacing="5.0">
 
         <Label text="Navn:"/>
@@ -42,7 +42,7 @@
 
     </VBox>
 
-    <!-- Tilbage-knap -->
+
     <Button text="Tilbage"
             onAction="#handleBack"
             prefWidth="90.0" prefHeight="35.0"/>

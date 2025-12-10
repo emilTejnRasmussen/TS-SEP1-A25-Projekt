@@ -6,10 +6,6 @@ import javafx.application.Platform;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-/**
- * Controller for venstremenuen (hovednavigationen).
- * Kalder ViewManager.showView(...) for at skifte view.
- */
 public class MainViewController {
 
     @FXML
@@ -26,8 +22,6 @@ public class MainViewController {
 
     @FXML
     private Button exitBtn;
-
-    // --- Navigation ---
 
     @FXML
     private void handleViewResidents() {

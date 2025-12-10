@@ -19,12 +19,12 @@
         <Insets bottom="20" left="50" right="50" top="20" />
     </padding>
 
-    <!-- Titel -->
+
     <Label text="Beboere">
         <font><Font size="36" /></font>
     </Label>
 
-    <!-- SØGEFELT + CLEAR -->
+
     <VBox spacing="20">
         <HBox spacing="20">
             <TextField fx:id="searchField" onKeyTyped="#handleSearch" prefHeight="30"
@@ -32,7 +32,7 @@
             <Button onAction="#handleClearSearch" prefWidth="75" text="Søg" />
         </HBox>
 
-        <!-- TABEL -->
+
         <TableView fx:id="residentTable" prefHeight="335">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="75" text="ID" />
@@ -46,7 +46,6 @@
         </TableView>
     </VBox>
 
-    <!-- KNAPPER -->
     <HBox alignment="CENTER" spacing="75">
         <Button onAction="#handleAddResident" prefWidth="85" text="Tilføj" />
         <Button onAction="#handleViewResident" prefWidth="85" text="Detaljer" />
