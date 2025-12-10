@@ -30,7 +30,7 @@
     <VBox prefHeight="396.0" prefWidth="560.0" spacing="10.0">
 
         <GridPane hgap="10.0" vgap="10.0">
-                   GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+
             <TextField fx:id="nameField"
                        promptText="Navn på grøn opgave"
                        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
