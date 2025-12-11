@@ -12,6 +12,6 @@ public class CommonTask extends Task implements Serializable
     @Override
     public void completed(Resident byResident)
     {
-        byResident.addPoints(this.getValue());
+        byResident.addPoints((int) Math.round(this.getValue() * byResident.getPointFactor()));
     }
 }

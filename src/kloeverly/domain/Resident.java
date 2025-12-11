@@ -58,4 +58,10 @@ public class Resident implements Serializable
   {
     this.points = 0;
   }
+
+    @Override
+    public String toString()
+    {
+        return id + ": " + name;
+    }
 }
