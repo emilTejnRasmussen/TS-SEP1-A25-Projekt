@@ -1,11 +1,15 @@
 package kloeverly.presentation.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
@@ -14,6 +18,8 @@ import java.util.Optional;
 
 public class HomeViewController implements InitializableController
 {
+    @FXML
+    private PieChart pieChart;
     @FXML
     private Button runExternalScreenBtn;
     @FXML
@@ -37,6 +43,18 @@ public class HomeViewController implements InitializableController
         if (ViewManager.getExternalStage() != null){
             runExternalScreenBtn.setDisable(true);
         }
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        int green = dataManager.getAllGreenTasks().size();
+        int exchange = dataManager.getAllExchangeTasks().size();
+        int common = dataManager.getAllCommonTasks().size();
+
+        if (green > 0)  pieChartData.add(new PieChart.Data("Grønne", green));
+        if (exchange > 0) pieChartData.add(new PieChart.Data("Bytte", exchange));
+        if (common > 0) pieChartData.add(new PieChart.Data("Fælles", common));
+
+        pieChart.setData(pieChartData);
     }
 
     public void handleResetResidentPoints()

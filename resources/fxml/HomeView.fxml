@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -34,21 +32,6 @@
     </VBox>
     <Separator prefWidth="200.0" />
     <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-        <VBox alignment="CENTER" spacing="10.0">
-            <Label text="Beboers individuelle point">
-                <font>
-                    <Font name="System Bold" size="18.0" />
-                </font>
-            </Label>
-            <StackedBarChart prefHeight="150.0" prefWidth="278.0">
-                <xAxis>
-                    <CategoryAxis side="BOTTOM" />
-                </xAxis>
-                <yAxis>
-                    <NumberAxis side="LEFT" />
-                </yAxis>
-            </StackedBarChart>
-        </VBox>
         <VBox alignment="CENTER" prefHeight="177.0" prefWidth="267.0" spacing="10.0">
             <Label text="Antal:">
                 <font>
@@ -107,6 +90,12 @@
                     </Label>
                 </VBox>
             </HBox>
+         <padding>
+            <Insets left="40.0" />
+         </padding>
+        </VBox>
+        <VBox alignment="CENTER" spacing="10.0">
+         <PieChart fx:id="pieChart" minHeight="200.0" prefHeight="157.0" prefWidth="261.0" />
         </VBox>
     </HBox>
     <Separator prefWidth="200.0" />
