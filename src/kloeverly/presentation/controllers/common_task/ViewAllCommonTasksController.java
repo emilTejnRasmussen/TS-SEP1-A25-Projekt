@@ -81,6 +81,7 @@ public class ViewAllCommonTasksController implements InitializableController, Ac
             dataManager.deleteTask(selectedTask);
             showTable(dataManager.getAllCommonTasks());
             ViewManager.updateExternalView();
+            setFlashMessage(selectedTask.formatTaskDeleted());
         }
 
     }
