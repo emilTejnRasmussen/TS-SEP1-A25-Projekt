@@ -47,7 +47,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
         dataManager.completeTask(this.id, byResident);
 
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.COMMON_TASKS);
+        ViewManager.showView(Views.COMMON_TASKS, null, selectedTask.formatTaskCompleted(byResident));
     }
 
     public void handleCancel()

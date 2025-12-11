@@ -46,7 +46,7 @@ public class AddCommonTaskController implements InitializableController
         dataManager.addTask(task);
 
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.COMMON_TASKS);
+        ViewManager.showView(Views.COMMON_TASKS, null, task.formatTaskAdded());
     }
 
     public void handleCancel()

@@ -7,14 +7,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.CommonTask;
 import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
+import kloeverly.presentation.core.AcceptsFlashMessage;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ViewAllCommonTasksController implements InitializableController
+public class ViewAllCommonTasksController implements InitializableController, AcceptsFlashMessage
 {
     @FXML
     private TableView<CommonTask> allCommonTasksTable;
@@ -74,7 +76,8 @@ public class ViewAllCommonTasksController implements InitializableController
         confirm.setContentText("Er du sikker på, at du vil slette: '" + selectedTask.getName() + "'?");
 
         Optional<ButtonType> result = confirm.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK)
+        {
             dataManager.deleteTask(selectedTask);
             showTable(dataManager.getAllCommonTasks());
             ViewManager.updateExternalView();
@@ -82,7 +85,8 @@ public class ViewAllCommonTasksController implements InitializableController
 
     }
 
-    private void showTable(List<CommonTask> tasks){
+    private void showTable(List<CommonTask> tasks)
+    {
         allCommonTasksTable.getItems().clear();
 
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -97,5 +101,11 @@ public class ViewAllCommonTasksController implements InitializableController
         if (task == null) return;
 
         ViewManager.showView(Views.REGISTER_COMMON_TASK, task.getId() + "");
+    }
+
+    @Override
+    public void setFlashMessage(String message)
+    {
+        UtilityMethods.showFlashMessage(message);
     }
 }

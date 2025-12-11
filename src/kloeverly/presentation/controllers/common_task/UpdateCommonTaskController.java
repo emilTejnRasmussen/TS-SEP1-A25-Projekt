@@ -52,7 +52,7 @@ public class UpdateCommonTaskController implements InitializableController, Acce
         this.dataManager.updateTask(task);
 
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.COMMON_TASK, this.id + "");
+        ViewManager.showView(Views.COMMON_TASK, this.id + "", task.formatTaskUpdated());
 
     }
 
