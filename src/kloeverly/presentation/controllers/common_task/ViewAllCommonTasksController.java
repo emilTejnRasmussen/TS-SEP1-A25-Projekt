@@ -1,6 +1,5 @@
 package kloeverly.presentation.controllers.common_task;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
