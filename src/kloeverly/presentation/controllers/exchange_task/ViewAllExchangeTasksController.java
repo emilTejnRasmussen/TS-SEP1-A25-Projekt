@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 import kloeverly.domain.*;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsFlashMessage;
@@ -158,6 +157,7 @@ public class ViewAllExchangeTasksController
       }
     }
 */
+    ViewManager.updateExternalView();
   }
 
   public void handleDeleteTask()
@@ -189,6 +189,7 @@ public class ViewAllExchangeTasksController
     if (result.isPresent() && result.get() == deleteBtn)
     {
       dataManager.deleteTask(selectedTask);
+      ViewManager.updateExternalView();
       ViewManager.showView(Views.EXCHANGE_TASKS, null,
           selectedTask.formatTaskDeleted());
     }
