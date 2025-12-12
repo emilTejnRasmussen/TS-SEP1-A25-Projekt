@@ -2,21 +2,25 @@ package kloeverly.presentation.controllers.green_task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.GreenTask;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 public class ViewAllGreenTasksController implements InitializableController
 {
-    private DataManager dataManager;
+    @FXML
+    private Button deleteBtn;
+    @FXML
+    private Button detailsBtn;
+    @FXML
+    private Button registerBtn;
 
     @FXML
     private TextField searchTxtField;
@@ -33,19 +37,17 @@ public class ViewAllGreenTasksController implements InitializableController
     @FXML
     private TableColumn<GreenTask, Number> pointsColumn;
 
-    @FXML
-    private Label errorLabel;
-
+    private DataManager dataManager;
     private final ObservableList<GreenTask> allGreenTasks = FXCollections.observableArrayList();
 
     @Override
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
-        errorLabel.setText("");
 
         configureColumns();
         loadGreenTasks();
+        UtilityMethods.buttonListener(greenTaskTable, detailsBtn, registerBtn, deleteBtn);
     }
 
     private void configureColumns()
@@ -66,21 +68,15 @@ public class ViewAllGreenTasksController implements InitializableController
     @FXML
     private void handleAdd()
     {
-        errorLabel.setText("");
         ViewManager.showView(Views.ADD_GREEN_TASK);
     }
 
     @FXML
     private void handleViewDetails()
     {
-        errorLabel.setText("");
 
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en grøn opgave i listen.");
-            return;
-        }
+        if (selected == null) return;
 
         ViewManager.showView(Views.VIEW_SINGLE_GREEN_TASK, String.valueOf(selected.getId()));
     }
@@ -88,14 +84,9 @@ public class ViewAllGreenTasksController implements InitializableController
     @FXML
     private void handleUpdate()
     {
-        errorLabel.setText("");
 
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en grøn opgave i listen.");
-            return;
-        }
+        if (selected == null) return;
 
         ViewManager.showView(Views.UPDATE_GREEN_TASK, String.valueOf(selected.getId()));
     }
@@ -103,14 +94,9 @@ public class ViewAllGreenTasksController implements InitializableController
     @FXML
     private void handleDelete()
     {
-        errorLabel.setText("");
 
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en grøn opgave i listen.");
-            return;
-        }
+        if (selected == null) return;
 
         dataManager.deleteTask(selected);
         ViewManager.updateExternalView();
@@ -145,9 +131,13 @@ public class ViewAllGreenTasksController implements InitializableController
     @FXML
     private void handleClearSearchBar()
     {
-        errorLabel.setText("");
         searchTxtField.clear();
         greenTaskTable.setItems(allGreenTasks);
+    }
+
+    public void handleRegister()
+    {
+        ViewManager.showView(Views.REGISTER_GREEN_TASK);
     }
 }
 

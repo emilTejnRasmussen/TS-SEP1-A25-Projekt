@@ -42,23 +42,7 @@ public class ViewAllExchangeTasksController
     valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
     amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-    taskCompleted.setDisable(true);
-    taskCompleted.setOpacity(0.5);
-    viewDetails.setDisable(true);
-    viewDetails.setOpacity(0.5);
-    deleteTask.setDisable(true);
-    deleteTask.setOpacity(0.5);
-
-    allExchangeTaskTable.getSelectionModel().selectedItemProperty()
-        .addListener((observable, oldValue, newValue) -> {
-          boolean hasSelection = newValue != null;
-          taskCompleted.setDisable(!hasSelection);
-          taskCompleted.setOpacity(hasSelection ? 1 : 0.5);
-          viewDetails.setDisable(!hasSelection);
-          viewDetails.setOpacity(hasSelection ? 1 : 0.5);
-          deleteTask.setDisable(!hasSelection);
-          deleteTask.setOpacity(hasSelection ? 1 : 0.5);
-        });
+    UtilityMethods.buttonListener(allExchangeTaskTable, viewDetails, taskCompleted, deleteTask);
   }
 
   @Override public void setFlashMessage(String message)

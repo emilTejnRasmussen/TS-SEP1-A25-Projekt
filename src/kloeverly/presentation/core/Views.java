@@ -19,6 +19,7 @@ public enum Views
     ADD_GREEN_TASK("green_task/AddGreenTask"),
     VIEW_SINGLE_GREEN_TASK("green_task/ViewGreenTask"),
     UPDATE_GREEN_TASK("green_task/UpdateGreenTask"),
+    REGISTER_GREEN_TASK("green_task/RegisterGreenTask"),
 
     // Residents
 

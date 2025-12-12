@@ -3,20 +3,23 @@ package kloeverly.presentation.controllers.resident;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.Resident;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 public class ViewAllResidentsController implements InitializableController
 {
-    private DataManager dataManager;
+    @FXML
+    private Button detailsBtn;
+    @FXML
+    private Button updateBtn;
+    @FXML
+    private Button deleteBtn;
 
     @FXML
     private TextField searchTxtField;
@@ -36,19 +39,17 @@ public class ViewAllResidentsController implements InitializableController
     @FXML
     private TableColumn<Resident, Number> pointsColumn;
 
-    @FXML
-    private Label errorLabel;
-
+    private DataManager dataManager;
     private final ObservableList<Resident> residents = FXCollections.observableArrayList();
 
     @Override
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
-        errorLabel.setText("");
 
         configureColumns();
         loadResidents();
+        UtilityMethods.buttonListener(residentTable, detailsBtn, updateBtn, deleteBtn);
     }
 
     private void configureColumns()
@@ -70,21 +71,15 @@ public class ViewAllResidentsController implements InitializableController
     @FXML
     private void handleAdd()
     {
-        errorLabel.setText("");
         ViewManager.showView(Views.ADD_RESIDENT);
     }
 
     @FXML
     private void handleViewDetails()
     {
-        errorLabel.setText("");
 
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en beboer i listen.");
-            return;
-        }
+        if (selected == null) return;
 
         ViewManager.showView(Views.VIEW_SINGLE_RESIDENT, String.valueOf(selected.getId()));
     }
@@ -92,14 +87,8 @@ public class ViewAllResidentsController implements InitializableController
     @FXML
     private void handleUpdate()
     {
-        errorLabel.setText("");
-
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en beboer i listen.");
-            return;
-        }
+        if (selected == null) return;
 
         ViewManager.showView(Views.UPDATE_RESIDENT, String.valueOf(selected.getId()));
     }
@@ -107,14 +96,8 @@ public class ViewAllResidentsController implements InitializableController
     @FXML
     private void handleDelete()
     {
-        errorLabel.setText("");
-
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en beboer i listen.");
-            return;
-        }
+        if (selected == null) return;
 
         dataManager.deleteResident(selected);
 
@@ -150,7 +133,6 @@ public class ViewAllResidentsController implements InitializableController
     @FXML
     private void handleClearSearchBar()
     {
-        errorLabel.setText("");
         searchTxtField.clear();
         residentTable.setItems(residents);
     }

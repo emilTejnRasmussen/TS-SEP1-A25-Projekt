@@ -18,6 +18,12 @@ import java.util.Optional;
 public class ViewAllCommonTasksController implements InitializableController, AcceptsFlashMessage
 {
     @FXML
+    private Button detailsBtn;
+    @FXML
+    private Button registerBtn;
+    @FXML
+    private Button deleteBtn;
+    @FXML
     private TableView<CommonTask> allCommonTasksTable;
     @FXML
     private TableColumn<CommonTask, String> nameCol;
@@ -33,6 +39,7 @@ public class ViewAllCommonTasksController implements InitializableController, Ac
     {
         this.dataManager = dataManager;
         showTable(dataManager.getAllCommonTasks());
+        UtilityMethods.buttonListener(allCommonTasksTable, detailsBtn, registerBtn, deleteBtn);
     }
 
     public void handleSearch()
