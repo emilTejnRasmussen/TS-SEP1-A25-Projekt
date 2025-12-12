@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 import kloeverly.domain.*;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsFlashMessage;
@@ -116,25 +118,33 @@ public class ViewAllExchangeTasksController
 
   public void handleTaskCompleted()
   {
-    /*
     ExchangeTask selectedTask = allExchangeTaskTable.getSelectionModel()
         .getSelectedItem();
     if (selectedTask == null)
-    {
       return;
-    }
 
     Dialog<Resident> dialog = new Dialog<>();
     dialog.setTitle("Registrer byttehandel " + selectedTask.getName());
-    dialog.setContentText(
-        "Byttehandlen \"" + selectedTask.getName() + "\" koster "
-            + selectedTask.getValue() + ".");
-    dialog.setContentText("Vælg modtager af handlen: ");
+
     ButtonType completeBtn = new ButtonType("Gem",
         ButtonBar.ButtonData.OK_DONE);
     ButtonType cancelBtn = new ButtonType("Annuller",
         ButtonBar.ButtonData.CANCEL_CLOSE);
     dialog.getDialogPane().getButtonTypes().setAll(completeBtn, cancelBtn);
+
+    dialog.getDialogPane().setPrefWidth(400);
+
+    final Button completeButton = (Button) dialog.getDialogPane()
+        .lookupButton(completeBtn);
+    completeButton.setDisable(true);
+    completeButton.setOpacity(0.5);
+    Platform.runLater(
+        () -> dialog.getDialogPane().lookupButton(cancelBtn).requestFocus());
+
+    Label intoWithPointsLbl = new Label(
+        "Byttehandlen \"" + selectedTask.getName() + "\" koster "
+            + selectedTask.getValue() + ".\n");
+    Label chooseReceiverLbl = new Label("Vælg modtager af handlen: ");
 
     ComboBox<Resident> receiverComboBox = new ComboBox<>();
     receiverComboBox.getItems().setAll(dataManager.getAllResidents());
@@ -153,11 +163,78 @@ public class ViewAllExchangeTasksController
 
       @Override public Resident fromString(String string)
       {
-        return receiverComboBox.getValue();
+        return null;
+      }
+    });
+
+    Label errorInsufficientFundsLbl = new Label();
+    errorInsufficientFundsLbl.setVisible(false);
+    errorInsufficientFundsLbl.setStyle("-fx-text-fill: red;");
+
+    VBox content = new VBox(10, intoWithPointsLbl, chooseReceiverLbl,
+        receiverComboBox, errorInsufficientFundsLbl);
+    dialog.getDialogPane().setContent(content);
+
+    receiverComboBox.getSelectionModel().selectedItemProperty()
+        .addListener((observable, oldIdx, newIdx) -> {
+          Resident selectedResident = receiverComboBox.getSelectionModel().getSelectedItem();
+
+          if (selectedResident == null)
+          {
+            completeButton.setDisable(true);
+            completeButton.setOpacity(0.5);
+            errorInsufficientFundsLbl.setText("");
+            errorInsufficientFundsLbl.setVisible(false);
+          }
+          else if (selectedResident.getPoints() < selectedTask.getValue())
+          {
+            completeButton.setDisable(true);
+            completeButton.setOpacity(0.5);
+            errorInsufficientFundsLbl.setText(
+                "Modtageren har ikke nok point til at gennemføre byttehandlen.");
+            errorInsufficientFundsLbl.setVisible(true);
+          }
+          else
+          {
+            completeButton.setDisable(false);
+            completeButton.setOpacity(1);
+            errorInsufficientFundsLbl.setText("");
+            errorInsufficientFundsLbl.setVisible(false);
+          }
+        });
+
+    dialog.setResultConverter(
+        btn -> (btn == completeBtn) ? receiverComboBox.getValue() : null);
+
+    dialog.showAndWait();
+
+    Resident receiver = dialog.getResult();
+    if (receiver != null && receiver.getPoints() >= selectedTask.getValue())
+    {
+      dataManager.completeTask(selectedTask.getId(), receiver);
+      Task updatedTask = dataManager.getTaskById(selectedTask.getId());
+      if (updatedTask instanceof ExchangeTask updatedExchangeTask)
+      {
+        if (updatedExchangeTask.getAmount() == 0)
+        {
+          dataManager.deleteTask(updatedExchangeTask);
+          ViewManager.updateExternalView();
+          ViewManager.showView(Views.EXCHANGE_TASKS, null,
+              (updatedExchangeTask.formatTaskCompleted(receiver)
+                  + updatedExchangeTask.formatTaskDeleted()));
+        }
+        else
+        {
+          ViewManager.updateExternalView();
+          ViewManager.showView(Views.EXCHANGE_TASKS, null,
+              updatedExchangeTask.formatTaskCompleted(receiver));
+        }
+      } else {
+        ViewManager.updateExternalView();
+        ViewManager.showView(Views.EXCHANGE_TASKS, null,
+            updatedTask.formatTaskCompleted(receiver));
       }
     }
-*/
-    ViewManager.updateExternalView();
   }
 
   public void handleDeleteTask()
