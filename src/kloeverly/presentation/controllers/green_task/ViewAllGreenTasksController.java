@@ -9,12 +9,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.GreenTask;
 import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
+import kloeverly.presentation.core.AcceptsFlashMessage;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 import kloeverly.utility.UtilityMethods;
 
-public class ViewAllGreenTasksController implements InitializableController
+public class ViewAllGreenTasksController implements InitializableController, AcceptsFlashMessage
 {
     @FXML
     private Button deleteBtn;
@@ -128,6 +129,12 @@ public class ViewAllGreenTasksController implements InitializableController
         if (selectedTask == null) return;
 
         ViewManager.showView(Views.REGISTER_GREEN_TASK, selectedTask.getId() + "");
+    }
+
+    @Override
+    public void setFlashMessage(String message)
+    {
+        UtilityMethods.showFlashMessage(message);
     }
 }
 

@@ -3,6 +3,7 @@ package kloeverly.presentation.controllers.green_task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import kloeverly.domain.GreenTask;
 import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsStringArgument;
@@ -25,7 +26,7 @@ public class RegisterGreenTaskController implements InitializableController, Acc
     private Label descriptionLbl;
 
     private DataManager dataManager;
-    private Task task;
+    private GreenTask task;
 
     @Override
     public void init(DataManager dataManager)
@@ -36,13 +37,16 @@ public class RegisterGreenTaskController implements InitializableController, Acc
 
     public void handleRegister()
     {
-        for (int i = 0; i < amountSpinner.getValue(); i++)
+        int amount = amountSpinner.getValue();
+        for (int i = 0; i < amount; i++)
         {
             dataManager.addPointsToClimateScore(task.getValue());
         }
 
+
+        task.setAmount(amount);
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.GREEN_TASKS);
+        ViewManager.showView(Views.GREEN_TASKS, null, task.formatTaskCompleted(null));
     }
 
     public void handleCancel()
@@ -54,7 +58,7 @@ public class RegisterGreenTaskController implements InitializableController, Acc
     public void setArgument(String argument)
     {
         int id = Integer.parseInt(argument);
-        this.task = dataManager.getTaskById(id);
+        this.task = (GreenTask) dataManager.getTaskById(id);
 
         nameLbl.setText("'" + task.getName() + "'");
         valueLbl.setText(task.getValue() + "");
