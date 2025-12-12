@@ -1,41 +1,37 @@
+* {
+    -bg-color: #92C48D;
+    -accent-color: #6faa67;
+    -text-color: #fbfff9;
+    -hover-color: #a0e19a;
+}
+
 .background{
-    -fx-background-color: #92C48D;
+    -fx-background-color: -bg-color;
 }
 
 .menuBtn{
-    -fx-background-color: #92C48D;
-    -fx-text-fill: #F9F9F9;
+    -fx-background-color: -bg-color;
+    -fx-text-fill: -text-color;
     -fx-cursor: hand;
     -fx-font-size: 24px;
 }
 
 .menuBtn:hover{
-    -fx-background-color: #BAEBB5;
+    -fx-background-color: -hover-color;
 }
 
 .exitBtn{
-    -fx-background-color: #9EDAA5;
-    -fx-text-fill: #F9F9F9;
+    -fx-background-color: -accent-color;
+    -fx-text-fill: -text-color;
     -fx-cursor: hand;
     -fx-font-size: 24px;
 }
 
 .exitBtn:hover{
-    -fx-background-color: #BAEBB5;
+    -fx-background-color: -hover-color;
 }
 
 .active {
-    -fx-background-color: #9EDAA5;
+    -fx-background-color: -accent-color;
 }
 
-.red {
-    -fx-text-fill: #E04F4F;
-}
-
-.blue {
-    -fx-text-fill: #3A6FD9;
-}
-
-.yellow {
-    -fx-text-fill: #F2D24B;
-}
