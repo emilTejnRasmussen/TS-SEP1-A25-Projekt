@@ -9,9 +9,8 @@ import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-public class AddGreenTaskController implements InitializableController {
-
-
+public class AddGreenTaskController implements InitializableController
+{
     private DataManager dataManager;
 
     @FXML
@@ -27,31 +26,57 @@ public class AddGreenTaskController implements InitializableController {
     private Label errorLabel;
 
     @Override
-    public void init(DataManager dataManager) {
+    public void init(DataManager dataManager)
+    {
         this.dataManager = dataManager;
+        errorLabel.setText("");
     }
 
     @FXML
-    private void handleAdd() {
+    private void handleAdd()
+    {
+        errorLabel.setText("");
+
         String name = nameField.getText() == null ? "" : nameField.getText().trim();
         String description = descriptionField.getText() == null ? "" : descriptionField.getText().trim();
         String pointsText = pointsField.getText() == null ? "" : pointsField.getText().trim();
 
-        if (name.isEmpty() || description.isEmpty() || pointsText.isEmpty()) {
-            errorLabel.setText("Navn, beskrivelse og point skal udfyldes.");
+        if (name.isEmpty())
+        {
+            errorLabel.setText("Navn må ikke være tomt.");
+            return;
+        }
+
+        if (description.isEmpty())
+        {
+            errorLabel.setText("Beskrivelse må ikke være tom.");
+            return;
+        }
+
+        if (pointsText.isEmpty())
+        {
+            errorLabel.setText("Point må ikke være tomme.");
             return;
         }
 
         int points;
-        try {
+        try
+        {
             points = Integer.parseInt(pointsText);
-        } catch (NumberFormatException e) {
-            errorLabel.setText("Point skal være et helt tal, fx 10 eller 25.");
+        }
+        catch (NumberFormatException e)
+        {
+            errorLabel.setText("Point skal være et helt tal, fx 10.");
+            return;
+        }
+
+        if (points <= 0)
+        {
+            errorLabel.setText("Point skal være et positivt tal.");
             return;
         }
 
         GreenTask task = new GreenTask(name, description, points);
-
         dataManager.addTask(task);
 
         ViewManager.updateExternalView();
@@ -59,7 +84,8 @@ public class AddGreenTaskController implements InitializableController {
     }
 
     @FXML
-    private void handleCancel() {
+    private void handleCancel()
+    {
         ViewManager.showView(Views.GREEN_TASKS);
     }
 }

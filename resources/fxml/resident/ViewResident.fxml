@@ -45,6 +45,8 @@
             <Label fx:id="pointsLabel"/>
         </HBox>
 
+        <Label fx:id="errorLabel" textFill="#ff2e2e"/>
+
     </VBox>
 
     <HBox alignment="CENTER" spacing="75.0">

@@ -9,22 +9,11 @@ import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-public class ViewResidentController implements InitializableController, AcceptsStringArgument {
-
+public class ViewResidentController implements InitializableController, AcceptsStringArgument
+{
     private DataManager dataManager;
+    private Integer residentId;
     private Resident resident;
-
-    @Override
-    public void init(DataManager dataManager) {
-        this.dataManager = dataManager;
-    }
-
-    @Override
-    public void setArgument(String argument) {
-        int residentId = Integer.parseInt(argument);
-        resident = dataManager.getResidentById(residentId);
-        loadResidentDetails();
-    }
 
     @FXML
     private Label nameLabel;
@@ -38,8 +27,47 @@ public class ViewResidentController implements InitializableController, AcceptsS
     @FXML
     private Label pointsLabel;
 
-    private void loadResidentDetails() {
-        if (resident == null) return;
+    @FXML
+    private Label errorLabel;
+
+    @Override
+    public void init(DataManager dataManager)
+    {
+        this.dataManager = dataManager;
+        errorLabel.setText("");
+        loadResidentIfReady();
+    }
+
+    @Override
+    public void setArgument(String argument)
+    {
+        errorLabel.setText("");
+
+        try
+        {
+            residentId = Integer.parseInt(argument);
+        }
+        catch (NumberFormatException e)
+        {
+            residentId = null;
+        }
+
+        loadResidentIfReady();
+    }
+
+    private void loadResidentIfReady()
+    {
+        if (dataManager == null || residentId == null)
+        {
+            return;
+        }
+
+        resident = dataManager.getResidentById(residentId);
+        if (resident == null)
+        {
+            errorLabel.setText("Kunne ikke finde beboer.");
+            return;
+        }
 
         nameLabel.setText(resident.getName());
         idLabel.setText(String.valueOf(resident.getId()));
@@ -48,17 +76,22 @@ public class ViewResidentController implements InitializableController, AcceptsS
     }
 
     @FXML
-    private void handleUpdate() {
-        if (resident == null) return;
+    private void handleUpdate()
+    {
+        errorLabel.setText("");
 
-        ViewManager.showView(
-                Views.UPDATE_RESIDENT,
-                String.valueOf(resident.getId())
-        );
+        if (residentId == null)
+        {
+            errorLabel.setText("Kunne ikke finde ID på beboeren.");
+            return;
+        }
+
+        ViewManager.showView(Views.UPDATE_RESIDENT, String.valueOf(residentId));
     }
 
     @FXML
-    private void handleGoBack() {
+    private void handleGoBack()
+    {
         ViewManager.showView(Views.RESIDENTS);
     }
 }

@@ -11,8 +11,8 @@ import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-public class UpdateGreenTaskController implements InitializableController, AcceptsStringArgument {
-
+public class UpdateGreenTaskController implements InitializableController, AcceptsStringArgument
+{
     private DataManager dataManager;
     private Integer greenTaskId;
     private GreenTask currentTask;
@@ -30,68 +30,115 @@ public class UpdateGreenTaskController implements InitializableController, Accep
     private Label errorLabel;
 
     @Override
-    public void init(DataManager dataManager) {
+    public void init(DataManager dataManager)
+    {
         this.dataManager = dataManager;
+        errorLabel.setText("");
         loadTaskIfReady();
     }
 
     @Override
-    public void setArgument(String argument) {
-        try {
+    public void setArgument(String argument)
+    {
+        errorLabel.setText("");
+
+        try
+        {
             this.greenTaskId = Integer.parseInt(argument);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e)
+        {
             this.greenTaskId = null;
         }
+
         loadTaskIfReady();
     }
 
-    private void loadTaskIfReady() {
-        if (dataManager == null || greenTaskId == null) return;
+    private void loadTaskIfReady()
+    {
+        if (dataManager == null || greenTaskId == null)
+        {
+            return;
+        }
 
         Task task = dataManager.getTaskById(greenTaskId);
-        if (!(task instanceof GreenTask)) return;
+        if (!(task instanceof GreenTask))
+        {
+            errorLabel.setText("Kunne ikke finde grøn opgave.");
+            currentTask = null;
+            return;
+        }
 
         currentTask = (GreenTask) task;
 
         nameField.setText(currentTask.getName());
         descriptionField.setText(currentTask.getDescription());
-        // value = point
         pointsField.setText(String.valueOf(currentTask.getValue()));
     }
 
     @FXML
-    private void handleUpdate() {
-        if (currentTask == null) return;
+    private void handleUpdate()
+    {
+        errorLabel.setText("");
+
+        if (currentTask == null)
+        {
+            errorLabel.setText("Ingen opgave valgt.");
+            return;
+        }
 
         String name = nameField.getText() == null ? "" : nameField.getText().trim();
         String description = descriptionField.getText() == null ? "" : descriptionField.getText().trim();
         String pointsText = pointsField.getText() == null ? "" : pointsField.getText().trim();
 
-        if (name.isEmpty() || description.isEmpty() || pointsText.isEmpty()) {
-            errorLabel.setText("Navn, beskrivelse og point skal udfyldes.");
+        if (name.isEmpty())
+        {
+            errorLabel.setText("Navn må ikke være tomt.");
+            return;
+        }
+
+        if (description.isEmpty())
+        {
+            errorLabel.setText("Beskrivelse må ikke være tom.");
+            return;
+        }
+
+        if (pointsText.isEmpty())
+        {
+            errorLabel.setText("Point må ikke være tomme.");
             return;
         }
 
         int points;
-        try {
+        try
+        {
             points = Integer.parseInt(pointsText);
-        } catch (NumberFormatException e) {
-            errorLabel.setText("Point skal være et helt tal, fx 10 eller 25.");
+        }
+        catch (NumberFormatException e)
+        {
+            errorLabel.setText("Point skal være et helt tal, fx 10.");
+            return;
+        }
+
+        if (points <= 0)
+        {
+            errorLabel.setText("Point skal være et positivt tal.");
             return;
         }
 
         currentTask.setName(name);
         currentTask.setDescription(description);
-        // value = point
         currentTask.setValue(points);
 
         dataManager.updateTask(currentTask);
 
+        ViewManager.updateExternalView();
         ViewManager.showView(Views.GREEN_TASKS);
     }
 
     @FXML
-    private void handleGoBack() {
+    private void handleGoBack()
+    {
         ViewManager.showView(Views.GREEN_TASKS);
     }
 }

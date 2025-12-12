@@ -3,6 +3,7 @@ package kloeverly.presentation.controllers.resident;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -13,13 +14,12 @@ import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
-public class ViewAllResidentsController implements InitializableController {
-
-
+public class ViewAllResidentsController implements InitializableController
+{
     private DataManager dataManager;
 
     @FXML
-    private TextField searchField;
+    private TextField searchTxtField;
 
     @FXML
     private TableView<Resident> residentTable;
@@ -36,97 +36,122 @@ public class ViewAllResidentsController implements InitializableController {
     @FXML
     private TableColumn<Resident, Number> pointsColumn;
 
-    private final ObservableList<Resident> residents =
-            FXCollections.observableArrayList();
+    @FXML
+    private Label errorLabel;
+
+    private final ObservableList<Resident> residents = FXCollections.observableArrayList();
 
     @Override
-    public void init(DataManager dataManager) {
+    public void init(DataManager dataManager)
+    {
         this.dataManager = dataManager;
+        errorLabel.setText("");
+
         configureColumns();
         loadResidents();
     }
 
-    private void configureColumns() {
+    private void configureColumns()
+    {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         pointFactorColumn.setCellValueFactory(new PropertyValueFactory<>("pointFactor"));
         pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
     }
 
-
-    private void loadResidents() {
+    private void loadResidents()
+    {
         residents.setAll(dataManager.getAllResidents());
         residentTable.setItems(residents);
     }
 
+    // --- Template handlers ---
+
     @FXML
-    private void handleAddResident() {
+    private void handleAdd()
+    {
+        errorLabel.setText("");
         ViewManager.showView(Views.ADD_RESIDENT);
     }
 
     @FXML
-    private void handleViewResident() {
+    private void handleViewDetails()
+    {
+        errorLabel.setText("");
+
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            // her kunne man evt. vise en Alert, men det er ikke et krav
+        if (selected == null)
+        {
+            errorLabel.setText("Vælg en beboer i listen.");
             return;
         }
 
-        ViewManager.showView(
-                Views.VIEW_SINGLE_RESIDENT,
-                String.valueOf(selected.getId())
-        );
+        ViewManager.showView(Views.VIEW_SINGLE_RESIDENT, String.valueOf(selected.getId()));
     }
 
     @FXML
-    private void handleUpdateResident() {
+    private void handleUpdate()
+    {
+        errorLabel.setText("");
+
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
-        if (selected == null) {
+        if (selected == null)
+        {
+            errorLabel.setText("Vælg en beboer i listen.");
             return;
         }
 
-        ViewManager.showView(
-                Views.UPDATE_RESIDENT,
-                String.valueOf(selected.getId())
-        );
+        ViewManager.showView(Views.UPDATE_RESIDENT, String.valueOf(selected.getId()));
     }
 
     @FXML
-    private void handleDeleteResident() {
+    private void handleDelete()
+    {
+        errorLabel.setText("");
+
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
-        if (selected == null) {
+        if (selected == null)
+        {
+            errorLabel.setText("Vælg en beboer i listen.");
             return;
         }
 
         dataManager.deleteResident(selected);
-        loadResidents();  // opdatér tabellen efter sletning
+
+        ViewManager.updateExternalView();
+        loadResidents();
     }
 
     @FXML
-    private void handleSearch() {
-        String query = searchField.getText();
-        if (query == null) {
-            query = "";
-        }
+    private void handleSearch()
+    {
+        String query = searchTxtField.getText();
+        if (query == null) query = "";
         query = query.trim().toLowerCase();
 
-        if (query.isEmpty()) {
+        if (query.isEmpty())
+        {
             residentTable.setItems(residents);
             return;
         }
 
         ObservableList<Resident> filtered = FXCollections.observableArrayList();
-        for (Resident r : residents) {
-            if (r.getName().toLowerCase().contains(query)) {
+        for (Resident r : residents)
+        {
+            if (r.getName() != null && r.getName().toLowerCase().contains(query))
+            {
                 filtered.add(r);
             }
         }
+
         residentTable.setItems(filtered);
     }
 
     @FXML
-    private void handleClearSearch() {
-        searchField.clear();
+    private void handleClearSearchBar()
+    {
+        errorLabel.setText("");
+        searchTxtField.clear();
         residentTable.setItems(residents);
     }
 }

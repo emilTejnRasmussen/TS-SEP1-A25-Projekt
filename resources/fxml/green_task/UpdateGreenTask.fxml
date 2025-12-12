@@ -21,22 +21,20 @@
         <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
     </padding>
 
-
     <Label text="Opdater grøn opgave">
         <font>
             <Font size="36.0"/>
         </font>
     </Label>
 
-
     <VBox prefHeight="396.0" prefWidth="560.0" spacing="10.0">
 
         <GridPane hgap="10.0" vgap="10.0">
+
             <Label text="Navn:"
                    GridPane.rowIndex="0" GridPane.columnIndex="0"/>
             <TextField fx:id="nameField"
                        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
 
             <Label text="Beskrivelse:"
                    GridPane.rowIndex="1" GridPane.columnIndex="0"/>
@@ -50,8 +48,7 @@
 
         </GridPane>
 
-
-        <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
+        <Label fx:id="errorLabel" textFill="#ff2e2e"/>
 
     </VBox>
 
@@ -64,6 +61,7 @@
                 <Font name="Segue UI" size="14.0"/>
             </font>
         </Button>
+
         <Button mnemonicParsing="false"
                 onAction="#handleGoBack"
                 prefHeight="45.0" prefWidth="85.0"
