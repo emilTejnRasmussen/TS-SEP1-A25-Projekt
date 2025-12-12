@@ -67,6 +67,7 @@ public class HomeViewController implements InitializableController
         Optional<ButtonType> result = confirm.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK){
             dataManager.resetPointsForAllResidents();
+            ViewManager.updateExternalView();
         }
     }
 
