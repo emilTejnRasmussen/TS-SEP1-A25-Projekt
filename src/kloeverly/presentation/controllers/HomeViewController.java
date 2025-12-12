@@ -188,35 +188,35 @@ public class HomeViewController implements InitializableController
         );
 
         Task e1 = new ExchangeTask(
-                "Byt køkkentjans",
-                "Overtag min køkkenvagt på tirsdag",
-                40,
-                1,
-                r3 // Cykel-Kasper
+                "Friske gulerødder",
+                "Jeg sælger 10 friske, økologiske gulerødder fra fælleshaven",
+                15,          // point pr. stk
+                10,          // antal
+                r5           // Have-Henrik
         );
 
         Task e2 = new ExchangeTask(
-                "Rengørings-byt",
-                "Byt min rengøringsopgave i denne uge",
-                35,
-                1,
-                r2 // Solskin Sofie
+                "Yoga-session",
+                "Rolig yoga-session på 60 minutter for begyndere",
+                150,         // point pr. session
+                1,           // antal sessioner
+                r2           // Solskin Sofie
         );
 
         Task e3 = new ExchangeTask(
-                "Flyttehjælp søges",
-                "Hjælp med at flytte tunge møbler",
-                60,
-                2,
-                r5 // Have-Henrik
+                "Cykelreparation",
+                "Jeg hjælper med justering af bremser og gear",
+                50,          // point pr. reparation
+                3,           // antal
+                r3           // Cykel-Kasper
         );
 
         Task e4 = new ExchangeTask(
-                "Have-hjælp",
-                "Hjælp med lugning og vanding",
-                45,
-                1,
-                r1 // Grønne Bob
+                "Planteplanter",
+                "Overskudsplanter klar til udplantning",
+                25,          // point pr. plante
+                6,           // antal
+                r1           // Grønne Bob
         );
 
         List<Resident> residents = List.of(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10);
