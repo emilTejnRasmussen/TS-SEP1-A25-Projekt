@@ -24,8 +24,8 @@ public class DataContainer implements Serializable
 
   public void addResident(Resident resident)
   {
-    int maxId = residents.stream().mapToInt(Resident::getId).max().orElse(1);
-    resident.setId(maxId + 1);
+    int nextId = residents.stream().mapToInt(Resident::getId).max().orElse(0) + 1;
+    resident.setId(nextId);
     residents.add(resident);
   }
 
