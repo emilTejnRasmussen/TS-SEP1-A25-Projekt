@@ -109,4 +109,8 @@ public class DataContainer implements Serializable
   {
     return this.climateScore;
   }
+
+  public void resetClimateScore() {
+      this.climateScore.resetTotalGreenPoints();
+  }
 }
