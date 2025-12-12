@@ -12,6 +12,7 @@ import kloeverly.presentation.core.AcceptsFlashMessage;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,6 @@ public class ViewAllExchangeTasksController
   @FXML public Button deleteTask;
 
   private DataManager dataManager;
-  private String pendingFlash;
 
   public void init(DataManager dataManager)
   {
@@ -59,21 +59,11 @@ public class ViewAllExchangeTasksController
           deleteTask.setDisable(!hasSelection);
           deleteTask.setOpacity(hasSelection ? 1 : 0.5);
         });
-
-    if (pendingFlash != null && !pendingFlash.isBlank())
-    {
-      Alert alert = new Alert(Alert.AlertType.NONE, pendingFlash,
-          ButtonType.OK);
-      alert.setHeaderText(null);
-      alert.setTitle("Bekræftelse");
-      alert.show();
-      pendingFlash = null;
-    }
   }
 
   @Override public void setFlashMessage(String message)
   {
-    this.pendingFlash = message;
+      UtilityMethods.showFlashMessage(message);
   }
 
   public void handleSearch()

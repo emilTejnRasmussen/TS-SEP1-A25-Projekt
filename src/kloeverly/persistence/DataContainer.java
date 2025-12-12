@@ -1,6 +1,7 @@
 package kloeverly.persistence;
 
 import kloeverly.domain.ClimateScore;
+import kloeverly.domain.ExchangeTask;
 import kloeverly.domain.Resident;
 import kloeverly.domain.Task;
 
@@ -92,9 +93,14 @@ public class DataContainer implements Serializable
       Resident byResident = getResidentById(byResidentId);
 
       completedTask.completed(byResident);
+
+      if (completedTask instanceof ExchangeTask exchangeTask){
+          int providerId = exchangeTask.getProvider().getId();
+          getResidentById(providerId).addPoints(exchangeTask.getValue());
+      }
   }
 
-  public void addPointsToClimateScore(int points)
+    public void addPointsToClimateScore(int points)
   {
     this.climateScore.addPoints(points);
   }

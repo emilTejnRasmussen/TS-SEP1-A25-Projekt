@@ -28,10 +28,10 @@ public class ViewManager
         primaryStage.setScene(scene);
         primaryStage.setTitle("Kløverly");
         primaryStage.getIcons().addAll(
-            new Image(Objects.requireNonNull(
-                ViewManager.class.getResourceAsStream("/icons/clover1.png"))),
-            new Image(Objects.requireNonNull(
-                ViewManager.class.getResourceAsStream("/icons/clover2.png")))
+                new Image(Objects.requireNonNull(
+                        ViewManager.class.getResourceAsStream("/icons/clover1.png"))),
+                new Image(Objects.requireNonNull(
+                        ViewManager.class.getResourceAsStream("/icons/clover2.png")))
         );
         primaryStage.show();
     }
@@ -86,7 +86,7 @@ public class ViewManager
         try
         {
             FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(Views.EXTERNAL.getView()));
-            Scene scene = new Scene(loader.load(), 900, 900);
+            Scene scene = new Scene(loader.load(), 900, 600);
 
             externalController = loader.getController();
             ControllerConfigurator.configure(externalController);
@@ -115,35 +115,40 @@ public class ViewManager
         return externalStage;
     }
 
-    public static void updateExternalView() {
-        if (externalController != null) {
+    public static void updateExternalView()
+    {
+        if (externalController != null)
+        {
             externalController.refresh();
         }
     }
-  public static void showView(Views view, String argument, String flashMessage){
-    try
+
+    public static void showView(Views view, String argument, String flashMessage)
     {
-      FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
-      Parent root = loader.load();
+        try
+        {
+            FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(view.getView()));
+            Parent root = loader.load();
 
-      Object controller = loader.getController();
-      if (controller instanceof AcceptsStringArgument && argument != null)
-      {
-        ((AcceptsStringArgument) controller).setArgument(argument);
-      }
+            Object controller = loader.getController();
+            ControllerConfigurator.configure(controller);
+            if (controller instanceof AcceptsStringArgument && argument != null)
+            {
+                ((AcceptsStringArgument) controller).setArgument(argument);
+            }
 
-      if (controller instanceof AcceptsFlashMessage && flashMessage != null)
-      {
-        ((AcceptsFlashMessage) controller).setFlashMessage(flashMessage);
-      }
+            if (controller instanceof AcceptsFlashMessage && flashMessage != null)
+            {
+                ((AcceptsFlashMessage) controller).setFlashMessage(flashMessage);
+            }
 
-      ControllerConfigurator.configure(controller);
-      mainLayout.setCenter(root);
 
-    } catch (IOException e)
-    {
-      Alert error = new Alert(Alert.AlertType.ERROR, "Cannot find view '" + view.getView() + "'.");
-      error.show();
+            mainLayout.setCenter(root);
+
+        } catch (IOException e)
+        {
+            Alert error = new Alert(Alert.AlertType.ERROR, "Cannot find view '" + view.getView() + "'.");
+            error.show();
+        }
     }
-  }
 }

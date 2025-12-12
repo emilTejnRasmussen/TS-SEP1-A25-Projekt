@@ -49,7 +49,6 @@ public class ExchangeTask extends Task implements Serializable
     }
     else
     {
-      provider.addPoints(getValue());
       byResident.addPoints(-getValue());
       amount--;
     }
