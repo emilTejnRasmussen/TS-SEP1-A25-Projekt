@@ -40,6 +40,8 @@ public class RegisterGreenTaskController implements InitializableController, Acc
         {
             dataManager.addPointsToClimateScore(task.getValue());
         }
+
+        ViewManager.updateExternalView();
         ViewManager.showView(Views.GREEN_TASKS);
     }
 

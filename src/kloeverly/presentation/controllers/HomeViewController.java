@@ -249,5 +249,6 @@ public class HomeViewController implements InitializableController
         tasks.forEach(t -> dataManager.addTask(t));
 
         loadStats();
+        ViewManager.updateExternalView();
     }
 }
