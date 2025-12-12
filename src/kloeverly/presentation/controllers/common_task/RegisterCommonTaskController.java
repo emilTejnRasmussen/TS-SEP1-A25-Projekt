@@ -12,6 +12,7 @@ import kloeverly.presentation.core.AcceptsStringArgument;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 public class RegisterCommonTaskController implements InitializableController, AcceptsStringArgument
 {
@@ -39,7 +40,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     {
         this.dataManager = dataManager;
         loadResidents();
-        createSpinner();
+        UtilityMethods.createAmountSpinner(amountSpinner);
     }
 
     public void handleRegister()
@@ -68,14 +69,6 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     private void loadResidents()
     {
         this.residentComboBox.getItems().addAll(dataManager.getAllResidents());
-    }
-
-    private void createSpinner()
-    {
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                1, 100, 1
-        );
-        amountSpinner.setValueFactory(valueFactory);
     }
 
     @Override

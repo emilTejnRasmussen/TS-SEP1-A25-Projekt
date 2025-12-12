@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.GreenTask;
+import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
@@ -65,14 +66,12 @@ public class ViewAllGreenTasksController implements InitializableController
 
     // --- Template handlers ---
 
-    @FXML
-    private void handleAdd()
+    public void handleAdd()
     {
         ViewManager.showView(Views.ADD_GREEN_TASK);
     }
 
-    @FXML
-    private void handleViewDetails()
+    public void handleViewDetails()
     {
 
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
@@ -81,18 +80,7 @@ public class ViewAllGreenTasksController implements InitializableController
         ViewManager.showView(Views.VIEW_SINGLE_GREEN_TASK, String.valueOf(selected.getId()));
     }
 
-    @FXML
-    private void handleUpdate()
-    {
-
-        GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
-        if (selected == null) return;
-
-        ViewManager.showView(Views.UPDATE_GREEN_TASK, String.valueOf(selected.getId()));
-    }
-
-    @FXML
-    private void handleDelete()
+    public void handleDelete()
     {
 
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
@@ -103,8 +91,7 @@ public class ViewAllGreenTasksController implements InitializableController
         loadGreenTasks();
     }
 
-    @FXML
-    private void handleSearch()
+    public void handleSearch()
     {
         String query = searchTxtField.getText();
         if (query == null) query = "";
@@ -128,8 +115,8 @@ public class ViewAllGreenTasksController implements InitializableController
         greenTaskTable.setItems(filtered);
     }
 
-    @FXML
-    private void handleClearSearchBar()
+
+    public void handleClearSearchBar()
     {
         searchTxtField.clear();
         greenTaskTable.setItems(allGreenTasks);
@@ -137,7 +124,10 @@ public class ViewAllGreenTasksController implements InitializableController
 
     public void handleRegister()
     {
-        ViewManager.showView(Views.REGISTER_GREEN_TASK);
+        Task selectedTask = greenTaskTable.getSelectionModel().getSelectedItem();
+        if (selectedTask == null) return;
+
+        ViewManager.showView(Views.REGISTER_GREEN_TASK, selectedTask.getId() + "");
     }
 }
 
