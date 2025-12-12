@@ -77,12 +77,6 @@ public class ViewManager
 
     public static void showExternalScreen(Button externalBtn)
     {
-        if (externalStage != null && externalStage.isShowing())
-        {
-            externalStage.toFront();
-            return;
-        }
-
         try
         {
             FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(Views.EXTERNAL.getView()));
@@ -101,7 +95,6 @@ public class ViewManager
                 externalController = null;
             });
 
-            externalStage.setAlwaysOnTop(true);
             externalStage.show();
         } catch (IOException e)
         {

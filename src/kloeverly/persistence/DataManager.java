@@ -28,4 +28,5 @@ public interface DataManager
   // ClimateScore
   void addPointsToClimateScore(int points);
   ClimateScore getClimateScore();
+  void resetClimateScore();
 }

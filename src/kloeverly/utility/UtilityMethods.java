@@ -1,9 +1,6 @@
 package kloeverly.utility;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 public class UtilityMethods
 {
@@ -29,5 +26,12 @@ public class UtilityMethods
                     registerBtn.setDisable(!hasSelection);
                     deleteBtn.setDisable(!hasSelection);
                 });
+    }
+
+    public static void createAmountSpinner(Spinner<Integer> spinner){
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                1, 100, 1
+        );
+        spinner.setValueFactory(valueFactory);
     }
 }
