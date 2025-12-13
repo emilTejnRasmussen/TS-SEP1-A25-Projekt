@@ -30,6 +30,8 @@ public class ViewAllCommonTasksController implements InitializableController, Ac
     @FXML
     private TableColumn<CommonTask, Integer> valueCol;
     @FXML
+    private TableColumn<CommonTask, Integer> amountCol;
+    @FXML
     private TextField searchTxtField;
 
     private DataManager dataManager;
@@ -98,6 +100,7 @@ public class ViewAllCommonTasksController implements InitializableController, Ac
 
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
         allCommonTasksTable.getItems().addAll(tasks);
     }
