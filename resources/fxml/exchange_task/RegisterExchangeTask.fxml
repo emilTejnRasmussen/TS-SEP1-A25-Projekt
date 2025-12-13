@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.exchange_task.RegisterExchangeTaskController">
+    <padding>
+        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+    </padding>
+    <VBox alignment="CENTER_LEFT">
+        <HBox alignment="CENTER_LEFT" spacing="20.0">
+            <Label text="Registrer">
+                <font>
+                    <Font size="36.0" />
+                </font>
+            </Label>
+            <Label fx:id="nameLbl" text="'NAME_VALUE'">
+                <font>
+                    <Font size="36.0" />
+                </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <VBox alignment="CENTER_LEFT">
+                <Label text="Bytteopgave">
+                    <font>
+                        <Font name="Segoe UI" size="14.0" />
+                    </font>
+                </Label>
+                <HBox>
+                    <Label text="ID: ">
+                        <font>
+                            <Font name="Segoe UI" size="14.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="idLbl" text="ID_VALUE">
+                        <font>
+                            <Font name="Segoe UI" size="14.0" />
+                        </font>
+                    </Label>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+    <Region VBox.vgrow="ALWAYS" />
+    <VBox spacing="20.0">
+        <VBox spacing="10.0">
+            <VBox maxHeight="250.0" spacing="10.0">
+                <Label fx:id="descriptionLbl" text="DESCRIPTION_VALUE" wrapText="true" />
+                <HBox spacing="10.0">
+                    <Label text="Pointværdi:">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                    </Label>
+                    <HBox spacing="5.0">
+                        <Label fx:id="valueLbl" text="VALUE_VALUE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label text="point">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                    </HBox>
+                </HBox>
+                <HBox spacing="10.0">
+                    <Label text="Mængde tilbage:">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                    </Label>
+                    <HBox spacing="5.0">
+                        <Label fx:id="amountLbl" text="AMOUNT_VALUE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                    </HBox>
+                </HBox>
+            </VBox>
+            <HBox alignment="CENTER_LEFT" spacing="20.0" />
+        </VBox>
+    </VBox>
+    <HBox alignment="CENTER_LEFT" spacing="20.0">
+        <VBox prefWidth="300.0" spacing="10.0">
+            <Label text="Vælg modtager:">
+                <font>
+                    <Font name="Segoe UI Bold" size="14.0" />
+                </font>
+            </Label>
+            <ComboBox fx:id="receiverComboBox" prefHeight="35.0" prefWidth="200.0" promptText="Søg efter beboer" />
+            <Label fx:id="receiverErrorLbl" textFill="#ff2e2e" />
+        </VBox>
+        <VBox prefWidth="300.0" spacing="10.0">
+            <Label text="Vælg antal:">
+                <font>
+                    <Font name="Segoe UI Bold" size="14.0" />
+                </font>
+            </Label>
+            <Spinner fx:id="amountSpinner" prefHeight="35.0" prefWidth="200.0" />
+            <Label fx:id="amountErrorLbl" textFill="#ff2e2e" />
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER" spacing="75.0">
+        <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#handleRegister" prefHeight="45.0" prefWidth="85.0" text="Registrer">
+            <font>
+                <Font name="Segoe UI" size="14.0" />
+            </font>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="45.0" prefWidth="85.0" text="Afbryd">
+            <font>
+                <Font name="Segoe UI" size="14.0" />
+            </font>
+        </Button>
+    </HBox>
+</VBox>
