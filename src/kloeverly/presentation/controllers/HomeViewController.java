@@ -86,6 +86,7 @@ public class HomeViewController implements InitializableController
     {
         pieChart.setAnimated(false);
         pieChart.getData().clear();
+        pieChart.setLabelsVisible(false);
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
