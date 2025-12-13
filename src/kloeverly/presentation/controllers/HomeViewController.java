@@ -1,14 +1,18 @@
 package kloeverly.presentation.controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import kloeverly.domain.*;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
@@ -75,6 +79,14 @@ public class HomeViewController implements InitializableController
         commonTaskAmountLbl.setText(dataManager.getAllCommonTasks().size() + "");
         exchangeTaskAmountLbl.setText(dataManager.getAllExchangeTasks().size() + "");
 
+        createPieChart();
+    }
+
+    private void createPieChart()
+    {
+        pieChart.setAnimated(false);
+        pieChart.getData().clear();
+
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         int green = dataManager.getAllGreenTasks().size();
@@ -84,6 +96,7 @@ public class HomeViewController implements InitializableController
         if (green > 0)  pieChartData.add(new PieChart.Data("Grønne", green));
         if (exchange > 0) pieChartData.add(new PieChart.Data("Bytte", exchange));
         if (common > 0) pieChartData.add(new PieChart.Data("Fælles", common));
+
 
         pieChart.setData(pieChartData);
     }
