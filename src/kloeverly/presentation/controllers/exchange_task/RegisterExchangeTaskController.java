@@ -74,7 +74,7 @@ public class RegisterExchangeTaskController
     this.amountLbl.setText(String.valueOf(selectedTask.getAmount()));
     this.descriptionLbl.setText(selectedTask.getDescription());
     this.receiverComboBox.getItems().addAll(dataManager.getAllResidents());
-    UtilityMethods.createAmountSpinner(amountSpinner);
+    UtilityMethods.createAmountSpinner(amountSpinner, 1);
 
     receiverComboBox.setConverter((new StringConverter<Resident>()
     {

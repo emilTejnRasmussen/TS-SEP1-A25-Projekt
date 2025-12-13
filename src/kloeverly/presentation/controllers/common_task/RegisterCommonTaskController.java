@@ -40,7 +40,7 @@ public class RegisterCommonTaskController implements InitializableController, Ac
     {
         this.dataManager = dataManager;
         loadResidents();
-        UtilityMethods.createAmountSpinner(amountSpinner);
+        UtilityMethods.createAmountSpinner(amountSpinner, 1);
     }
 
     public void handleRegister()

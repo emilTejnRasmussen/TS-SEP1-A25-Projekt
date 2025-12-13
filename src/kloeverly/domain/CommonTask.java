@@ -17,4 +17,21 @@ public class CommonTask extends Task implements Serializable
     {
         byResident.addPoints((int) Math.round(this.getValue() * byResident.getPointFactor()));
     }
+
+    @Override
+    public void updateFrom(Task other)
+    {
+        super.updateFrom(other);
+        if (other instanceof CommonTask commonTask){
+            this.amount = commonTask.getAmount();
+        }
+    }
+
+    public int getAmount(){
+        return amount;
+    }
+
+    public void setAmount(int amount){
+        this.amount = amount;
+    }
 }
