@@ -78,10 +78,9 @@
                 <Label fx:id="valueErrorLbl" textFill="#ff6262" />
             </HBox>
             <HBox spacing="10.0">
-                <Spinner fx:id="amountSpinner" prefHeight="25.0" prefWidth="190.0"/>
+                <Spinner fx:id="amountSpinner" prefHeight="25.0" prefWidth="190.0" />
             </HBox>
             <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
-         <Label fx:id="descriptionErrorLbl" textFill="#ff6262" />
         </VBox>
     </HBox>
     <HBox alignment="CENTER" spacing="75.0">

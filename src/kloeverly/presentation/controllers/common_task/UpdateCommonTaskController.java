@@ -23,8 +23,6 @@ public class UpdateCommonTaskController implements InitializableController, Acce
     @FXML
     private Label valueErrorLbl;
     @FXML
-    private Label descriptionErrorLbl;
-    @FXML
     private Label mainTitleLbl;
     @FXML
     private Label idLbl;
@@ -65,7 +63,6 @@ public class UpdateCommonTaskController implements InitializableController, Acce
     {
         titleErrorLbl.setText("");
         valueErrorLbl.setText("");
-        descriptionErrorLbl.setText("");
 
         boolean allInputIsValid = true;
         if (titleTextField.getText().isEmpty()){
@@ -84,10 +81,6 @@ public class UpdateCommonTaskController implements InitializableController, Acce
                 valueErrorLbl.setText("Værdi skal være et tal");
                 allInputIsValid = false;
             }
-        }
-        if (descriptionTextArea.getText().isEmpty()){
-            descriptionErrorLbl.setText("Beskrivelse må ikke være tom");
-            allInputIsValid = false;
         }
 
         return allInputIsValid;

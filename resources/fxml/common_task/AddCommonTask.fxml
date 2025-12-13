@@ -55,7 +55,6 @@
                         <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="descriptionErrorLbl" textFill="#ff6262" />
             </HBox>
             <TextArea fx:id="descriptionTextArea" prefHeight="157.0" prefWidth="560.0" promptText="Indtast beskrivelse af fællesopgave" wrapText="true">
                 <font>
@@ -67,12 +66,11 @@
             <HBox spacing="30.0">
                 <Label text="Mængde">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="amountErrorLbl" textFill="#ff2e2e"/>
             </HBox>
-            <Spinner fx:id="amountSpinner" maxHeight="25.0"/>
+            <Spinner fx:id="amountSpinner" maxHeight="25.0" />
         </VBox>
     </VBox>
     <HBox alignment="CENTER" spacing="75.0">

@@ -18,8 +18,6 @@ public class AddCommonTaskController implements InitializableController
     @FXML
     private Spinner<Integer> amountSpinner;
     @FXML
-    private Label amountErrorLbl;
-    @FXML
     private Label titleErrorLbl;
     @FXML
     private TextField titleTextField;
@@ -27,8 +25,6 @@ public class AddCommonTaskController implements InitializableController
     private Label valueErrorLbl;
     @FXML
     private TextField valueTextField;
-    @FXML
-    private Label descriptionErrorLbl;
     @FXML
     private TextArea descriptionTextArea;
 
@@ -66,7 +62,6 @@ public class AddCommonTaskController implements InitializableController
     {
         titleErrorLbl.setText("");
         valueErrorLbl.setText("");
-        descriptionErrorLbl.setText("");
 
         boolean allInputIsValid = true;
         if (titleTextField.getText().isEmpty()){
@@ -85,10 +80,6 @@ public class AddCommonTaskController implements InitializableController
                 valueErrorLbl.setText("Værdi skal være et tal");
                 allInputIsValid = false;
             }
-        }
-        if (descriptionTextArea.getText().isEmpty()){
-            descriptionErrorLbl.setText("Beskrivelse må ikke være tom");
-            allInputIsValid = false;
         }
 
         return allInputIsValid;
