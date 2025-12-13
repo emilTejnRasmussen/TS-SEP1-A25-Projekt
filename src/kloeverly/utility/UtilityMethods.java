@@ -28,9 +28,9 @@ public class UtilityMethods
                 });
     }
 
-    public static void createAmountSpinner(Spinner<Integer> spinner){
+    public static void createAmountSpinner(Spinner<Integer> spinner, int initialValue){
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                1, 100, 1
+                1, 100, initialValue
         );
         spinner.setValueFactory(valueFactory);
     }

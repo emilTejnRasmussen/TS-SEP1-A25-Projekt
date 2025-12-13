@@ -30,8 +30,9 @@
         </HBox>
         <TableView fx:id="allCommonTasksTable" prefHeight="335.0" prefWidth="560.0">
             <columns>
-                <TableColumn fx:id="nameCol" prefWidth="277.0" text="Navn" />
-                <TableColumn fx:id="valueCol" prefWidth="281.0" text="Værdi (Individuelle point)" />
+                <TableColumn fx:id="nameCol" prefWidth="262.0" text="Navn" />
+                <TableColumn fx:id="valueCol" prefWidth="183.0" text="Værdi (Individuelle point)" />
+            <TableColumn fx:id="amountCol" prefWidth="120.0" text="Pladser" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

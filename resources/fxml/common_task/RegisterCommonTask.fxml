@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -43,22 +42,40 @@
                 <ComboBox fx:id="residentComboBox" prefHeight="35.0" prefWidth="150.0" />
             <Label fx:id="registerErrorLbl" textFill="#ff2e2e" />
             </HBox>
-         <Label text="Vælg Antal:">
-            <font>
-               <Font name="Segoe UI Bold" size="14.0" />
-            </font>
-         </Label>
-            <HBox alignment="CENTER_LEFT" spacing="20.0">
-                <Spinner fx:id="amountSpinner" prefHeight="35.0" prefWidth="150.0"/>
-                <Label fx:id="amountErrorLbl" textFill="#ff2e2e"/>
-            </HBox>
         </VBox>
         <VBox maxHeight="250.0" prefHeight="250.0" spacing="10.0">
+            <HBox spacing="10.0">
+                <Label text="Pladser tilbage:">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <HBox spacing="5.0">
+                    <Label fx:id="amountLbl" text="AMOUNT_VALUE">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <Label text="Pladser">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+               <Label fx:id="amountErrorLbl" textFill="#ff2e2e">
+                  <padding>
+                     <Insets left="25.0" />
+                  </padding>
+               </Label>
+                </HBox>
+            </HBox>
             <HBox spacing="10.0">
                 <Label text="Værdi:">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
+                    <HBox.margin>
+                        <Insets right="59.0" />
+                    </HBox.margin>
                 </Label>
                 <HBox spacing="5.0">
                     <Label fx:id="valueLbl" text="VALUE_VALUE">

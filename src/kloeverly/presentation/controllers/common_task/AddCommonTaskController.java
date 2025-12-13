@@ -2,6 +2,7 @@ package kloeverly.presentation.controllers.common_task;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import kloeverly.domain.CommonTask;
@@ -10,9 +11,12 @@ import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 public class AddCommonTaskController implements InitializableController
 {
+    @FXML
+    private Spinner<Integer> amountSpinner;
     @FXML
     private Label titleErrorLbl;
     @FXML
@@ -22,8 +26,6 @@ public class AddCommonTaskController implements InitializableController
     @FXML
     private TextField valueTextField;
     @FXML
-    private Label descriptionErrorLbl;
-    @FXML
     private TextArea descriptionTextArea;
 
     private DataManager dataManager;
@@ -32,6 +34,7 @@ public class AddCommonTaskController implements InitializableController
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
+        UtilityMethods.createAmountSpinner(amountSpinner, 1);
     }
 
     public void handleAdd()
@@ -41,8 +44,9 @@ public class AddCommonTaskController implements InitializableController
         String name = titleTextField.getText().trim();
         int value = Integer.parseInt(valueTextField.getText().trim());
         String description = descriptionTextArea.getText().trim();
+        int amount = amountSpinner.getValue();
 
-        Task task = new CommonTask(name, description, value);
+        Task task = new CommonTask(name, description, value, amount);
         dataManager.addTask(task);
 
         ViewManager.updateExternalView();
@@ -58,7 +62,6 @@ public class AddCommonTaskController implements InitializableController
     {
         titleErrorLbl.setText("");
         valueErrorLbl.setText("");
-        descriptionErrorLbl.setText("");
 
         boolean allInputIsValid = true;
         if (titleTextField.getText().isEmpty()){
@@ -77,10 +80,6 @@ public class AddCommonTaskController implements InitializableController
                 valueErrorLbl.setText("Værdi skal være et tal");
                 allInputIsValid = false;
             }
-        }
-        if (descriptionTextArea.getText().isEmpty()){
-            descriptionErrorLbl.setText("Beskrivelse må ikke være tom");
-            allInputIsValid = false;
         }
 
         return allInputIsValid;

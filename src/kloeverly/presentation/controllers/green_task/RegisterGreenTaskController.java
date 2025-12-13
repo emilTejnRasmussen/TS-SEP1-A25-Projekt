@@ -32,7 +32,7 @@ public class RegisterGreenTaskController implements InitializableController, Acc
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
-        UtilityMethods.createAmountSpinner(amountSpinner);
+        UtilityMethods.createAmountSpinner(amountSpinner, 1);
     }
 
     public void handleRegister()

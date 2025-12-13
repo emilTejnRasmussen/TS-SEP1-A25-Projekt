@@ -13,6 +13,8 @@ import kloeverly.utility.UtilityMethods;
 public class ViewSingleCommonTaskController implements InitializableController, AcceptsStringArgument, AcceptsFlashMessage
 {
     @FXML
+    private Label amountLbl;
+    @FXML
     private Label mainTitleLbl;
     @FXML
     private Label idLbl;
@@ -52,6 +54,7 @@ public class ViewSingleCommonTaskController implements InitializableController, 
         idLbl.setText(task.getId() + "");
         titleLbl.setText(task.getName());
         valueLbl.setText(task.getValue() + "");
+        amountLbl.setText(task.getAmount() + "");
         descriptionLbl.setText(task.getDescription());
     }
 

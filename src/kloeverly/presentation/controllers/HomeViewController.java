@@ -160,76 +160,83 @@ public class HomeViewController implements InitializableController
 
         Task c1 = new CommonTask(
                 "Køkkenkaos-kontrol",
-                "Rengør fælleskøkkenet grundigt",
-                40
+                "Rengør fælleskøkkenet grundigt (kan løses sammen)",
+                40,
+                5   // op til 5 personer
         );
 
         Task c2 = new CommonTask(
                 "Opvaske-helten",
                 "Tøm og ryd op i opvaskemaskinen",
-                20
+                20,
+                2   // 2 personer kan deles om det
         );
 
         Task c3 = new CommonTask(
                 "Trappe-tjansen",
                 "Vask trapper og gelænder",
-                30
+                30,
+                2
         );
 
         Task c4 = new CommonTask(
                 "Affaldsrum-redning",
                 "Ryd op og vask affaldsrummet",
-                25
+                25,
+                3
         );
 
         Task c5 = new CommonTask(
                 "Indkøbs-inspektør",
                 "Køb fælles rengøringsmidler",
-                20
+                20,
+                1
         );
 
         Task c6 = new CommonTask(
                 "Kig-klart vinduer",
                 "Puds vinduer i fællesarealer",
-                35
+                35,
+                3
         );
 
         Task c7 = new CommonTask(
                 "Gårdens vogter",
                 "Fej og ryd gården for skrald",
-                25
+                25,
+                4
         );
 
         Task e1 = new ExchangeTask(
                 "Friske gulerødder",
                 "Jeg sælger 10 friske, økologiske gulerødder fra fælleshaven",
-                15,          // point pr. stk
-                10,          // antal
-                r5           // Have-Henrik
+                15,
+                10,
+                r5
         );
 
         Task e2 = new ExchangeTask(
                 "Yoga-session",
                 "Rolig yoga-session på 60 minutter for begyndere",
-                150,         // point pr. session
-                1,           // antal sessioner
-                r2           // Solskin Sofie
+                150,
+                1,
+                r2
         );
 
         Task e3 = new ExchangeTask(
                 "Cykelreparation",
                 "Jeg hjælper med justering af bremser og gear",
-                50,          // point pr. reparation
-                3,           // antal
-                r3           // Cykel-Kasper
+                50,
+                3,
+                r3
         );
 
         Task e4 = new ExchangeTask(
                 "Planteplanter",
                 "Overskudsplanter klar til udplantning",
-                25,          // point pr. plante
-                6,           // antal
-                r1           // Grønne Bob
+                25,
+                6,
+                r1
         );
 
         List<Resident> residents = List.of(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10);

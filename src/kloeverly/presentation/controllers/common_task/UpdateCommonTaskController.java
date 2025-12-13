@@ -2,6 +2,7 @@ package kloeverly.presentation.controllers.common_task;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import kloeverly.domain.CommonTask;
@@ -11,15 +12,16 @@ import kloeverly.presentation.core.AcceptsStringArgument;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 public class UpdateCommonTaskController implements InitializableController, AcceptsStringArgument
 {
     @FXML
+    private Spinner<Integer> amountSpinner;
+    @FXML
     private Label titleErrorLbl;
     @FXML
     private Label valueErrorLbl;
-    @FXML
-    private Label descriptionErrorLbl;
     @FXML
     private Label mainTitleLbl;
     @FXML
@@ -46,8 +48,9 @@ public class UpdateCommonTaskController implements InitializableController, Acce
         String name = titleTextField.getText().trim();
         String description = descriptionTextArea.getText().trim();
         int value = Integer.parseInt(valueTextField.getText().trim());
+        int amount = amountSpinner.getValue();
 
-        Task task = new CommonTask(name, description, value);
+        Task task = new CommonTask(name, description, value, amount);
         task.setId(this.id);
         this.dataManager.updateTask(task);
 
@@ -60,7 +63,6 @@ public class UpdateCommonTaskController implements InitializableController, Acce
     {
         titleErrorLbl.setText("");
         valueErrorLbl.setText("");
-        descriptionErrorLbl.setText("");
 
         boolean allInputIsValid = true;
         if (titleTextField.getText().isEmpty()){
@@ -79,10 +81,6 @@ public class UpdateCommonTaskController implements InitializableController, Acce
                 valueErrorLbl.setText("Værdi skal være et tal");
                 allInputIsValid = false;
             }
-        }
-        if (descriptionTextArea.getText().isEmpty()){
-            descriptionErrorLbl.setText("Beskrivelse må ikke være tom");
-            allInputIsValid = false;
         }
 
         return allInputIsValid;
@@ -104,5 +102,7 @@ public class UpdateCommonTaskController implements InitializableController, Acce
         titleTextField.setText(task.getName());
         valueTextField.setText(task.getValue() + "");
         descriptionTextArea.setText(task.getDescription());
+
+        UtilityMethods.createAmountSpinner(amountSpinner, task.getAmount());
     }
 }
