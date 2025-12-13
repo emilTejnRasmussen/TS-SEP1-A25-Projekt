@@ -20,18 +20,27 @@
                </font>
            </Label>
          <Region HBox.hgrow="ALWAYS" />
-           <HBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" spacing="10.0">
-               <Label text="ID: ">
-                   <font>
-                       <Font name="Segoe UI" size="14.0" />
-                   </font>
+         <VBox alignment="CENTER_LEFT">
+            <children>
+               <Label text="Bytteopgave">
+                  <font>
+                     <Font name="Segoe UI" size="14.0" />
+                  </font>
                </Label>
-               <Label fx:id="idLbl" text="ID_VALUE">
-                   <font>
-                       <Font name="Segoe UI" size="14.0" />
-                   </font>
-               </Label>
-           </HBox>
+                 <HBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" spacing="10.0">
+                     <Label text="ID: ">
+                         <font>
+                             <Font name="Segoe UI" size="14.0" />
+                         </font>
+                     </Label>
+                     <Label fx:id="idLbl" text="ID_VALUE">
+                         <font>
+                             <Font name="Segoe UI" size="14.0" />
+                         </font>
+                     </Label>
+                 </HBox>
+            </children>
+         </VBox>
       </children>
    </HBox>
     <VBox prefHeight="396.0" prefWidth="560.0" spacing="20.0">

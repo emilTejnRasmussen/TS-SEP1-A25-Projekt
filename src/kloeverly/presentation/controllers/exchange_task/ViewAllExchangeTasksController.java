@@ -97,6 +97,7 @@ public class ViewAllExchangeTasksController
     if (selectedTask == null)
       return;
 
+    /*
     Dialog<Resident> dialog = new Dialog<>();
     dialog.setTitle("Registrer byttehandel " + selectedTask.getName());
 
@@ -209,6 +210,8 @@ public class ViewAllExchangeTasksController
             updatedTask.formatTaskCompleted(receiver));
       }
     }
+     */
+    ViewManager.showView(Views.REGISTER_EXCHANGE_TASK, String.valueOf(selectedTask.getId()));
   }
 
   public void handleDeleteTask()
