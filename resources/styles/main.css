@@ -35,3 +35,15 @@
     -fx-background-color: -accent-color;
 }
 
+.default-color0.chart-pie {
+    -fx-pie-color: #2ecc71;
+}
+
+.default-color1.chart-pie {
+    -fx-pie-color: #3498db;
+}
+
+.default-color2.chart-pie {
+    -fx-pie-color: #e67e22;
+}
+
