@@ -7,9 +7,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="660.0" spacing="20.0"
-      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+      prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="kloeverly.presentation.controllers.green_task.ViewGreenTaskController">
 
     <padding>
@@ -22,36 +21,84 @@
         </font>
     </Label>
 
-    <VBox prefHeight="396.0" prefWidth="560.0" spacing="10.0">
+    <HBox spacing="20.0">
+        <VBox spacing="10.0">
+            <Label text="Navn">
+                <font>
+                    <Font name="Segoe UI" size="14.0"/>
+                </font>
+            </Label>
 
-        <Label text="Navn:"/>
-        <Label fx:id="nameValueLabel"/>
+            <Label fx:id="nameValueLabel" prefHeight="30.0" prefWidth="350.0"
+                   style="-fx-border-color: lightgray; -fx-padding: 6;">
+                <font>
+                    <Font name="Segoe UI" size="14.0"/>
+                </font>
+            </Label>
+        </VBox>
 
-        <Label text="ID:"/>
-        <Label fx:id="idValueLabel"/>
+        <VBox spacing="10.0">
+            <Label text="Point">
+                <font>
+                    <Font name="Segoe UI" size="14.0"/>
+                </font>
+            </Label>
 
-        <Label text="Beskrivelse:"/>
-        <Label fx:id="descriptionValueLabel"/>
+            <Label fx:id="pointsValueLabel" prefHeight="30.0" prefWidth="210.0"
+                   style="-fx-border-color: lightgray; -fx-padding: 6;">
+                <font>
+                    <Font name="Segoe UI" size="14.0"/>
+                </font>
+            </Label>
+        </VBox>
 
-        <Label text="Point:"/>
-        <Label fx:id="pointsValueLabel"/>
+    </HBox>
 
-        <Label fx:id="errorLabel" textFill="#ff2e2e"/>
+    <VBox spacing="10.0">
+        <Label text="ID">
+            <font>
+                <Font name="Segoe UI" size="14.0"/>
+            </font>
+        </Label>
 
+        <Label fx:id="idValueLabel" prefHeight="30.0" prefWidth="210.0"
+               style="-fx-border-color: lightgray; -fx-padding: 6;">
+            <font>
+                <Font name="Segoe UI" size="14.0"/>
+            </font>
+        </Label>
     </VBox>
+
+    <VBox spacing="10.0">
+        <Label text="Beskrivelse">
+            <font>
+                <Font name="Segoe UI" size="14.0"/>
+            </font>
+        </Label>
+
+        <Label fx:id="descriptionValueLabel" prefHeight="200.0" prefWidth="560.0"
+               style="-fx-border-color: lightgray; -fx-padding: 8;" wrapText="true">
+            <font>
+                <Font name="Segoe UI" size="14.0"/>
+            </font>
+        </Label>
+    </VBox>
+
+    <Label fx:id="errorLabel" textFill="#ff2e2e"/>
 
     <HBox alignment="CENTER" spacing="75.0">
         <Button mnemonicParsing="false" onAction="#handleUpdate" prefHeight="45.0" prefWidth="85.0" text="Opdater">
             <font>
-                <Font name="Segue UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0"/>
             </font>
         </Button>
 
         <Button mnemonicParsing="false" onAction="#handleGoBack" prefHeight="45.0" prefWidth="85.0" text="Tilbage">
             <font>
-                <Font name="Segue UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0"/>
             </font>
         </Button>
+
     </HBox>
 
 </VBox>

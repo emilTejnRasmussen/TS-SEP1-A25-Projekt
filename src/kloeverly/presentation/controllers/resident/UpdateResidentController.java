@@ -1,6 +1,6 @@
 package kloeverly.presentation.controllers.resident;
 
-import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import kloeverly.domain.Resident;
@@ -12,37 +12,48 @@ import kloeverly.presentation.core.Views;
 
 public class UpdateResidentController implements InitializableController, AcceptsStringArgument
 {
+    public Label idLabel;
+    public Label pointsLabel;
+
+    public TextField nameField;
+    public TextField pointFactorField;
+
+    public Label generalErrorLbl;
+    public Label nameErrorLbl;
+    public Label factorErrorLbl;
+
+    public Button saveButton;
+
     private DataManager dataManager;
     private Integer residentId;
     private Resident resident;
 
-    @FXML
-    private Label idLabel;
-
-    @FXML
-    private Label pointsLabel;
-
-    @FXML
-    private TextField nameField;
-
-    @FXML
-    private TextField pointFactorField;
-
-    @FXML
-    private Label errorLabel;
+    private boolean nameTouched;
+    private boolean factorTouched;
 
     @Override
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
-        errorLabel.setText("");
+
+        nameTouched = false;
+        factorTouched = false;
+
+        clearErrors();
+
+        if (saveButton != null)
+        {
+            saveButton.setDisable(false);
+            saveButton.setOpacity(1.0);
+        }
+
         loadResidentIfReady();
     }
 
     @Override
     public void setArgument(String argument)
     {
-        errorLabel.setText("");
+        clearErrors();
 
         try
         {
@@ -56,71 +67,46 @@ public class UpdateResidentController implements InitializableController, Accept
         loadResidentIfReady();
     }
 
-    private void loadResidentIfReady()
+    public void onInputChanged()
     {
-        if (dataManager == null || residentId == null)
+        if (nameField != null && nameField.isFocused())
         {
-            return;
+            nameTouched = true;
+            nameErrorLbl.setText("");
+            validateName();
         }
-
-        resident = dataManager.getResidentById(residentId);
-        if (resident == null)
+        else if (pointFactorField != null && pointFactorField.isFocused())
         {
-            errorLabel.setText("Kunne ikke finde beboer.");
-            return;
+            factorTouched = true;
+            factorErrorLbl.setText("");
+            validateFactor();
         }
-
-        idLabel.setText(String.valueOf(resident.getId()));
-        pointsLabel.setText(String.valueOf(resident.getPoints()));
-        nameField.setText(resident.getName());
-        pointFactorField.setText(String.valueOf(resident.getPointFactor()));
     }
 
-    @FXML
-    private void handleUpdate()
+    public void handleUpdate()
     {
-        errorLabel.setText("");
+        clearErrors();
 
         if (resident == null)
         {
-            errorLabel.setText("Ingen beboer valgt.");
+            generalErrorLbl.setText("Ingen beboer valgt.");
             return;
         }
 
-        String name = nameField.getText() == null ? "" : nameField.getText().trim();
-        String factorText = pointFactorField.getText() == null ? "" : pointFactorField.getText().trim();
+        nameTouched = true;
+        factorTouched = true;
 
-        if (name.isEmpty())
+        boolean ok = validateName() & validateFactor();
+        if (!ok)
         {
-            errorLabel.setText("Navn må ikke være tomt.");
             return;
         }
 
-        if (factorText.isEmpty())
-        {
-            errorLabel.setText("Pointfaktor må ikke være tom.");
-            return;
-        }
-
-        double pointFactor;
-        try
-        {
-            pointFactor = Double.parseDouble(factorText);
-        }
-        catch (NumberFormatException e)
-        {
-            errorLabel.setText("Pointfaktor skal være et tal, fx 1.0 eller 1.5.");
-            return;
-        }
-
-        if (pointFactor <= 0)
-        {
-            errorLabel.setText("Pointfaktor skal være større end 0.");
-            return;
-        }
+        String name = nameField.getText().trim();
+        double factor = Double.parseDouble(pointFactorField.getText().trim());
 
         resident.setName(name);
-        resident.setPointFactor(pointFactor);
+        resident.setPointFactor(factor);
 
         dataManager.updateResident(resident);
 
@@ -128,9 +114,110 @@ public class UpdateResidentController implements InitializableController, Accept
         ViewManager.showView(Views.RESIDENTS);
     }
 
-    @FXML
-    private void handleCancel()
+    public void handleCancel()
     {
         ViewManager.showView(Views.RESIDENTS);
+    }
+
+    private void clearErrors()
+    {
+        if (generalErrorLbl != null) generalErrorLbl.setText("");
+        if (nameErrorLbl != null) nameErrorLbl.setText("");
+        if (factorErrorLbl != null) factorErrorLbl.setText("");
+    }
+
+    private void loadResidentIfReady()
+    {
+        if (dataManager == null || residentId == null)
+        {
+            return;
+        }
+
+        Resident loaded;
+        try
+        {
+            loaded = dataManager.getResidentById(residentId);
+        }
+        catch (RuntimeException e)
+        {
+            generalErrorLbl.setText("Kunne ikke finde beboer.");
+            resident = null;
+            return;
+        }
+
+        resident = loaded;
+
+        idLabel.setText(String.valueOf(resident.getId()));
+        pointsLabel.setText(String.valueOf(resident.getPoints()));
+
+        nameField.setText(resident.getName());
+        pointFactorField.setText(String.valueOf(resident.getPointFactor()));
+    }
+
+    private boolean validateName()
+    {
+        if (!nameTouched) return true;
+
+        String name = safeTrim(nameField);
+        if (!containsLetter(name))
+        {
+            nameErrorLbl.setText("Navn skal indeholde bogstaver");
+            return false;
+        }
+
+        nameErrorLbl.setText("");
+        return true;
+    }
+
+    private boolean validateFactor()
+    {
+        if (!factorTouched) return true;
+
+        String txt = safeTrim(pointFactorField);
+        if (txt.isEmpty())
+        {
+            factorErrorLbl.setText("Pointfaktor skal være et tal");
+            return false;
+        }
+
+        try
+        {
+            double value = Double.parseDouble(txt);
+            if (value <= 0)
+            {
+                factorErrorLbl.setText("Pointfaktor skal være > 0");
+                return false;
+            }
+        }
+        catch (NumberFormatException e)
+        {
+            factorErrorLbl.setText("Pointfaktor skal være et tal");
+            return false;
+        }
+
+        factorErrorLbl.setText("");
+        return true;
+    }
+
+    private String safeTrim(TextField field)
+    {
+        if (field == null || field.getText() == null) return "";
+        return field.getText().trim();
+    }
+
+    private boolean containsLetter(String s)
+    {
+        if (s == null) return false;
+        String t = s.trim();
+        if (t.isEmpty()) return false;
+
+        for (int i = 0; i < t.length(); i++)
+        {
+            if (Character.isLetter(t.charAt(i)))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,6 +1,5 @@
 package kloeverly.presentation.controllers.green_task;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import kloeverly.domain.GreenTask;
 import kloeverly.domain.Task;
@@ -12,23 +11,14 @@ import kloeverly.presentation.core.Views;
 
 public class ViewGreenTaskController implements InitializableController, AcceptsStringArgument
 {
+    public Label nameValueLabel;
+    public Label idValueLabel;
+    public Label descriptionValueLabel;
+    public Label pointsValueLabel;
+    public Label errorLabel;
+
     private DataManager dataManager;
     private Integer greenTaskId;
-
-    @FXML
-    private Label nameValueLabel;
-
-    @FXML
-    private Label idValueLabel;
-
-    @FXML
-    private Label descriptionValueLabel;
-
-    @FXML
-    private Label pointsValueLabel;
-
-    @FXML
-    private Label errorLabel;
 
     @Override
     public void init(DataManager dataManager)
@@ -45,14 +35,32 @@ public class ViewGreenTaskController implements InitializableController, Accepts
 
         try
         {
-            this.greenTaskId = Integer.parseInt(argument);
+            greenTaskId = Integer.parseInt(argument);
         }
         catch (NumberFormatException e)
         {
-            this.greenTaskId = null;
+            greenTaskId = null;
         }
 
         loadTaskIfReady();
+    }
+
+    public void handleUpdate()
+    {
+        errorLabel.setText("");
+
+        if (greenTaskId == null)
+        {
+            errorLabel.setText("Kunne ikke finde ID på opgaven.");
+            return;
+        }
+
+        ViewManager.showView(Views.UPDATE_GREEN_TASK, String.valueOf(greenTaskId));
+    }
+
+    public void handleGoBack()
+    {
+        ViewManager.showView(Views.GREEN_TASKS);
     }
 
     private void loadTaskIfReady()
@@ -75,25 +83,5 @@ public class ViewGreenTaskController implements InitializableController, Accepts
         nameValueLabel.setText(greenTask.getName());
         descriptionValueLabel.setText(greenTask.getDescription());
         pointsValueLabel.setText(String.valueOf(greenTask.getValue()));
-    }
-
-    @FXML
-    private void handleUpdate()
-    {
-        errorLabel.setText("");
-
-        if (greenTaskId == null)
-        {
-            errorLabel.setText("Kunne ikke finde ID på opgaven.");
-            return;
-        }
-
-        ViewManager.showView(Views.UPDATE_GREEN_TASK, String.valueOf(greenTaskId));
-    }
-
-    @FXML
-    private void handleGoBack()
-    {
-        ViewManager.showView(Views.GREEN_TASKS);
     }
 }

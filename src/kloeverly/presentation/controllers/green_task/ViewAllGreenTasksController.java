@@ -2,7 +2,7 @@ package kloeverly.presentation.controllers.green_task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,109 +16,91 @@ import kloeverly.presentation.core.Views;
 
 public class ViewAllGreenTasksController implements InitializableController
 {
+    public TextField searchTxtField;
+
+    public TableView<GreenTask> greenTaskTable;
+    public TableColumn<GreenTask, String> nameColumn;
+    public TableColumn<GreenTask, String> descriptionColumn;
+    public TableColumn<GreenTask, Number> pointsColumn;
+
+    public Label errorLabel;
+
+    public Button addButton;
+    public Button viewDetailsButton;
+    public Button registerButton;
+    public Button updateButton;
+    public Button deleteButton;
+
     private DataManager dataManager;
 
-    @FXML
-    private TextField searchTxtField;
-
-    @FXML
-    private TableView<GreenTask> greenTaskTable;
-
-    @FXML
-    private TableColumn<GreenTask, String> nameColumn;
-
-    @FXML
-    private TableColumn<GreenTask, String> descriptionColumn;
-
-    @FXML
-    private TableColumn<GreenTask, Number> pointsColumn;
-
-    @FXML
-    private Label errorLabel;
-
-    private final ObservableList<GreenTask> allGreenTasks = FXCollections.observableArrayList();
+    private final ObservableList<GreenTask> allGreenTasks =
+            FXCollections.observableArrayList();
 
     @Override
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
-        errorLabel.setText("");
+        clearError();
 
-        configureColumns();
-        loadGreenTasks();
-    }
-
-    private void configureColumns()
-    {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        pointsColumn.setCellValueFactory(new PropertyValueFactory<>("value")); // value = point
+        pointsColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+        loadGreenTasks();
+
+        setSelectionButtonsEnabled(false);
+
+        greenTaskTable.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldVal, newVal) -> setSelectionButtonsEnabled(newVal != null)
+        );
     }
 
-    private void loadGreenTasks()
+    public void handleAdd()
     {
-        allGreenTasks.setAll(dataManager.getAllGreenTasks());
-        greenTaskTable.setItems(allGreenTasks);
-    }
-
-    // --- Template handlers ---
-
-    @FXML
-    private void handleAdd()
-    {
-        errorLabel.setText("");
+        clearError();
         ViewManager.showView(Views.ADD_GREEN_TASK);
     }
 
-    @FXML
-    private void handleViewDetails()
+    public void handleViewDetails()
     {
-        errorLabel.setText("");
-
+        clearError();
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en grøn opgave i listen.");
-            return;
-        }
+        if (selected == null) return;
 
         ViewManager.showView(Views.VIEW_SINGLE_GREEN_TASK, String.valueOf(selected.getId()));
     }
 
-    @FXML
-    private void handleUpdate()
+    public void handleRegister()
     {
-        errorLabel.setText("");
-
+        clearError();
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en grøn opgave i listen.");
-            return;
-        }
+        if (selected == null) return;
+
+        ViewManager.showView(Views.REGISTER_GREEN_TASK, String.valueOf(selected.getId()));
+    }
+
+    public void handleUpdate()
+    {
+        clearError();
+        GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
 
         ViewManager.showView(Views.UPDATE_GREEN_TASK, String.valueOf(selected.getId()));
     }
 
-    @FXML
-    private void handleDelete()
+    public void handleDelete()
     {
-        errorLabel.setText("");
-
+        clearError();
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
-        if (selected == null)
-        {
-            errorLabel.setText("Vælg en grøn opgave i listen.");
-            return;
-        }
+        if (selected == null) return;
 
         dataManager.deleteTask(selected);
         ViewManager.updateExternalView();
         loadGreenTasks();
+        setSelectionButtonsEnabled(false);
     }
 
-    @FXML
-    private void handleSearch()
+    public void handleSearch()
     {
         String query = searchTxtField.getText();
         if (query == null) query = "";
@@ -142,12 +124,39 @@ public class ViewAllGreenTasksController implements InitializableController
         greenTaskTable.setItems(filtered);
     }
 
-    @FXML
-    private void handleClearSearchBar()
+    public void handleClearSearchBar()
     {
-        errorLabel.setText("");
+        clearError();
         searchTxtField.clear();
         greenTaskTable.setItems(allGreenTasks);
     }
-}
 
+    private void loadGreenTasks()
+    {
+        allGreenTasks.setAll(dataManager.getAllGreenTasks());
+        greenTaskTable.setItems(allGreenTasks);
+    }
+
+    private void setSelectionButtonsEnabled(boolean enabled)
+    {
+        setButtonState(viewDetailsButton, enabled);
+        setButtonState(registerButton, enabled);
+        setButtonState(updateButton, enabled);
+        setButtonState(deleteButton, enabled);
+    }
+
+    private void setButtonState(Button button, boolean enabled)
+    {
+        if (button == null) return;
+        button.setDisable(!enabled);
+        button.setOpacity(enabled ? 1.0 : 0.5);
+    }
+
+    private void clearError()
+    {
+        if (errorLabel != null)
+        {
+            errorLabel.setText("");
+        }
+    }
+}

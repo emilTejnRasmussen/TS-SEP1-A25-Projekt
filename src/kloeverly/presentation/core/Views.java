@@ -19,13 +19,15 @@ public enum Views
     ADD_GREEN_TASK("green_task/AddGreenTask"),
     VIEW_SINGLE_GREEN_TASK("green_task/ViewGreenTask"),
     UPDATE_GREEN_TASK("green_task/UpdateGreenTask"),
-
+    REGISTER_GREEN_TASK("green_task/RegisterGreenTask"),
     // Residents
 
     RESIDENTS("resident/ViewAllResidents"),
     ADD_RESIDENT("resident/AddResident"),
     VIEW_SINGLE_RESIDENT("resident/ViewResident"),
     UPDATE_RESIDENT("resident/UpdateResident"),
+
+
 
     // Exchange Tasks
     EXCHANGE_TASKS("exchange_task/ViewAllExchangeTasks"),

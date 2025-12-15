@@ -1,7 +1,7 @@
 package kloeverly.presentation.controllers.resident;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import kloeverly.domain.Resident;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsStringArgument;
@@ -11,24 +11,15 @@ import kloeverly.presentation.core.Views;
 
 public class ViewResidentController implements InitializableController, AcceptsStringArgument
 {
+    public TextField nameField;
+    public TextField idField;
+    public TextField pointFactorField;
+    public TextField pointsField;
+
+    public Label errorLabel;
+
     private DataManager dataManager;
     private Integer residentId;
-    private Resident resident;
-
-    @FXML
-    private Label nameLabel;
-
-    @FXML
-    private Label idLabel;
-
-    @FXML
-    private Label pointFactorLabel;
-
-    @FXML
-    private Label pointsLabel;
-
-    @FXML
-    private Label errorLabel;
 
     @Override
     public void init(DataManager dataManager)
@@ -55,28 +46,7 @@ public class ViewResidentController implements InitializableController, AcceptsS
         loadResidentIfReady();
     }
 
-    private void loadResidentIfReady()
-    {
-        if (dataManager == null || residentId == null)
-        {
-            return;
-        }
-
-        resident = dataManager.getResidentById(residentId);
-        if (resident == null)
-        {
-            errorLabel.setText("Kunne ikke finde beboer.");
-            return;
-        }
-
-        nameLabel.setText(resident.getName());
-        idLabel.setText(String.valueOf(resident.getId()));
-        pointFactorLabel.setText(String.valueOf(resident.getPointFactor()));
-        pointsLabel.setText(String.valueOf(resident.getPoints()));
-    }
-
-    @FXML
-    private void handleUpdate()
+    public void handleUpdate()
     {
         errorLabel.setText("");
 
@@ -89,9 +59,32 @@ public class ViewResidentController implements InitializableController, AcceptsS
         ViewManager.showView(Views.UPDATE_RESIDENT, String.valueOf(residentId));
     }
 
-    @FXML
-    private void handleGoBack()
+    public void handleGoBack()
     {
         ViewManager.showView(Views.RESIDENTS);
+    }
+
+    private void loadResidentIfReady()
+    {
+        if (dataManager == null || residentId == null)
+        {
+            return;
+        }
+
+        Resident resident;
+        try
+        {
+            resident = dataManager.getResidentById(residentId);
+        }
+        catch (RuntimeException e)
+        {
+            errorLabel.setText("Kunne ikke finde beboer.");
+            return;
+        }
+
+        idField.setText(String.valueOf(resident.getId()));
+        nameField.setText(resident.getName());
+        pointFactorField.setText(String.valueOf(resident.getPointFactor()));
+        pointsField.setText(String.valueOf(resident.getPoints()));
     }
 }
