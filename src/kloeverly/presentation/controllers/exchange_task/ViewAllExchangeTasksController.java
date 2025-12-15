@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import kloeverly.domain.*;
 import kloeverly.persistence.DataManager;
@@ -11,6 +12,7 @@ import kloeverly.presentation.core.AcceptsFlashMessage;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,6 @@ public class ViewAllExchangeTasksController
   @FXML public Button deleteTask;
 
   private DataManager dataManager;
-  private String pendingFlash;
 
   public void init(DataManager dataManager)
   {
@@ -41,38 +42,12 @@ public class ViewAllExchangeTasksController
     valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
     amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-    taskCompleted.setDisable(true);
-    taskCompleted.setOpacity(0.5);
-    viewDetails.setDisable(true);
-    viewDetails.setOpacity(0.5);
-    deleteTask.setDisable(true);
-    deleteTask.setOpacity(0.5);
-
-    allExchangeTaskTable.getSelectionModel().selectedItemProperty()
-        .addListener((observable, oldValue, newValue) -> {
-          boolean hasSelection = newValue != null;
-          taskCompleted.setDisable(!hasSelection);
-          taskCompleted.setOpacity(hasSelection ? 1 : 0.5);
-          viewDetails.setDisable(!hasSelection);
-          viewDetails.setOpacity(hasSelection ? 1 : 0.5);
-          deleteTask.setDisable(!hasSelection);
-          deleteTask.setOpacity(hasSelection ? 1 : 0.5);
-        });
-
-    if (pendingFlash != null && !pendingFlash.isBlank())
-    {
-      Alert alert = new Alert(Alert.AlertType.NONE, pendingFlash,
-          ButtonType.OK);
-      alert.setHeaderText(null);
-      alert.setTitle("Bekræftelse");
-      alert.show();
-      pendingFlash = null;
-    }
+    UtilityMethods.buttonListener(allExchangeTaskTable, viewDetails, taskCompleted, deleteTask);
   }
 
   @Override public void setFlashMessage(String message)
   {
-    this.pendingFlash = message;
+      UtilityMethods.showFlashMessage(message);
   }
 
   public void handleSearch()
@@ -117,47 +92,12 @@ public class ViewAllExchangeTasksController
 
   public void handleTaskCompleted()
   {
-    /*
     ExchangeTask selectedTask = allExchangeTaskTable.getSelectionModel()
         .getSelectedItem();
     if (selectedTask == null)
-    {
       return;
-    }
 
-    Dialog<Resident> dialog = new Dialog<>();
-    dialog.setTitle("Registrer byttehandel " + selectedTask.getName());
-    dialog.setContentText(
-        "Byttehandlen \"" + selectedTask.getName() + "\" koster "
-            + selectedTask.getValue() + ".");
-    dialog.setContentText("Vælg modtager af handlen: ");
-    ButtonType completeBtn = new ButtonType("Gem",
-        ButtonBar.ButtonData.OK_DONE);
-    ButtonType cancelBtn = new ButtonType("Annuller",
-        ButtonBar.ButtonData.CANCEL_CLOSE);
-    dialog.getDialogPane().getButtonTypes().setAll(completeBtn, cancelBtn);
-
-    ComboBox<Resident> receiverComboBox = new ComboBox<>();
-    receiverComboBox.getItems().setAll(dataManager.getAllResidents());
-    receiverComboBox.setEditable(false);
-    receiverComboBox.setVisibleRowCount(10);
-    receiverComboBox.setPromptText("Vælg beboer");
-    receiverComboBox.setConverter(new StringConverter<Resident>()
-    {
-      @Override public String toString(Resident resident)
-      {
-        return (resident == null) ?
-            "" :
-            (resident.getId() + ": " + resident.getName() + ", "
-                + resident.getPoints());
-      }
-
-      @Override public Resident fromString(String string)
-      {
-        return receiverComboBox.getValue();
-      }
-    }
-*/
+    ViewManager.showView(Views.REGISTER_EXCHANGE_TASK, String.valueOf(selectedTask.getId()));
   }
 
   public void handleDeleteTask()
@@ -189,6 +129,7 @@ public class ViewAllExchangeTasksController
     if (result.isPresent() && result.get() == deleteBtn)
     {
       dataManager.deleteTask(selectedTask);
+      ViewManager.updateExternalView();
       ViewManager.showView(Views.EXCHANGE_TASKS, null,
           selectedTask.formatTaskDeleted());
     }

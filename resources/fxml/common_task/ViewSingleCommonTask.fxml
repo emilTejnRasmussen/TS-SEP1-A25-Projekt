@@ -43,11 +43,16 @@
                     <Font name="System Bold" size="14.0" />
                 </font>
             </Label>
-            <Label text="Beskrivelse:">
+            <Label text="Mængde:">
                 <font>
                     <Font name="System Bold" size="14.0" />
                 </font>
             </Label>
+         <Label text="Beskrivelse:">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
         </VBox>
         <VBox prefHeight="321.0" prefWidth="664.0" spacing="10.0">
             <padding>
@@ -68,6 +73,11 @@
                     <Font size="14.0" />
                 </font>
             </Label>
+         <Label fx:id="amountLbl" text="AMOUNT_VALUE" wrapText="true">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
             <Label fx:id="descriptionLbl" text="DESCRIPTION_VALUE" wrapText="true">
                 <font>
                     <Font size="14.0" />

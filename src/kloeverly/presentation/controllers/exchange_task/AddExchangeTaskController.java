@@ -94,11 +94,13 @@ public class AddExchangeTaskController implements InitializableController
     if (task == null)
       return;
     dataManager.addTask(task);
+    ViewManager.updateExternalView();
     ViewManager.showView(Views.EXCHANGE_TASKS, null, task.formatTaskAdded());
   }
 
   public void handleCancel()
   {
+    ViewManager.updateExternalView();
     ViewManager.showView(Views.EXCHANGE_TASKS);
   }
 

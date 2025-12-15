@@ -1,96 +1,67 @@
 package kloeverly.presentation.controllers.green_task;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import kloeverly.domain.GreenTask;
-import kloeverly.domain.Resident;
 import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.AcceptsStringArgument;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 public class RegisterGreenTaskController implements InitializableController, AcceptsStringArgument
 {
-    public Label registerErrorLbl;
-    public ComboBox<Resident> residentComboBox;
-
-    public Label nameLbl;
-    public Label valueLbl;
-    public Label descriptionLbl;
+    @FXML
+    private Label nameLbl;
+    @FXML
+    private Spinner<Integer> amountSpinner;
+    @FXML
+    private Label amountErrorLbl;
+    @FXML
+    private Label valueLbl;
+    @FXML
+    private Label descriptionLbl;
 
     private DataManager dataManager;
-    private int id;
-    private GreenTask selectedTask;
+    private GreenTask task;
 
     @Override
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
-        registerErrorLbl.setText("");
-        residentComboBox.getItems().setAll(dataManager.getAllResidents());
-    }
-
-    @Override
-    public void setArgument(String argument)
-    {
-        registerErrorLbl.setText("");
-
-        try
-        {
-            id = Integer.parseInt(argument);
-        }
-        catch (NumberFormatException e)
-        {
-            selectedTask = null;
-            registerErrorLbl.setText("Kunne ikke finde grøn opgave.");
-            return;
-        }
-
-        Task task = dataManager.getTaskById(id);
-        if (!(task instanceof GreenTask))
-        {
-            selectedTask = null;
-            registerErrorLbl.setText("Kunne ikke finde grøn opgave.");
-            return;
-        }
-
-        selectedTask = (GreenTask) task;
-
-        nameLbl.setText(selectedTask.getName());
-        valueLbl.setText(String.valueOf(selectedTask.getValue()));
-        descriptionLbl.setText(selectedTask.getDescription());
+        UtilityMethods.createAmountSpinner(amountSpinner, 1);
     }
 
     public void handleRegister()
     {
-        registerErrorLbl.setText("");
-
-        Resident byResident = residentComboBox.getSelectionModel().getSelectedItem();
-        if (byResident == null)
+        int amount = amountSpinner.getValue();
+        for (int i = 0; i < amount; i++)
         {
-            registerErrorLbl.setText("Vælg venligst en beboer.");
-            return;
+            dataManager.addPointsToClimateScore(task.getValue());
         }
 
-        if (selectedTask == null)
-        {
-            registerErrorLbl.setText("Kunne ikke finde grøn opgave.");
-            return;
-        }
 
-        dataManager.completeTask(id, byResident);
-
-        dataManager.addPointsToClimateScore(selectedTask.getValue());
-
+        task.setAmount(amount);
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.GREEN_TASKS);
+        ViewManager.showView(Views.GREEN_TASKS, null, task.formatTaskCompleted(null));
     }
 
     public void handleCancel()
     {
         ViewManager.showView(Views.GREEN_TASKS);
+    }
+
+    @Override
+    public void setArgument(String argument)
+    {
+        int id = Integer.parseInt(argument);
+        this.task = (GreenTask) dataManager.getTaskById(id);
+
+        nameLbl.setText("'" + task.getName() + "'");
+        valueLbl.setText(task.getValue() + "");
+        descriptionLbl.setText(task.getDescription());
     }
 }

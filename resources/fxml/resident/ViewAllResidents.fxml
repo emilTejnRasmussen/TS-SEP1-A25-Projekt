@@ -25,9 +25,8 @@
     <VBox spacing="20.0">
 
         <HBox spacing="20.0">
-            <TextField fx:id="searchTxtField" onKeyTyped="#handleSearch" prefHeight="30.0" prefWidth="466.0" promptText="Søg efter beboer" />
-
-            <Button onAction="#handleClearSearchBar" prefHeight="30.0" prefWidth="75.0" text="Søg">
+            <TextField fx:id="searchTxtField" maxWidth="1.7976931348623157E308" onKeyTyped="#handleSearch" prefHeight="30.0" prefWidth="466.0" promptText="Søg" />
+            <Button mnemonicParsing="false" onAction="#handleClearSearchBar" prefHeight="30.0" prefWidth="75.0" text="Nulstil">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -47,8 +46,6 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
 
-        </TableView>
-
     </VBox>
 
     <!-- Knapper: samme størrelse som før -->
@@ -59,20 +56,17 @@
                 <Font name="Segoe UI" size="14.0" />
             </font>
         </Button>
-
-        <Button fx:id="detailsBtn" onAction="#handleViewDetails" prefHeight="45.0" prefWidth="85.0" text="Detaljer">
+        <Button fx:id="detailsBtn" mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="45.0" prefWidth="85.0" text="Detaljer">
             <font>
                 <Font name="Segoe UI" size="14.0" />
             </font>
         </Button>
-
-        <Button fx:id="updateBtn" onAction="#handleUpdate" prefHeight="45.0" prefWidth="85.0" text="Opdater">
+        <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="45.0" prefWidth="85.0" text="Opdater">
             <font>
                 <Font name="Segoe UI" size="14.0" />
             </font>
         </Button>
-
-        <Button fx:id="deleteBtn" onAction="#handleDelete" prefHeight="45.0" prefWidth="85.0" text="Slet">
+        <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDelete" prefHeight="45.0" prefWidth="85.0" text="Slet">
             <font>
                 <Font name="Segoe UI" size="14.0" />
             </font>

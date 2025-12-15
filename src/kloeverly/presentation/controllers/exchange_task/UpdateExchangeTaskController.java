@@ -77,6 +77,14 @@ public class UpdateExchangeTaskController extends AddExchangeTaskController
     task.setAmount(updatedTask.getAmount());
     task.setProvider(updatedTask.getProvider());
     dataManager.updateTask(task);
+    ViewManager.updateExternalView();
     ViewManager.showView(Views.EXCHANGE_TASKS, null, task.formatTaskUpdated());
   }
+
+  @Override
+  public void handleCancel()
+  {
+    ViewManager.showView(Views.VIEW_DETAILED_EXCHANGE_TASK, String.valueOf(task.getId()));
+  }
+
 }

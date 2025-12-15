@@ -11,12 +11,30 @@ import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 import java.util.Optional;
 
 public class ViewAllResidentsController implements InitializableController
 {
-    @FXML private TextField searchTxtField;
+    @FXML
+    private Button detailsBtn;
+    @FXML
+    private Button updateBtn;
+    @FXML
+    private Button deleteBtn;
+
+    @FXML
+    private TextField searchTxtField;
+
+    @FXML
+    private TableView<Resident> residentTable;
+
+    @FXML
+    private TableColumn<Resident, Number> idColumn;
+
+    @FXML
+    private TableColumn<Resident, String> nameColumn;
 
     @FXML private TableView<Resident> allResidentsTable;
     @FXML private TableColumn<Resident, Number> idCol;
@@ -30,9 +48,7 @@ public class ViewAllResidentsController implements InitializableController
     @FXML private Button deleteBtn;
 
     private DataManager dataManager;
-
-    private final ObservableList<Resident> allResidents =
-            FXCollections.observableArrayList();
+    private final ObservableList<Resident> residents = FXCollections.observableArrayList();
 
     @Override
     public void init(DataManager dataManager)
@@ -45,6 +61,8 @@ public class ViewAllResidentsController implements InitializableController
         pointsCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
         loadResidents();
+        UtilityMethods.buttonListener(residentTable, detailsBtn, updateBtn, deleteBtn);
+    }
 
         // Tilføj er altid aktiv
         setButtonState(addBtn, true);
@@ -64,7 +82,8 @@ public class ViewAllResidentsController implements InitializableController
 
     public void handleViewDetails()
     {
-        Resident selected = allResidentsTable.getSelectionModel().getSelectedItem();
+
+        Resident selected = residentTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
         ViewManager.showView(Views.VIEW_SINGLE_RESIDENT, String.valueOf(selected.getId()));
@@ -72,7 +91,7 @@ public class ViewAllResidentsController implements InitializableController
 
     public void handleUpdate()
     {
-        Resident selected = allResidentsTable.getSelectionModel().getSelectedItem();
+        Resident selected = residentTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
         ViewManager.showView(Views.UPDATE_RESIDENT, String.valueOf(selected.getId()));
@@ -80,11 +99,8 @@ public class ViewAllResidentsController implements InitializableController
 
     public void handleDelete()
     {
-        Resident selected = allResidentsTable.getSelectionModel().getSelectedItem();
+        Resident selected = residentTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
-
-        ButtonType deleteType = new ButtonType("Slet", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelType = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("Bekræft sletning");

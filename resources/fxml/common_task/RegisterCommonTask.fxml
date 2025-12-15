@@ -40,20 +40,42 @@
             </Label>
             <HBox alignment="CENTER_LEFT" spacing="20.0">
                 <ComboBox fx:id="residentComboBox" prefHeight="35.0" prefWidth="150.0" />
-                <Button mnemonicParsing="false" onAction="#handleRegister" prefHeight="35.0" prefWidth="85.0" text="Registrer">
-                    <font>
-                        <Font name="Segoe UI" size="14.0" />
-                    </font>
-                </Button>
             <Label fx:id="registerErrorLbl" textFill="#ff2e2e" />
             </HBox>
         </VBox>
         <VBox maxHeight="250.0" prefHeight="250.0" spacing="10.0">
             <HBox spacing="10.0">
+                <Label text="Pladser tilbage:">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <HBox spacing="5.0">
+                    <Label fx:id="amountLbl" text="AMOUNT_VALUE">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <Label text="Pladser">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+               <Label fx:id="amountErrorLbl" textFill="#ff2e2e">
+                  <padding>
+                     <Insets left="25.0" />
+                  </padding>
+               </Label>
+                </HBox>
+            </HBox>
+            <HBox spacing="10.0">
                 <Label text="Værdi:">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
+                    <HBox.margin>
+                        <Insets right="59.0" />
+                    </HBox.margin>
                 </Label>
                 <HBox spacing="5.0">
                     <Label fx:id="valueLbl" text="VALUE_VALUE">
@@ -72,10 +94,15 @@
         </VBox>
     </VBox>
     <HBox alignment="CENTER" spacing="75.0">
-        <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="45.0" prefWidth="85.0" text="Afbryd">
+        <Button mnemonicParsing="false" onAction="#handleRegister" prefHeight="45.0" prefWidth="85.0" text="Registrer">
             <font>
                 <Font name="Segoe UI" size="14.0" />
             </font>
         </Button>
+      <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="45.0" prefWidth="85.0" text="Afbryd">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Button>
     </HBox>
 </VBox>

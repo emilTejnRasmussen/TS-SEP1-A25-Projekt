@@ -1,27 +1,36 @@
 package kloeverly.presentation.controllers.common_task;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.CommonTask;
 import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
+import kloeverly.presentation.core.AcceptsFlashMessage;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+import kloeverly.utility.UtilityMethods;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ViewAllCommonTasksController implements InitializableController
+public class ViewAllCommonTasksController implements InitializableController, AcceptsFlashMessage
 {
+    @FXML
+    private Button detailsBtn;
+    @FXML
+    private Button registerBtn;
+    @FXML
+    private Button deleteBtn;
     @FXML
     private TableView<CommonTask> allCommonTasksTable;
     @FXML
     private TableColumn<CommonTask, String> nameCol;
     @FXML
     private TableColumn<CommonTask, Integer> valueCol;
+    @FXML
+    private TableColumn<CommonTask, Integer> amountCol;
     @FXML
     private TextField searchTxtField;
 
@@ -32,6 +41,7 @@ public class ViewAllCommonTasksController implements InitializableController
     {
         this.dataManager = dataManager;
         showTable(dataManager.getAllCommonTasks());
+        UtilityMethods.buttonListener(allCommonTasksTable, detailsBtn, registerBtn, deleteBtn);
     }
 
     public void handleSearch()
@@ -74,19 +84,23 @@ public class ViewAllCommonTasksController implements InitializableController
         confirm.setContentText("Er du sikker på, at du vil slette: '" + selectedTask.getName() + "'?");
 
         Optional<ButtonType> result = confirm.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK)
+        {
             dataManager.deleteTask(selectedTask);
             showTable(dataManager.getAllCommonTasks());
             ViewManager.updateExternalView();
+            setFlashMessage(selectedTask.formatTaskDeleted());
         }
 
     }
 
-    private void showTable(List<CommonTask> tasks){
+    private void showTable(List<CommonTask> tasks)
+    {
         allCommonTasksTable.getItems().clear();
 
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
         allCommonTasksTable.getItems().addAll(tasks);
     }
@@ -97,5 +111,11 @@ public class ViewAllCommonTasksController implements InitializableController
         if (task == null) return;
 
         ViewManager.showView(Views.REGISTER_COMMON_TASK, task.getId() + "");
+    }
+
+    @Override
+    public void setFlashMessage(String message)
+    {
+        UtilityMethods.showFlashMessage(message);
     }
 }

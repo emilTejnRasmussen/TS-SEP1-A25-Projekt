@@ -2,16 +2,18 @@ package kloeverly.presentation.controllers.common_task;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import kloeverly.domain.CommonTask;
 import kloeverly.persistence.DataManager;
-import kloeverly.presentation.core.AcceptsStringArgument;
-import kloeverly.presentation.core.InitializableController;
-import kloeverly.presentation.core.ViewManager;
-import kloeverly.presentation.core.Views;
+import kloeverly.presentation.core.*;
+import kloeverly.utility.UtilityMethods;
 
-public class ViewSingleCommonTaskController implements InitializableController, AcceptsStringArgument
+public class ViewSingleCommonTaskController implements InitializableController, AcceptsStringArgument, AcceptsFlashMessage
 {
+    @FXML
+    private Label amountLbl;
     @FXML
     private Label mainTitleLbl;
     @FXML
@@ -52,6 +54,13 @@ public class ViewSingleCommonTaskController implements InitializableController, 
         idLbl.setText(task.getId() + "");
         titleLbl.setText(task.getName());
         valueLbl.setText(task.getValue() + "");
+        amountLbl.setText(task.getAmount() + "");
         descriptionLbl.setText(task.getDescription());
+    }
+
+    @Override
+    public void setFlashMessage(String message)
+    {
+        UtilityMethods.showFlashMessage(message);
     }
 }
