@@ -8,23 +8,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" spacing="30.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.ExternalScreenController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.ExternalScreenController">
     <padding>
         <Insets bottom="50.0" left="50.0" right="50.0" top="20.0" />
     </padding>
     <Label text="Kløverly">
         <font>
-          <Font name="Segoe UI" size="64.0" />
+            <Font name="Segoe UI" size="64.0" />
         </font>
     </Label>
-    <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="715.0" prefWidth="800.0" spacing="10.0">
+    <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="800.0" spacing="10.0" VBox.vgrow="ALWAYS">
         <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
             <Label text="Beboere">
                 <font>
                     <Font size="24.0" />
                 </font>
             </Label>
-            <TableView fx:id="residentTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="200.0">
+            <TableView fx:id="residentTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="residentNameCol" prefWidth="75.0" text="Navn" />
                     <TableColumn fx:id="residentPointCol" prefWidth="75.0" text="Point" />
@@ -34,7 +34,7 @@
                 </columnResizePolicy>
             </TableView>
         </VBox>
-        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
+        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" HBox.hgrow="ALWAYS">
             <Label text="Bytte">
                 <font>
                     <Font size="24.0" />
@@ -43,14 +43,14 @@
             <TableView fx:id="exchangeTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="200.0">
                 <columns>
                     <TableColumn fx:id="exchangeNameCol" prefWidth="75.0" text="Navn" />
-                    <TableColumn fx:id="exchangeValueCol" prefWidth="75.0" text="Beløb" />
+                    <TableColumn fx:id="exchangeValueCol" prefWidth="75.0" text="Værdi" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                 </columnResizePolicy>
             </TableView>
         </VBox>
-        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
+        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" HBox.hgrow="ALWAYS">
             <Label text="Fælles">
                 <font>
                     <Font size="24.0" />
@@ -66,7 +66,7 @@
                 </columnResizePolicy>
             </TableView>
         </VBox>
-        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
+        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" HBox.hgrow="ALWAYS">
             <Label text="Grøn">
                 <font>
                     <Font size="24.0" />
