@@ -7,17 +7,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-      prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="kloeverly.presentation.controllers.green_task.ViewGreenTaskController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.green_task.ViewGreenTaskController">
 
     <padding>
-        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
+        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
     </padding>
 
     <Label text="Grøn opgave detaljer">
         <font>
-            <Font size="36.0"/>
+            <Font size="36.0" />
         </font>
     </Label>
 
@@ -25,14 +23,13 @@
         <VBox spacing="10.0">
             <Label text="Navn">
                 <font>
-                    <Font name="Segoe UI" size="14.0"/>
+                    <Font name="Segoe UI" size="14.0" />
                 </font>
             </Label>
 
-            <Label fx:id="nameValueLabel" prefHeight="30.0" prefWidth="350.0"
-                   style="-fx-border-color: lightgray; -fx-padding: 6;">
+            <Label fx:id="nameValueLabel" prefHeight="30.0" prefWidth="350.0" style="-fx-border-color: lightgray; -fx-padding: 6;">
                 <font>
-                    <Font name="Segoe UI" size="14.0"/>
+                    <Font name="Segoe UI" size="14.0" />
                 </font>
             </Label>
         </VBox>
@@ -40,14 +37,13 @@
         <VBox spacing="10.0">
             <Label text="Point">
                 <font>
-                    <Font name="Segoe UI" size="14.0"/>
+                    <Font name="Segoe UI" size="14.0" />
                 </font>
             </Label>
 
-            <Label fx:id="pointsValueLabel" prefHeight="30.0" prefWidth="210.0"
-                   style="-fx-border-color: lightgray; -fx-padding: 6;">
+            <Label fx:id="pointsValueLabel" prefHeight="30.0" prefWidth="210.0" style="-fx-border-color: lightgray; -fx-padding: 6;">
                 <font>
-                    <Font name="Segoe UI" size="14.0"/>
+                    <Font name="Segoe UI" size="14.0" />
                 </font>
             </Label>
         </VBox>
@@ -57,14 +53,13 @@
     <VBox spacing="10.0">
         <Label text="ID">
             <font>
-                <Font name="Segoe UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0" />
             </font>
         </Label>
 
-        <Label fx:id="idValueLabel" prefHeight="30.0" prefWidth="210.0"
-               style="-fx-border-color: lightgray; -fx-padding: 6;">
+        <Label fx:id="idValueLabel" prefHeight="30.0" prefWidth="210.0" style="-fx-border-color: lightgray; -fx-padding: 6;">
             <font>
-                <Font name="Segoe UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0" />
             </font>
         </Label>
     </VBox>
@@ -72,30 +67,29 @@
     <VBox spacing="10.0">
         <Label text="Beskrivelse">
             <font>
-                <Font name="Segoe UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0" />
             </font>
         </Label>
 
-        <Label fx:id="descriptionValueLabel" prefHeight="200.0" prefWidth="560.0"
-               style="-fx-border-color: lightgray; -fx-padding: 8;" wrapText="true">
+        <Label fx:id="descriptionValueLabel" prefHeight="200.0" prefWidth="560.0" style="-fx-border-color: lightgray; -fx-padding: 8;" wrapText="true">
             <font>
-                <Font name="Segoe UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0" />
             </font>
         </Label>
     </VBox>
 
-    <Label fx:id="errorLabel" textFill="#ff2e2e"/>
+    <Label fx:id="errorLabel" textFill="#ff2e2e" />
 
     <HBox alignment="CENTER" spacing="75.0">
         <Button mnemonicParsing="false" onAction="#handleUpdate" prefHeight="45.0" prefWidth="85.0" text="Opdater">
             <font>
-                <Font name="Segoe UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0" />
             </font>
         </Button>
 
         <Button mnemonicParsing="false" onAction="#handleGoBack" prefHeight="45.0" prefWidth="85.0" text="Tilbage">
             <font>
-                <Font name="Segoe UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0" />
             </font>
         </Button>
 

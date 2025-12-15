@@ -1,12 +1,10 @@
 package kloeverly.presentation.controllers.green_task;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.GreenTask;
 import kloeverly.persistence.DataManager;
@@ -14,22 +12,22 @@ import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 
+import java.util.Optional;
+
 public class ViewAllGreenTasksController implements InitializableController
 {
-    public TextField searchTxtField;
+    @FXML public TextField searchTxtField;
 
-    public TableView<GreenTask> greenTaskTable;
-    public TableColumn<GreenTask, String> nameColumn;
-    public TableColumn<GreenTask, String> descriptionColumn;
-    public TableColumn<GreenTask, Number> pointsColumn;
+    @FXML public TableView<GreenTask> greenTaskTable;
+    @FXML public TableColumn<GreenTask, String> nameColumn;
+    @FXML public TableColumn<GreenTask, String> descriptionColumn;
+    @FXML public TableColumn<GreenTask, Number> pointsColumn;
 
-    public Label errorLabel;
-
-    public Button addButton;
-    public Button viewDetailsButton;
-    public Button registerButton;
-    public Button updateButton;
-    public Button deleteButton;
+    @FXML public Button addButton;
+    @FXML public Button viewDetailsButton;
+    @FXML public Button registerButton;
+    @FXML public Button updateButton;
+    @FXML public Button deleteButton;
 
     private DataManager dataManager;
 
@@ -40,7 +38,6 @@ public class ViewAllGreenTasksController implements InitializableController
     public void init(DataManager dataManager)
     {
         this.dataManager = dataManager;
-        clearError();
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -48,8 +45,11 @@ public class ViewAllGreenTasksController implements InitializableController
 
         loadGreenTasks();
 
-        setSelectionButtonsEnabled(false);
+        // Tilføj er altid aktiv
+        setButtonState(addButton, true);
 
+        // De andre kræver selection
+        setSelectionButtonsEnabled(false);
         greenTaskTable.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldVal, newVal) -> setSelectionButtonsEnabled(newVal != null)
         );
@@ -57,13 +57,11 @@ public class ViewAllGreenTasksController implements InitializableController
 
     public void handleAdd()
     {
-        clearError();
         ViewManager.showView(Views.ADD_GREEN_TASK);
     }
 
     public void handleViewDetails()
     {
-        clearError();
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
@@ -72,7 +70,6 @@ public class ViewAllGreenTasksController implements InitializableController
 
     public void handleRegister()
     {
-        clearError();
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
@@ -81,7 +78,6 @@ public class ViewAllGreenTasksController implements InitializableController
 
     public void handleUpdate()
     {
-        clearError();
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
@@ -90,14 +86,31 @@ public class ViewAllGreenTasksController implements InitializableController
 
     public void handleDelete()
     {
-        clearError();
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
-        dataManager.deleteTask(selected);
-        ViewManager.updateExternalView();
-        loadGreenTasks();
-        setSelectionButtonsEnabled(false);
+        ButtonType deleteType = new ButtonType("Slet opgave", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelType = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Bekræft sletning");
+        confirm.setHeaderText("Slet grøn opgave");
+        confirm.setContentText("Er du sikker på, at du vil slette: \"" + selected.getName() + "\"?");
+        confirm.getButtonTypes().setAll(deleteType, cancelType);
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        Platform.runLater(() ->
+                confirm.getDialogPane().lookupButton(cancelType).requestFocus());
+
+        if (result.isPresent() && result.get() == deleteType)
+        {
+            dataManager.deleteTask(selected);
+            ViewManager.updateExternalView();
+            loadGreenTasks();
+            setSelectionButtonsEnabled(false);
+
+            showConfirmation("Opgaven \"" + selected.getName() + "\" er slettet.");
+        }
     }
 
     public void handleSearch()
@@ -120,13 +133,11 @@ public class ViewAllGreenTasksController implements InitializableController
                 filtered.add(task);
             }
         }
-
         greenTaskTable.setItems(filtered);
     }
 
     public void handleClearSearchBar()
     {
-        clearError();
         searchTxtField.clear();
         greenTaskTable.setItems(allGreenTasks);
     }
@@ -152,11 +163,13 @@ public class ViewAllGreenTasksController implements InitializableController
         button.setOpacity(enabled ? 1.0 : 0.5);
     }
 
-    private void clearError()
+    private void showConfirmation(String message)
     {
-        if (errorLabel != null)
-        {
-            errorLabel.setText("");
-        }
+        if (message == null || message.isBlank()) return;
+
+        Alert alert = new Alert(Alert.AlertType.NONE, message, ButtonType.OK);
+        alert.setTitle("Bekræftelse");
+        alert.setHeaderText(null);
+        alert.show();
     }
 }

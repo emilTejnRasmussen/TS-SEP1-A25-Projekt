@@ -8,17 +8,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-      prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="kloeverly.presentation.controllers.resident.ViewResidentController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="660.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kloeverly.presentation.controllers.resident.ViewResidentController">
 
     <padding>
-        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
+        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
     </padding>
 
     <Label text="Beboer detaljer">
         <font>
-            <Font size="36.0"/>
+            <Font size="36.0" />
         </font>
     </Label>
 
@@ -27,14 +25,13 @@
             <VBox spacing="10.0">
                 <Label text="Navn">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
 
-                <TextField fx:id="nameField" editable="false" prefHeight="25.0" prefWidth="348.0"
-                           promptText="Navn på beboer">
+                <TextField fx:id="nameField" editable="false" prefHeight="25.0" prefWidth="348.0" promptText="Navn på beboer">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </TextField>
 
@@ -43,14 +40,13 @@
             <VBox spacing="10.0">
                 <Label text="Pointfaktor">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
 
-                <TextField fx:id="pointFactorField" editable="false" prefHeight="25.0" prefWidth="211.0"
-                           promptText="Pointfaktor">
+                <TextField fx:id="pointFactorField" editable="false" prefHeight="25.0" prefWidth="211.0" promptText="Pointfaktor">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </TextField>
 
@@ -62,14 +58,13 @@
             <VBox spacing="10.0">
                 <Label text="ID">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
 
-                <TextField fx:id="idField" editable="false" prefHeight="25.0" prefWidth="211.0"
-                           promptText="ID">
+                <TextField fx:id="idField" editable="false" prefHeight="25.0" prefWidth="211.0" promptText="ID">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </TextField>
 
@@ -78,14 +73,13 @@
             <VBox spacing="10.0">
                 <Label text="Point">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </Label>
 
-                <TextField fx:id="pointsField" editable="false" prefHeight="25.0" prefWidth="211.0"
-                           promptText="Point">
+                <TextField fx:id="pointsField" editable="false" prefHeight="25.0" prefWidth="211.0" promptText="Point">
                     <font>
-                        <Font name="Segoe UI" size="14.0"/>
+                        <Font name="Segoe UI" size="14.0" />
                     </font>
                 </TextField>
 
@@ -93,20 +87,20 @@
 
         </HBox>
 
-        <Label fx:id="errorLabel" textFill="#ff2e2e"/>
+        <Label fx:id="errorLabel" textFill="#ff2e2e" />
 
     </VBox>
 
     <HBox alignment="CENTER" spacing="75.0">
         <Button mnemonicParsing="false" onAction="#handleUpdate" prefHeight="45.0" prefWidth="85.0" text="Opdater">
             <font>
-                <Font name="Segoe UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0" />
             </font>
         </Button>
 
         <Button mnemonicParsing="false" onAction="#handleGoBack" prefHeight="45.0" prefWidth="85.0" text="Tilbage">
             <font>
-                <Font name="Segoe UI" size="14.0"/>
+                <Font name="Segoe UI" size="14.0" />
             </font>
         </Button>
 

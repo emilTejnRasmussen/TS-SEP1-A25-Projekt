@@ -1,18 +1,18 @@
 package kloeverly.presentation.controllers.resident;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import kloeverly.domain.Resident;
 import kloeverly.persistence.DataManager;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
+
+import java.util.Optional;
 
 public class ViewAllResidentsController implements InitializableController
 {
@@ -46,11 +46,11 @@ public class ViewAllResidentsController implements InitializableController
 
         loadResidents();
 
+        // Tilføj er altid aktiv
+        setButtonState(addBtn, true);
 
-        setButtonState(addBtn,true);
-
+        // De andre kræver selection
         setSelectionButtonsEnabled(false);
-
         allResidentsTable.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((obs, oldVal, newVal) ->
@@ -67,10 +67,7 @@ public class ViewAllResidentsController implements InitializableController
         Resident selected = allResidentsTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
-        ViewManager.showView(
-                Views.VIEW_SINGLE_RESIDENT,
-                String.valueOf(selected.getId())
-        );
+        ViewManager.showView(Views.VIEW_SINGLE_RESIDENT, String.valueOf(selected.getId()));
     }
 
     public void handleUpdate()
@@ -78,10 +75,7 @@ public class ViewAllResidentsController implements InitializableController
         Resident selected = allResidentsTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
-        ViewManager.showView(
-                Views.UPDATE_RESIDENT,
-                String.valueOf(selected.getId())
-        );
+        ViewManager.showView(Views.UPDATE_RESIDENT, String.valueOf(selected.getId()));
     }
 
     public void handleDelete()
@@ -89,9 +83,27 @@ public class ViewAllResidentsController implements InitializableController
         Resident selected = allResidentsTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
-        dataManager.deleteResident(selected);
-        loadResidents();
-        setSelectionButtonsEnabled(false);
+        ButtonType deleteType = new ButtonType("Slet", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelType = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Bekræft sletning");
+        confirm.setHeaderText("Slet beboer");
+        confirm.setContentText("Er du sikker på, at du vil slette: \"" + selected.getName() + "\"?");
+        confirm.getButtonTypes().setAll(deleteType, cancelType);
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        Platform.runLater(() ->
+                confirm.getDialogPane().lookupButton(cancelType).requestFocus());
+
+        if (result.isPresent() && result.get() == deleteType)
+        {
+            dataManager.deleteResident(selected);
+            loadResidents();
+            setSelectionButtonsEnabled(false);
+
+            showConfirmation("Beboeren \"" + selected.getName() + "\" er slettet.");
+        }
     }
 
     public void handleSearch()
@@ -109,13 +121,11 @@ public class ViewAllResidentsController implements InitializableController
         ObservableList<Resident> filtered = FXCollections.observableArrayList();
         for (Resident r : allResidents)
         {
-            if (r.getName() != null &&
-                    r.getName().toLowerCase().contains(query))
+            if (r.getName() != null && r.getName().toLowerCase().contains(query))
             {
                 filtered.add(r);
             }
         }
-
         allResidentsTable.setItems(filtered);
     }
 
@@ -141,8 +151,17 @@ public class ViewAllResidentsController implements InitializableController
     private void setButtonState(Button btn, boolean enabled)
     {
         if (btn == null) return;
-
         btn.setDisable(!enabled);
         btn.setOpacity(enabled ? 1.0 : 0.5);
+    }
+
+    private void showConfirmation(String message)
+    {
+        if (message == null || message.isBlank()) return;
+
+        Alert alert = new Alert(Alert.AlertType.NONE, message, ButtonType.OK);
+        alert.setTitle("Bekræftelse");
+        alert.setHeaderText(null);
+        alert.show();
     }
 }
