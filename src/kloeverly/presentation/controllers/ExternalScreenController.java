@@ -1,6 +1,7 @@
 package kloeverly.presentation.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,6 +16,8 @@ import java.util.List;
 
 public class ExternalScreenController implements InitializableController
 {
+    @FXML
+    private Label climateScoreLabel;
     @FXML
     private TableView<Resident> residentTable;
     @FXML
@@ -57,6 +60,8 @@ public class ExternalScreenController implements InitializableController
 
     private void loadData()
     {
+        climateScoreLabel.setText(dataManager.getClimateScore().getTotalGreenPoints() + "");
+
         tables.forEach(t -> t.getItems().clear());
 
         residentNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

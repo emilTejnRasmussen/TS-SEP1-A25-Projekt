@@ -12,11 +12,19 @@
     <padding>
         <Insets bottom="50.0" left="50.0" right="50.0" top="20.0" />
     </padding>
-    <Label text="Kløverly">
+    <Label text="Kløverly" textFill="#4c5e46">
         <font>
-            <Font name="Segoe UI" size="64.0" />
+            <Font name="Bell MT Bold" size="64.0" />
         </font>
     </Label>
+    <VBox alignment="CENTER">
+        <Label fx:id="climateScoreLabel" text="CLIMATE_VALUE">
+           <font>
+               <Font size="36.0"/>
+           </font>
+        </Label>
+        <Label text="Klima Kapital"/>
+    </VBox>
     <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="800.0" spacing="10.0" VBox.vgrow="ALWAYS">
         <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
             <Label text="Beboere">
@@ -24,15 +32,15 @@
                     <Font size="24.0" />
                 </font>
             </Label>
-            <TableView fx:id="residentTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                <columns>
-                    <TableColumn fx:id="residentNameCol" prefWidth="75.0" text="Navn" />
-                    <TableColumn fx:id="residentPointCol" prefWidth="75.0" text="Point" />
-                </columns>
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                </columnResizePolicy>
-            </TableView>
+         <TableView fx:id="residentTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0">
+            <columns>
+               <TableColumn fx:id="residentNameCol" prefWidth="75.0" text="Navn" />
+               <TableColumn fx:id="residentPointCol" prefWidth="75.0" text="Point" />
+            </columns>
+            <columnResizePolicy>
+               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+         </TableView>
         </VBox>
         <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" HBox.hgrow="ALWAYS">
             <Label text="Bytte">
@@ -40,10 +48,10 @@
                     <Font size="24.0" />
                 </font>
             </Label>
-            <TableView fx:id="exchangeTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="200.0">
+            <TableView fx:id="exchangeTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0">
                 <columns>
-                    <TableColumn fx:id="exchangeNameCol" prefWidth="75.0" text="Navn" />
-                    <TableColumn fx:id="exchangeValueCol" prefWidth="75.0" text="Værdi" />
+                    <TableColumn fx:id="exchangeNameCol" prefWidth="170.0" text="Navn" />
+                    <TableColumn fx:id="exchangeValueCol" prefWidth="76.0" text="Værdi" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -56,10 +64,10 @@
                     <Font size="24.0" />
                 </font>
             </Label>
-            <TableView fx:id="commonTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="200.0">
+            <TableView fx:id="commonTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0">
                 <columns>
-                    <TableColumn fx:id="commonNameCol" prefWidth="75.0" text="Navn" />
-                    <TableColumn fx:id="commonValueCol" prefWidth="75.0" text="Værdi" />
+                    <TableColumn fx:id="commonNameCol" prefWidth="165.0" text="Navn" />
+                    <TableColumn fx:id="commonValueCol" prefWidth="81.0" text="Værdi" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -72,10 +80,10 @@
                     <Font size="24.0" />
                 </font>
             </Label>
-            <TableView fx:id="greenTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="200.0">
+            <TableView fx:id="greenTable" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0">
                 <columns>
-                    <TableColumn fx:id="greenNameCol" prefWidth="75.0" text="Navn" />
-                    <TableColumn fx:id="greenValueCol" prefWidth="75.0" text="Værdi" />
+                    <TableColumn fx:id="greenNameCol" prefWidth="169.0" text="Navn" />
+                    <TableColumn fx:id="greenValueCol" prefWidth="77.0" text="Værdi" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
