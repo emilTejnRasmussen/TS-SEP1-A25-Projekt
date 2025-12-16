@@ -23,253 +23,211 @@ import java.util.Optional;
 
 public class HomeViewController implements InitializableController
 {
-    @FXML
-    private PieChart pieChart;
-    @FXML
-    private Button runExternalScreenBtn;
-    @FXML
-    private Label residentAmountLbl;
-    @FXML
-    private Label greenTaskAmountLbl;
-    @FXML
-    private Label commonTaskAmountLbl;
-    @FXML
-    private Label exchangeTaskAmountLbl;
-    @FXML
-    private Label climateScoreLbl;
+  @FXML private PieChart pieChart;
+  @FXML private Button runExternalScreenBtn;
+  @FXML private Label residentAmountLbl;
+  @FXML private Label greenTaskAmountLbl;
+  @FXML private Label commonTaskAmountLbl;
+  @FXML private Label exchangeTaskAmountLbl;
+  @FXML private Label climateScoreLbl;
 
-    private DataManager dataManager;
+  private DataManager dataManager;
 
-    @Override
-    public void init(DataManager dataManager)
+  @Override public void init(DataManager dataManager)
+  {
+    this.dataManager = dataManager;
+    loadStats();
+    if (ViewManager.getExternalStage() != null)
     {
-        this.dataManager = dataManager;
-        loadStats();
-        if (ViewManager.getExternalStage() != null){
-            runExternalScreenBtn.setDisable(true);
-        }
+      runExternalScreenBtn.setDisable(true);
     }
+  }
 
-    public void handleResetResidentPoints()
+  public void handleResetResidentPoints()
+  {
+    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+    confirm.setTitle("Bekræft nulstilling");
+    confirm.setHeaderText("Nulstil individuelle point");
+    confirm.setContentText(
+        "Er du sikker på, at du vil nulstille alle beboers individuelle point?");
+
+    Optional<ButtonType> result = confirm.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK)
     {
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Bekræft nulstilling");
-        confirm.setHeaderText("Nulstil individuelle point");
-        confirm.setContentText("Er du sikker på, at du vil nulstille alle beboers individuelle point?");
-
-        Optional<ButtonType> result = confirm.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
-            dataManager.resetPointsForAllResidents();
-            ViewManager.updateExternalView();
-        }
+      dataManager.resetPointsForAllResidents();
+      ViewManager.updateExternalView();
     }
+  }
 
-    public void handleShowExternalScreen()
+  public void handleShowExternalScreen()
+  {
+    if (ViewManager.getExternalStage() != null)
+      return;
+    ViewManager.showExternalScreen(runExternalScreenBtn);
+    runExternalScreenBtn.setDisable(true);
+  }
+
+  private void loadStats()
+  {
+    climateScoreLbl.setText(
+        dataManager.getClimateScore().getTotalGreenPoints() + "");
+    residentAmountLbl.setText(dataManager.getAllResidents().size() + "");
+    greenTaskAmountLbl.setText(dataManager.getAllGreenTasks().size() + "");
+    commonTaskAmountLbl.setText(dataManager.getAllCommonTasks().size() + "");
+    exchangeTaskAmountLbl.setText(
+        dataManager.getAllExchangeTasks().size() + "");
+
+    createPieChart();
+  }
+
+  private void createPieChart()
+  {
+    pieChart.setAnimated(false);
+    pieChart.getData().clear();
+    pieChart.setLabelsVisible(false);
+
+    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+    int green = dataManager.getAllGreenTasks().size();
+    int exchange = dataManager.getAllExchangeTasks().size();
+    int common = dataManager.getAllCommonTasks().size();
+
+    if (green > 0)
+      pieChartData.add(new PieChart.Data("Grønne", green));
+    if (exchange > 0)
+      pieChartData.add(new PieChart.Data("Bytte", exchange));
+    if (common > 0)
+      pieChartData.add(new PieChart.Data("Fælles", common));
+
+    pieChart.setData(pieChartData);
+  }
+
+  public void handleResetClimateScore()
+  {
+    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+    confirm.setTitle("Bekræft nulstilling");
+    confirm.setHeaderText("Nulstil klimakapital");
+    confirm.setContentText(
+        "Er du sikker på, at du vil nulstille alle fælles point i klimakapitalen?");
+
+    Optional<ButtonType> result = confirm.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK)
     {
-        if (ViewManager.getExternalStage() != null) return;
-        ViewManager.showExternalScreen(runExternalScreenBtn);
-        runExternalScreenBtn.setDisable(true);
+      dataManager.resetClimateScore();
+      climateScoreLbl.setText(
+          dataManager.getClimateScore().getTotalGreenPoints() + "");
     }
+  }
 
-    private void loadStats()
-    {
-        climateScoreLbl.setText(dataManager.getClimateScore().getTotalGreenPoints() + "");
-        residentAmountLbl.setText(dataManager.getAllResidents().size() + "");
-        greenTaskAmountLbl.setText(dataManager.getAllGreenTasks().size() + "");
-        commonTaskAmountLbl.setText(dataManager.getAllCommonTasks().size() + "");
-        exchangeTaskAmountLbl.setText(dataManager.getAllExchangeTasks().size() + "");
+  public void handleAddBaseData()
+  {
+    Resident r1 = new Resident("Grønne Bob", 1.3);        // Kontaktperson
+    Resident r2 = new Resident("Sofie", 1.0);
+    Resident r3 = new Resident("Kasper", 1.0);
+    Resident r4 = new Resident("Gitte", 1.1);
+    Resident r5 = new Resident("William", 1.5);
+    Resident r6 = new Resident("Ella", 1.5);
+    Resident r7 = new Resident("Peter", 0.9);
+    Resident r8 = new Resident("Oliver", 1.0);
+    Resident r9 = new Resident("Anna", 1.0);
+    Resident r10 = new Resident("Mads", 1.3);
+    Resident r11 = new Resident("Alfred", 1.3);
+    Resident r12 = new Resident("John", 1.0);
+    Resident r13 = new Resident("Carl", 1.5);
+    Resident r14 = new Resident("Solvej", 1.1);
+    Resident r15 = new Resident("Mads", 1.0);
+    Resident r16 = new Resident("Agnes", 1.5);
+    Resident r17 = new Resident("Valdemar", 1.5);
+    Resident r18 = new Resident("Malthe", 1.3);
+    Resident r19 = new Resident("Sofie", 1.0);
+    Resident r20 = new Resident("Thomas", 1.0);
 
-        createPieChart();
-    }
+    Task g1 = new GreenTask("Sorter dit madaffald til fælleskomposten",
+        "Sortér alt dit grønne madaffald fra i en hel uge og smid det på fælleskomposten i stedet, så det bliver holdt lokalt og kan være med i vores biodynamiske jordbrug.",
+        35);
 
-    private void createPieChart()
-    {
-        pieChart.setAnimated(false);
-        pieChart.getData().clear();
-        pieChart.setLabelsVisible(false);
+    Task g2 = new GreenTask("Cykel-ugen",
+        "Drop bilen og tag din cykel i en hel uge i stedet for!", 70);
 
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    Task g3 = new GreenTask("En uge på strøm-jagt",
+        "Find og sluk for unødvendigt strømforbrug - fx kan du slukke for standbylys, når du ikke bruger et apparat, huske at slukke lyset når du forlader et rum etc.",
+        25);
 
-        int green = dataManager.getAllGreenTasks().size();
-        int exchange = dataManager.getAllExchangeTasks().size();
-        int common = dataManager.getAllCommonTasks().size();
+    Task g4 = new GreenTask("Donér til genbrug eller Byttebiksen",
+        "Aflever et stykke tøj eller en genstand til genbrug eller vores allesammens Byttebiks.",
+        30);
 
-        if (green > 0)  pieChartData.add(new PieChart.Data("Grønne", green));
-        if (exchange > 0) pieChartData.add(new PieChart.Data("Bytte", exchange));
-        if (common > 0) pieChartData.add(new PieChart.Data("Fælles", common));
+    Task g5 = new GreenTask("Reparer dit tøj",
+        "Lap huller og fix dit slidte tøj, så det kan klare sig lidt længere endnu.",
+        45);
 
+    Task g6 = new GreenTask("Ryd ud i din mailboks",
+        "Slet alle unødvendige og gamle mails, der bare ligger og fylder et sted i skyen.",
+        20);
 
-        pieChart.setData(pieChartData);
-    }
+    Task c1 = new CommonTask("Hovedrengøring i køkkenet",
+        "Rengør fælleskøkkenet grundigt: \n- Tøm og vask køleskabene\n- Kør pyrolyse på ovnen og tør den af\n- Støv af på hylder\n- Vask gulvet grundigt\n- Kig lagervarer igennem for dato-varer og stil dem frem",
+        40, 5   // op til 5 personer
+    );
 
-    public void handleResetClimateScore()
-    {
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Bekræft nulstilling");
-        confirm.setHeaderText("Nulstil klimakapital");
-        confirm.setContentText("Er du sikker på, at du vil nulstille alle fælles point i klimakapitalen?");
+    Task c2 = new CommonTask("Madtjans: Mandag",
+        "Madlavning og oprydning efter madlavning.\n\nHusk at der skal vaskes gulv hver aften!",
+        20, 2   // 2 personer kan deles om det
+    );
 
-        Optional<ButtonType> result = confirm.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
-            dataManager.resetClimateScore();
-            climateScoreLbl.setText(dataManager.getClimateScore().getTotalGreenPoints() + "");
-        }
-    }
+    Task c3 = new CommonTask("Rengøring af fællesarealer: Uge 13",
+        "- Vask trapper og gelændre\n- Tør alle overflader af med en fugtig klud\n- Vask gulve\n- Vask toiletter\n- Ryd op og fjern rod\n- Tøm skraldespande",
+        30, 4);
 
-    public void handleAddBaseData()
-    {
-        Resident r1 = new Resident("Grønne Bob", 1.3);        // Kontaktperson
-        Resident r2 = new Resident("Solskin Sofie", 1.0);
-        Resident r3 = new Resident("Cykel-Kasper", 1.2);
-        Resident r4 = new Resident("Genbrugs-Gitte", 1.1);
-        Resident r5 = new Resident("Have-Henrik", 1.0);
-        Resident r6 = new Resident("Strøm-Signe", 1.2);
-        Resident r7 = new Resident("Plante-Peter", 0.9);
-        Resident r8 = new Resident("Øko-Oliver", 1.1);
-        Resident r9 = new Resident("Affalds-Anna", 1.0);
-        Resident r10 = new Resident("Miljø-Mads", 1.3);
+    Task c4 = new CommonTask("Lug ukrudt på fælles-terassen og i fællesbedene",
+        "Tag et par timer og hjælp os alle ved at få luget ud i ukrudt på fællesterassen og bedene",
+        25, 2);
 
-        Task g1 = new GreenTask(
-                "Bob's affaldsmission",
-                "Sortér affald korrekt i hele bygningen",
-                35
-        );
+    Task c5 = new CommonTask("Planlæg madplan og indkøb",
+        "Lav madplan for den kommende uge til fællesspisningen og sørg for indkøb og sortering i kasser til ugedagene.",
+        120, 2);
 
-        Task g2 = new GreenTask(
-                "Cykel-ugen",
-                "Drop bilen og cykl i en hel uge",
-                50
-        );
+    Task c6 = new CommonTask("Vask vinduer på fælleshuset",
+        "Puds vinduer i fællesarealer inde eller ude.", 35, 3);
 
-        Task g3 = new GreenTask(
-                "Strøm-jagten",
-                "Find og sluk unødvendigt strømforbrug",
-                25
-        );
+    Task c7 = new CommonTask("Pas køkkenhaven",
+        "Læg en times arbejde i pasningen af være fælles køkkenhave.", 10, 100);
 
-        Task g4 = new GreenTask(
-                "Genbrugsgarderoben",
-                "Aflever tøj til genbrug eller bytte",
-                30
-        );
+    Task e1 = new ExchangeTask("Friske gulerødder",
+        "Jeg sælger 2 poser friske, økologiske gulerødder fra min køkkenhave",
+        15, 2, r5);
 
-        Task g5 = new GreenTask(
-                "Grøn gård",
-                "Plant og plej nye planter i gården",
-                45
-        );
+    Task e2 = new ExchangeTask("Yoga-session for begyndere på tirsdag",
+        "Rolig yoga-session på 60 minutter for begyndere i fælleshuset", 150, 6,
+        r2);
 
-        Task c1 = new CommonTask(
-                "Køkkenkaos-kontrol",
-                "Rengør fælleskøkkenet grundigt (kan løses sammen)",
-                40,
-                5   // op til 5 personer
-        );
+    Task e3 = new ExchangeTask("Cykelservice",
+        "Jeg hjælper med justering af bremser og gear", 50, 3, r3);
 
-        Task c2 = new CommonTask(
-                "Opvaske-helten",
-                "Tøm og ryd op i opvaskemaskinen",
-                20,
-                2   // 2 personer kan deles om det
-        );
+    Task e4 = new ExchangeTask("Planter til udplantning",
+        "Overskudsplanter klar til udplantning", 5, 6, r1);
 
-        Task c3 = new CommonTask(
-                "Trappe-tjansen",
-                "Vask trapper og gelænder",
-                30,
-                2
-        );
+    Task e5 = new ExchangeTask("Hundeluftning",
+        "Vi vil gerne lufte din hund, hvis du ikke er hjemme. Det koster 10 rigtige penge. Vi sparer op til en pony.\n- Ella og Agnes",
+        0, 20, r16);
 
-        Task c4 = new CommonTask(
-                "Affaldsrum-redning",
-                "Ryd op og vask affaldsrummet",
-                25,
-                3
-        );
+    List<Resident> residents = List.of(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10,
+        r11, r12, r13, r14, r15, r16, r17, r18, r19, r20);
+    residents.forEach(r -> dataManager.addResident(r));
 
-        Task c5 = new CommonTask(
-                "Indkøbs-inspektør",
-                "Køb fælles rengøringsmidler",
-                20,
-                1
-        );
+    List<Task> tasks = List.of(
+        // Grønne opgaver
+        g1, g2, g3, g4, g5, g6,
 
-        Task c6 = new CommonTask(
-                "Kig-klart vinduer",
-                "Puds vinduer i fællesarealer",
-                35,
-                3
-        );
+        // Fællesopgaver
+        c1, c2, c3, c4, c5, c6, c7,
 
-        Task c7 = new CommonTask(
-                "Gårdens vogter",
-                "Fej og ryd gården for skrald",
-                25,
-                4
-        );
+        // Bytteopgaver
+        e1, e2, e3, e4, e5);
 
-        Task e1 = new ExchangeTask(
-                "Friske gulerødder",
-                "Jeg sælger 10 friske, økologiske gulerødder fra fælleshaven",
-                15,
-                10,
-                r5
-        );
+    tasks.forEach(t -> dataManager.addTask(t));
 
-        Task e2 = new ExchangeTask(
-                "Yoga-session",
-                "Rolig yoga-session på 60 minutter for begyndere",
-                150,
-                1,
-                r2
-        );
-
-        Task e3 = new ExchangeTask(
-                "Cykelreparation",
-                "Jeg hjælper med justering af bremser og gear",
-                50,
-                3,
-                r3
-        );
-
-        Task e4 = new ExchangeTask(
-                "Planteplanter",
-                "Overskudsplanter klar til udplantning",
-                25,
-                6,
-                r1
-        );
-
-        List<Resident> residents = List.of(r1, r2, r3, r4, r5, r6, r7, r8, r9, r10);
-        residents.forEach(r -> dataManager.addResident(r));
-
-        List<Task> tasks = List.of(
-                // Grønne opgaver
-                g1,
-                g2,
-                g3,
-                g4,
-                g5,
-
-                // Fællesopgaver
-                c1,
-                c2,
-                c3,
-                c4,
-                c5,
-                c6,
-                c7,
-
-                // Bytteopgaver
-                e1,
-                e2,
-                e3,
-                e4
-        );
-
-        tasks.forEach(t -> dataManager.addTask(t));
-
-        loadStats();
-        ViewManager.updateExternalView();
-    }
+    loadStats();
+    ViewManager.updateExternalView();
+  }
 }
