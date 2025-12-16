@@ -33,28 +33,6 @@ public class AddExchangeTaskController implements InitializableController
   {
     this.dataManager = dataManager;
 
-    List<Resident> residents = dataManager.getAllResidents();
-    if (residents == null || residents.isEmpty())
-    {
-      Resident r1 = new Resident("Julie", 1);
-      Resident r2 = new Resident("Søren", 1);
-      Resident r3 = new Resident("Alfred", 1);
-      Resident r4 = new Resident("Konrad", 1);
-      Resident r5 = new Resident("Toke", 1);
-      Resident r6 = new Resident("Soldís", 1);
-      Resident r7 = new Resident("Julemanden", 1);
-
-      dataManager.addResident(r1);
-      dataManager.addResident(r2);
-      dataManager.addResident(r3);
-      dataManager.addResident(r4);
-      dataManager.addResident(r5);
-      dataManager.addResident(r6);
-      dataManager.addResident(r7);
-
-      residents = dataManager.getAllResidents();
-    }
-
     titleErrorLbl.setVisible(false);
     titleErrorLbl.setText("Titel skal udfyldes");
     valueErrorLbl.setVisible(false);
