@@ -4,12 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import kloeverly.domain.Resident;
 import kloeverly.persistence.DataManager;
-import kloeverly.presentation.core.AcceptsStringArgument;
-import kloeverly.presentation.core.InitializableController;
-import kloeverly.presentation.core.ViewManager;
-import kloeverly.presentation.core.Views;
+import kloeverly.presentation.core.*;
+import kloeverly.utility.UtilityMethods;
 
-public class ViewResidentController implements InitializableController, AcceptsStringArgument
+public class ViewResidentController implements InitializableController, AcceptsStringArgument, AcceptsFlashMessage
 {
     private DataManager dataManager;
     private Integer residentId;
@@ -93,5 +91,11 @@ public class ViewResidentController implements InitializableController, AcceptsS
     private void handleGoBack()
     {
         ViewManager.showView(Views.RESIDENTS);
+    }
+
+    @Override
+    public void setFlashMessage(String message)
+    {
+        UtilityMethods.showFlashMessage(message);
     }
 }

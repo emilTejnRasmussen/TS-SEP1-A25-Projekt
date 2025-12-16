@@ -80,7 +80,7 @@ public class AddGreenTaskController implements InitializableController
         dataManager.addTask(task);
 
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.GREEN_TASKS);
+        ViewManager.showView(Views.GREEN_TASKS, null, task.formatTaskAdded());
     }
 
     @FXML

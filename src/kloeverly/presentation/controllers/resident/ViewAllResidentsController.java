@@ -5,14 +5,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import kloeverly.domain.GreenTask;
 import kloeverly.domain.Resident;
 import kloeverly.persistence.DataManager;
+import kloeverly.presentation.core.AcceptsFlashMessage;
 import kloeverly.presentation.core.InitializableController;
 import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 import kloeverly.utility.UtilityMethods;
 
-public class ViewAllResidentsController implements InitializableController
+import java.util.Optional;
+
+public class ViewAllResidentsController implements InitializableController, AcceptsFlashMessage
 {
     @FXML
     private Button detailsBtn;
@@ -99,10 +103,19 @@ public class ViewAllResidentsController implements InitializableController
         Resident selected = residentTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
-        dataManager.deleteResident(selected);
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Bekræft sletning");
+        confirm.setHeaderText("Slet Beboer");
+        confirm.setContentText("Er du sikker på, at du vil slette: '" + selected.getName() + "'?");
 
-        ViewManager.updateExternalView();
-        loadResidents();
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK)
+        {
+            dataManager.deleteResident(selected);
+            loadResidents();
+            ViewManager.updateExternalView();
+            setFlashMessage("Beboeren '" + selected.getName() + "' er slettet");
+        }
     }
 
     @FXML
@@ -135,5 +148,11 @@ public class ViewAllResidentsController implements InitializableController
     {
         searchTxtField.clear();
         residentTable.setItems(residents);
+    }
+
+    @Override
+    public void setFlashMessage(String message)
+    {
+        UtilityMethods.showFlashMessage(message);
     }
 }

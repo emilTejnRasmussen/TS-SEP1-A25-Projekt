@@ -24,7 +24,7 @@ public class GreenTask extends Task implements Serializable
     {
         if (amount < 1) return super.formatTaskCompleted(byResident);
         if (amount == 1) return "Den grønne opgave"  + " \"" + getName() + "\" er udført.";
-        return "Den grønne opgave"  + " \"" + getName() + "\" er udført. (x " + amount + " )";
+        return "Den grønne opgave"  + " \"" + getName() + "\" er udført " + amount + " gange";
     }
 }
 

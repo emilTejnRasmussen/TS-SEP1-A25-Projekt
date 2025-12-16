@@ -49,8 +49,15 @@ public class RegisterCommonTaskController implements InitializableController, Ac
         dataManager.updateTask(selectedTask);
         dataManager.completeTask(this.id, byResident);
 
+        String flashMessage = selectedTask.formatTaskCompleted(byResident);
+
+        if (selectedTask.getAmount() < 1){
+            dataManager.deleteTask(selectedTask);
+            flashMessage += "\n\n Ingen pladser tilbage, sletter '" + selectedTask.getName() + "'.";
+        }
+
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.COMMON_TASKS, null, selectedTask.formatTaskCompleted(byResident));
+        ViewManager.showView(Views.COMMON_TASKS, null, flashMessage);
     }
 
     private boolean allInputIsValid(Resident byResident)

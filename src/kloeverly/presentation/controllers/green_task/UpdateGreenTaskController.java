@@ -133,7 +133,7 @@ public class UpdateGreenTaskController implements InitializableController, Accep
         dataManager.updateTask(currentTask);
 
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.GREEN_TASKS);
+        ViewManager.showView(Views.VIEW_SINGLE_GREEN_TASK, greenTaskId + "", currentTask.formatTaskUpdated());
     }
 
     @FXML

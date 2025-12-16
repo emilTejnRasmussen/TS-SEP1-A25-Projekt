@@ -15,6 +15,8 @@ import kloeverly.presentation.core.ViewManager;
 import kloeverly.presentation.core.Views;
 import kloeverly.utility.UtilityMethods;
 
+import java.util.Optional;
+
 public class ViewAllGreenTasksController implements InitializableController, AcceptsFlashMessage
 {
     @FXML
@@ -87,9 +89,19 @@ public class ViewAllGreenTasksController implements InitializableController, Acc
         GreenTask selected = greenTaskTable.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
-        dataManager.deleteTask(selected);
-        ViewManager.updateExternalView();
-        loadGreenTasks();
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Bekræft sletning");
+        confirm.setHeaderText("Slet Grøn opgave");
+        confirm.setContentText("Er du sikker på, at du vil slette: '" + selected.getName() + "'?");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK)
+        {
+            dataManager.deleteTask(selected);
+            loadGreenTasks();
+            ViewManager.updateExternalView();
+            setFlashMessage(selected.formatTaskDeleted());
+        }
     }
 
     public void handleSearch()
