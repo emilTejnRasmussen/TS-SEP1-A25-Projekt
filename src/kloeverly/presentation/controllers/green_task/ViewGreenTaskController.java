@@ -5,12 +5,10 @@ import javafx.scene.control.Label;
 import kloeverly.domain.GreenTask;
 import kloeverly.domain.Task;
 import kloeverly.persistence.DataManager;
-import kloeverly.presentation.core.AcceptsStringArgument;
-import kloeverly.presentation.core.InitializableController;
-import kloeverly.presentation.core.ViewManager;
-import kloeverly.presentation.core.Views;
+import kloeverly.presentation.core.*;
+import kloeverly.utility.UtilityMethods;
 
-public class ViewGreenTaskController implements InitializableController, AcceptsStringArgument
+public class ViewGreenTaskController implements InitializableController, AcceptsStringArgument, AcceptsFlashMessage
 {
     private DataManager dataManager;
     private Integer greenTaskId;
@@ -95,5 +93,11 @@ public class ViewGreenTaskController implements InitializableController, Accepts
     private void handleGoBack()
     {
         ViewManager.showView(Views.GREEN_TASKS);
+    }
+
+    @Override
+    public void setFlashMessage(String message)
+    {
+        UtilityMethods.showFlashMessage(message);
     }
 }
