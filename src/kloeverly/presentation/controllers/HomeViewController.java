@@ -142,8 +142,8 @@ public class HomeViewController implements InitializableController
     Resident r19 = new Resident("Sofie", 1.0);
     Resident r20 = new Resident("Thomas", 1.0);
 
-    Task g1 = new GreenTask("Sorter dit madaffald til fælleskomposten",
-        "Sortér alt dit grønne madaffald fra i en hel uge og smid det på fælleskomposten i stedet, så det bliver holdt lokalt og kan være med i vores biodynamiske jordbrug.",
+    Task g1 = new GreenTask("Sorter dit madaffald",
+        "Sorter dit madaffald til fælleskomposten.\n Sortér alt dit grønne madaffald fra i en hel uge og smid det på fælleskomposten i stedet, så det bliver holdt lokalt og kan være med i vores biodynamiske jordbrug.",
         35);
 
     Task g2 = new GreenTask("Cykel-ugen",
@@ -179,8 +179,8 @@ public class HomeViewController implements InitializableController
         "- Vask trapper og gelændre\n- Tør alle overflader af med en fugtig klud\n- Vask gulve\n- Vask toiletter\n- Ryd op og fjern rod\n- Tøm skraldespande",
         30, 4);
 
-    Task c4 = new CommonTask("Lug ukrudt på fælles-terassen og i fællesbedene",
-        "Tag et par timer og hjælp os alle ved at få luget ud i ukrudt på fællesterassen og bedene",
+    Task c4 = new CommonTask("Lug ukrudt",
+        "Lug ukrudt på fælles-terassen og i fællesbedene.\nTag et par timer og hjælp os alle ved at få luget ud i ukrudt på fællesterassen og bedene",
         25, 2);
 
     Task c5 = new CommonTask("Planlæg madplan og indkøb",
