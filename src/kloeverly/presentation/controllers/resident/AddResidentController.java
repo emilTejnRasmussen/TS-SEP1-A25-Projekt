@@ -70,7 +70,7 @@ public class AddResidentController implements InitializableController
         dataManager.addResident(resident);
 
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.RESIDENTS);
+        ViewManager.showView(Views.RESIDENTS, null, "Beboer '" + resident.getName() + "' er oprettet");
     }
 
     @FXML

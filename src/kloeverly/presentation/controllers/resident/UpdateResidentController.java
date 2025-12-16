@@ -125,7 +125,7 @@ public class UpdateResidentController implements InitializableController, Accept
         dataManager.updateResident(resident);
 
         ViewManager.updateExternalView();
-        ViewManager.showView(Views.RESIDENTS);
+        ViewManager.showView(Views.VIEW_SINGLE_RESIDENT, residentId + "", "Beboer '" + resident.getName() + "' er opdateret");
     }
 
     @FXML
