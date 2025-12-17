@@ -27,7 +27,7 @@
                 </font>
             </Label>
         </HBox>
-        <Label text="Fællesopgave">
+        <Label text="Grøn opgave">
             <font>
                 <Font name="Segoe UI" size="14.0"/>
             </font>
