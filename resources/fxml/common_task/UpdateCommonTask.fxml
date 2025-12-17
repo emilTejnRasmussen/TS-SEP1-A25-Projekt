@@ -46,7 +46,7 @@
                     <Font name="System Bold" size="14.0" />
                 </font>
             </Label>
-         <Label text="Værdi:">
+         <Label text="Mængde:">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>

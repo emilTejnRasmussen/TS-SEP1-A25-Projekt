@@ -2,6 +2,7 @@ package kloeverly.presentation.controllers.green_task;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import kloeverly.domain.GreenTask;
 import kloeverly.domain.Task;
@@ -21,7 +22,7 @@ public class UpdateGreenTaskController implements InitializableController, Accep
     private TextField nameField;
 
     @FXML
-    private TextField descriptionField;
+    private TextArea descriptionField;
 
     @FXML
     private TextField pointsField;
